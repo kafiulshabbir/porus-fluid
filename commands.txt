@@ -1,0 +1,1 @@
+plot 'pressure_matrix_out.txt' matrix with image
