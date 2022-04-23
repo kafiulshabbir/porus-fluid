@@ -3,6 +3,7 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
 
 std::ifstream fin("radius_distribution.txt");
 std::ofstream fout("pressure_matrix_out.txt");
@@ -38,29 +39,7 @@ int ReadDiamension()
 	return n;
 }
 
-std::vector<std::vector<double>> ReadMatrix(int n, int m)
-{
-	std::vector<std::vector<double>> input_matrix(n, std::vector<double>(m));
-	for(auto& row: input_matrix)
-	{
-		for(auto& cell: row)
-		{
-			fin >> cell;
-		}
-	}
-	
-	return input_matrix;
-}
 
-std::vector<std::vector<double>> ReadRadiusHorizontal(int n)
-{
-	return ReadMatrix(n, n - 1);
-}
-
-std::vector<std::vector<double>> ReadRadiusVertical(int n)
-{
-	return ReadMatrix(n - 1, n );
-}
 	
 struct point
 {
@@ -68,11 +47,7 @@ struct point
 	int col;
 	int n;
 	
-	point(int row_input, int col_input, int n)
-	{
-		row = row_input;
-		col = col_input;
-	}
+	point(int row, int col, int n): row(row), col(col), n(n) {}
 	
 	point up() const
 	{
@@ -113,32 +88,58 @@ struct point
 			return left();
 		}
 		
+		throw std::invalid_argument("relative position is not correct!");
+		
 		return point(-1, -1, -1);
 	}
 	
 	int linear() const
 	{
-		return (n - 1) * row + col - 1;
+		return n * row + col;
 	}
 };
 
-class radius_find
+class radius_class
 {
+private:
 	int n;
 	std::vector<std::vector<double>> ver;
 	std::vector<std::vector<double>> hor;
 	
 	double fourth(double x) const
 	{
-		return pow(x, 4);
+		return std::pow(x, 4);
 	}
 	
-public:
-	radius_find(int size_matrix, const std::vector<std::vector<double>>& vertical, const std::vector<std::vector<double>>& horizontal)
+	std::vector<std::vector<double>> ReadMatrix(int n, int m)
 	{
-		n = size_matrix;
-		ver = vertical;
-		hor = horizontal;
+		std::vector<std::vector<double>> input_matrix(n, std::vector<double>(m));
+		for(auto& row: input_matrix)
+		{
+			for(auto& cell: row)
+			{
+				fin >> cell;
+			}
+		}
+		
+		return input_matrix;
+	}
+
+	std::vector<std::vector<double>> ReadRadiusHorizontal(int n)
+	{
+		return ReadMatrix(n, n - 1);
+	}
+
+	std::vector<std::vector<double>> ReadRadiusVertical(int n)
+	{
+		return ReadMatrix(n - 1, n );
+	}
+
+public:
+	radius_class(int n): n(n)
+	{
+		ver = ReadRadiusVertical(n);
+		hor = ReadRadiusHorizontal(n);
 	}
 	
 	double operator () (const point& node_i, const point& node_j) const
@@ -167,28 +168,42 @@ public:
 			}
 			return fourth(hor[node_i.row][std::min(node_i.col, node_j.col)]);
 		}
+		
+		throw std::invalid_argument("the two nodes are not adjacent to each other, and a tube between them does not exist!");
+		
 		return -1;	
 	}
 };
 
+void print(const std::vector<std::vector<double>>& v)
+{
+	for(const auto& row: v)
+	{
+		for(auto& cell: row)
+		{
+			cout << cell << ", ";
+		}
+		
+		cout << "\n";
+	}
+}
+
 int main()
 {
 	const int N = ReadDiamension();
-	const auto matrix_radius_vertical = ReadRadiusVertical(N);
-	const auto matrix_radius_horizontal = ReadRadiusHorizontal(N);
+	const radius_class radius(N);
 	
 	std::string s;
 	fin >> s;
 	std::cout << s;
 	std::cin.get();
 	
-	const radius_find radius(N, matrix_radius_vertical, matrix_radius_horizontal);
-	
+	std::vector<std::vector<double>> gauss_matrix;
 	for(int i = 0; i < N; ++ i)
 	{
-		for(int j = 1; j + 1 < N; ++ j)
+		for(int j = 1; j < N; ++ j)
 		{
-			std::vector<double> equation(N*(N-1) + 1);
+			std::vector<double> equation(N * N + 1);
 			const point node_i(i, j, N);
 			for(int k = 0; k < 4; ++ k)
 			{	
@@ -201,17 +216,19 @@ int main()
 				}
 				else if(j == (N-1) && k == 1)
 				{
-					equation.back() += k_radius_between + AMBIENT_PRESSURE_OUTPUT;
+					equation.back() += k_radius_between * AMBIENT_PRESSURE_OUTPUT;
 				}
 				else
 				{
 					equation[node_other.linear()] -= k_radius_between;
 				}
 			}
+			
+			gauss_matrix.push_back(equation);
 		}
 	}
 				
-
+	print(gauss_matrix);
 		
 	return 0;
 }
