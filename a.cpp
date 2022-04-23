@@ -2,11 +2,10 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
-using namespace std;
-
-ifstream radius("radius_distribution.txt");
-ofstream pressure_matrix_out("pressure_matrix_out.txt");
+std::ifstream fin("radius_distribution.txt");
+std::ofstream fout("pressure_matrix_out.txt");
 
 const double AMBIENT_PRESSURE_INPUT = 10; // [Pa]
 const double AMBIENT_PRESSURE_OUTPUT = 2; // [Pa]
@@ -14,7 +13,7 @@ const double LEAK_RADIUS = 0.001; // [m]
 
 const double LENGTH_TUBE = 0.1; // [m]
 const double VISCOSITY_FLUID = 1e-3; // [Pa-s]
-const double PI = acos(-1);
+const double PI = std::acos(-1);
 //const double DENSITY_FLUID = 1e3 // [kg/m3]
 
 /*
@@ -30,35 +29,35 @@ const double K = PI / 8 / VISCOSITY_FLUID / LENGTH_TUBE;
 // radius(i, j) == radius(j, i) ALWAYS
 // q = K * radius(i, j) ^ 4 * (P_i - P_j) Flow of liquid out of node_i
 
-// n is the diamension of node-grid
+// N is the diamension of node-grid
 
 int ReadDiamension()
 {
 	int n;
-	radius >> n;
+	fin >> n;
 	return n;
 }
 
-vector<vector<double>> ReadMatrix(int n, int m)
+std::vector<std::vector<double>> ReadMatrix(int n, int m)
 {
-	vector<vector<double>> input_matrix(n, vector<double>(m));
+	std::vector<std::vector<double>> input_matrix(n, std::vector<double>(m));
 	for(auto& row: input_matrix)
 	{
 		for(auto& cell: row)
 		{
-			radius >> cell;
+			fin >> cell;
 		}
 	}
 	
 	return input_matrix;
 }
 
-vector<vector<double>> ReadRadiusHorizontal(int n)
+std::vector<std::vector<double>> ReadRadiusHorizontal(int n)
 {
 	return ReadMatrix(n, n - 1);
 }
 
-vector<vector<double>> ReadRadiusVertical(int n)
+std::vector<std::vector<double>> ReadRadiusVertical(int n)
 {
 	return ReadMatrix(n - 1, n );
 }
@@ -126,8 +125,8 @@ struct point
 class radius_find
 {
 	int n;
-	vector<vector<double>> ver;
-	vector<vector<double>> hor;
+	std::vector<std::vector<double>> ver;
+	std::vector<std::vector<double>> hor;
 	
 	double fourth(double x) const
 	{
@@ -135,7 +134,7 @@ class radius_find
 	}
 	
 public:
-	radius_find(int size_matrix, const vector<vector<double>>& vertical, const vector<vector<double>>& horizontal)
+	radius_find(int size_matrix, const std::vector<std::vector<double>>& vertical, const std::vector<std::vector<double>>& horizontal)
 	{
 		n = size_matrix;
 		ver = vertical;
@@ -154,7 +153,7 @@ public:
 			{
 				return 0;
 			}
-			return fourth(ver[min(node_i.row, node_j.row)][node_i.col]);
+			return fourth(ver[std::min(node_i.row, node_j.row)][node_i.col]);
 		}
 		if(node_i.row == node_j.row)
 		{
@@ -166,7 +165,7 @@ public:
 			{
 				return fourth(LEAK_RADIUS);
 			}
-			return fourth(hor[node_i.row][min(node_i.col, node_j.col)]);
+			return fourth(hor[node_i.row][std::min(node_i.col, node_j.col)]);
 		}
 		return -1;	
 	}
@@ -174,18 +173,23 @@ public:
 
 int main()
 {
-	const int n = ReadDiamension();
-	const auto matrix_radius_vertical = ReadRadiusVertical(n);
-	const auto matrix_radius_horizontal = ReadRadiusHorizontal(n);
+	const int N = ReadDiamension();
+	const auto matrix_radius_vertical = ReadRadiusVertical(N);
+	const auto matrix_radius_horizontal = ReadRadiusHorizontal(N);
 	
-	const radius_find radius(n, matrix_radius_vertical, matrix_radius_horizontal);
+	std::string s;
+	fin >> s;
+	std::cout << s;
+	std::cin.get();
 	
-	for(int i = 0; i < n; ++ i)
+	const radius_find radius(N, matrix_radius_vertical, matrix_radius_horizontal);
+	
+	for(int i = 0; i < N; ++ i)
 	{
-		for(int j = 1; j + 1 < n; ++ j)
+		for(int j = 1; j + 1 < N; ++ j)
 		{
-			vector<double> equation(n*(n-1) + 1);
-			const point node_i(i, j, n);
+			std::vector<double> equation(N*(N-1) + 1);
+			const point node_i(i, j, N);
 			for(int k = 0; k < 4; ++ k)
 			{	
 				const auto node_other = node_i.rel(k);
@@ -195,7 +199,7 @@ int main()
 				{
 					equation.back() += k_radius_between * AMBIENT_PRESSURE_INPUT;
 				}
-				else if(j == (n-1) && k == 1)
+				else if(j == (N-1) && k == 1)
 				{
 					equation.back() += k_radius_between + AMBIENT_PRESSURE_OUTPUT;
 				}
