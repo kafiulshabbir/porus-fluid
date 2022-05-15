@@ -9,7 +9,8 @@
 std::ifstream finr("radius_distribution.txt");
 std::ifstream fins("settings.txt");
 std::ofstream foutp("pressure_matrix_out.txt");
-
+std::ofstream foutvr("flow_vertical_out.txt");
+std::ofstream fouthr("flow_horizontal_out.txt");
 /*
  * Pouisell's law:
  * q: volumetric fow rate out from node_i to node_j
@@ -284,6 +285,51 @@ int main()
 	
 	std::vector<double> calculated_pressures = GaussElimination(gauss_matrix);
 	
+	std::vector<std::vector<double>> pressure_matrix(N);
+	
+	int count = 0;
+	for(int i = 0; i < N; ++ i)
+	{
+		pressure_matrix[i].push_back(AMBIENT_PRESSURE_INPUT);
+		for(int j = 0; j < N; ++ j)
+		{
+			pressure_matrix[i].push_back(calculated_pressures[count++]);
+		}
+		pressure_matrix[i].push_back(AMBIENT_PRESSURE_OUTPUT);
+	}
+	
+	for(const auto& v: pressure_matrix)
+	{
+		for(auto x: v)
+		{
+			foutp << x << ' ';
+		}
+		foutp << "\n";
+	}
+	
+	for(int i = 0; i + 1 < N; ++ i)
+	{
+		for(int j = 0; j < N; ++ j)
+		{
+			double pressure_difference = abs(pressure_matrix[i][j+1] - pressure_matrix[i+1][j+1]);
+			double flow_rate = K * radius(point(i,j, N), point(i +1, j, N)) * pressure_difference;
+			foutvr << flow_rate << ' ';
+		}
+		foutvr << '\n';
+	}
+	
+	for(int i = 0; i < N; ++ i)
+	{
+		for(int j = 0; j < N + 1; ++ j)
+		{
+			double pressure_difference = abs(pressure_matrix[i][j] - pressure_matrix[i][j+1]);
+			point node(i, j, N);
+			double flow_rate = K * radius(node, node.right()) * pressure_difference;
+			fouthr << flow_rate << ' ';
+		}
+		fouthr << '\n';
+	}
+	/*
 	int count = 0;
 	for(int i = 0; i < N; ++ i)
 	{
@@ -294,7 +340,7 @@ int main()
 		}
 		foutp << AMBIENT_PRESSURE_OUTPUT << '\n';
 	}
-	
+	*/
 	return 0;
 }
 

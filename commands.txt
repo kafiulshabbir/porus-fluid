@@ -1,1 +1,3 @@
-gnuplot plot 'pressure_matrix_out.txt' matrix with image
+plot 'pressure_matrix_out.txt' matrix with image
+plot 'flow_vertical_out.txt' matrix with image
+plot 'flow_horizontal_out.txt' matrix with image
