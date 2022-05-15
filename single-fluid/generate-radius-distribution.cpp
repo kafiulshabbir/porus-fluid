@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-std::ofstream fout("radius_distribution.txt");
+std::ofstream fout("in_radius_distribution.txt");
 
 const std::vector<std::string> v{
 	"NxN-grid-size",

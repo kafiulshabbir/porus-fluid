@@ -6,11 +6,13 @@
 #include <iostream>
 #include <stdexcept>
 
-std::ifstream finr("radius_distribution.txt");
-std::ifstream fins("settings.txt");
-std::ofstream foutp("pressure_matrix_out.txt");
-std::ofstream foutvr("flow_vertical_out.txt");
-std::ofstream fouthr("flow_horizontal_out.txt");
+std::ifstream finr("in_radius_distribution.txt");
+std::ifstream fins("in_settings.txt");
+std::ofstream foutp("out_pressure_matrix.txt");
+std::ofstream foutvr("out_flow_vertical.txt");
+std::ofstream fouthr("out_flow_horizontal.txt");
+
+typedef std::vector<std::vector<double>> matrix;
 /*
  * Pouisell's law:
  * q: volumetric fow rate out from node_i to node_j
@@ -99,29 +101,29 @@ private:
 	int n;
 	double leak_radius;
 	
-	std::vector<std::vector<double>> ver;
-	std::vector<std::vector<double>> hor;
+	matrix ver;
+	matrix hor;
 	
 	double fourth(double x) const
 	{
 		return std::pow(x, 4);
 	}
 	
-	template <typename T>
-	const T Read()
+	template <class T>
+	T Read()
 	{
 		std::string s;
 		finr >> s;
 		
-		double ipt;
+		T ipt;
 		finr >> ipt;
 		
 		return ipt;
 	}
 	
-	std::vector<std::vector<double>> ReadMatrix(int n, int m, double multiplier)
+	matrix ReadMatrix(int n, int m, double multiplier)
 	{
-		std::vector<std::vector<double>> input_matrix(n, std::vector<double>(m));
+		matrix input_matrix(n, std::vector<double>(m));
 		for(auto& row: input_matrix)
 		{
 			for(auto& cell: row)
@@ -134,12 +136,12 @@ private:
 		return input_matrix;
 	}
 
-	std::vector<std::vector<double>> ReadRadiusHorizontal(int n, double multiplier = 1)
+	matrix ReadRadiusHorizontal(int n, double multiplier = 1)
 	{
 		return ReadMatrix(n, n - 1, multiplier);
 	}
 
-	std::vector<std::vector<double>> ReadRadiusVertical(int n, double multiplier = 1)
+	matrix ReadRadiusVertical(int n, double multiplier = 1)
 	{
 		return ReadMatrix(n - 1, n, multiplier);
 	}
@@ -185,7 +187,7 @@ public:
 	}
 };
 
-void print(const std::vector<std::vector<double>>& v)
+void print(const matrix& v)
 {
 	for(const auto& row: v)
 	{
@@ -198,7 +200,7 @@ void print(const std::vector<std::vector<double>>& v)
 	}
 }
 
-std::vector<double> GaussElimination(std::vector<std::vector<double>> v)
+std::vector<double> GaussElimination(matrix v)
 {
 	const int N = v.front().size() - 1;
 	for(int i = 0; i < N; ++ i)
@@ -242,7 +244,7 @@ int main()
 	const double PI = std::acos(-1);
 	const double AMBIENT_PRESSURE_INPUT = ReadSettings();
 	const double AMBIENT_PRESSURE_OUTPUT = ReadSettings();
-	const double LENGTH_TUBE = ReadSettings();
+	const double LENGTH_TUBE = ReadSettings();	
 	const double VISCOSITY_FLUID = ReadSettings();
 	const double DENSITY_FLUID = ReadSettings();
 	
@@ -253,7 +255,7 @@ int main()
 	//std::cout << K << "\n";
 	//std::cin.get();
 	
-	std::vector<std::vector<double>> gauss_matrix;
+	matrix gauss_matrix;
 	for(int i = 0; i < N; ++ i)
 	{
 		for(int j = 0; j < N; ++ j)
@@ -285,7 +287,7 @@ int main()
 	
 	std::vector<double> calculated_pressures = GaussElimination(gauss_matrix);
 	
-	std::vector<std::vector<double>> pressure_matrix(N);
+	matrix pressure_matrix(N);
 	
 	int count = 0;
 	for(int i = 0; i < N; ++ i)
@@ -304,15 +306,16 @@ int main()
 		{
 			foutp << x << ' ';
 		}
-		foutp << "\n";
+		foutp << '\n';
 	}
 	
 	for(int i = 0; i + 1 < N; ++ i)
 	{
 		for(int j = 0; j < N; ++ j)
 		{
-			double pressure_difference = abs(pressure_matrix[i][j+1] - pressure_matrix[i+1][j+1]);
-			double flow_rate = K * radius(point(i,j, N), point(i +1, j, N)) * pressure_difference;
+			double pressure_difference = std::abs(pressure_matrix[i][j + 1] - pressure_matrix[i + 1][j + 1]);
+			point node(i, j, N);
+			double flow_rate = K * radius(node, node.down()) * pressure_difference;
 			foutvr << flow_rate << ' ';
 		}
 		foutvr << '\n';
@@ -320,9 +323,9 @@ int main()
 	
 	for(int i = 0; i < N; ++ i)
 	{
-		for(int j = 0; j < N + 1; ++ j)
+		for(int j = 0; j <= N; ++ j)
 		{
-			double pressure_difference = abs(pressure_matrix[i][j] - pressure_matrix[i][j+1]);
+			double pressure_difference = std::abs(pressure_matrix[i][j] - pressure_matrix[i][j + 1]);
 			point node(i, j, N);
 			double flow_rate = K * radius(node, node.right()) * pressure_difference;
 			fouthr << flow_rate << ' ';
