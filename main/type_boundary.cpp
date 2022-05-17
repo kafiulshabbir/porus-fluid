@@ -28,7 +28,7 @@ bool type_boundary::read_file_try()
 		return true;
 	}
 	
-	std::vector<double> v;
+	vec v;
 	for(const auto& s: contents)
 	{
 		std::string c;

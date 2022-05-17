@@ -1,5 +1,5 @@
-#ifndef DEF_BOUNDARY_CONDITIONS
-#define DEF_BOUNDARY_CONDITIONS
+#ifndef DEF_TYPE_BOUNDARY
+#define DEF_TYPE_BOUNDARY
 
 #include "project_includes.h"
 class type_boundary
