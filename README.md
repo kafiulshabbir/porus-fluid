@@ -12,3 +12,9 @@ Next1:
 
 Next2:
 -make two fluids
+
+Read boundary conditions:
+	input-fluid-type
+	output-fluid-type
+	input-pressure-pascals
+	output-pressure-pascals

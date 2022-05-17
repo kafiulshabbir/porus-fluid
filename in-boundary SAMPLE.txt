@@ -1,0 +1,13 @@
+fluid_type_input 0
+fluid_type_output 1 
+
+pressure_input 1e3
+pressure_output 1e2 
+
+viscosity_fluid_0 1e-5
+viscosity_fluid_1 1e-5
+
+density_fluid_0 1e3
+density_fluid_1 1.5e3
+
+length_tube 0.1

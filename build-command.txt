@@ -1,0 +1,1 @@
+g++ simulate.cpp project_includes.cpp type_radius.cpp type_boundary.cpp type_fill.cpp bmp.cpp -o a
