@@ -21,7 +21,14 @@ int main()
 	if(fill.read_file()) return 1;
 
 
-	bmp a(1000, 1000);
+	const int WIDTH = 4000;
+	const int HEIGHT = 3000;
+	const double MARGIN = 0.1; // the graph will be located leaving this margin around - it is proportion to the lease diamension
+	const double SIZE_PRESSURE_BOX = 0.5; // the maximum correspnds to the diamension of the square being equal to 50% of the seperation between the nodes
+	const double SIZE_TUBE = 0.5; // The maximum 1.0 corresponds to the largest tube being eual to the size of the box
+	
+	
+	bmp a(WIDTH, HEIGHT);
 	
 	std::cout << boundary.density_fluid_1 << '\n';
 	
