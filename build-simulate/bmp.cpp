@@ -196,16 +196,12 @@ bmp::bmp(int width_in_pixels, int height_in_pixels, const colour& background_fil
 }
 
 
-bmp::~bmp()
+void bmp::save(const std::string& file_save)
 {
-	save();
-}
-
-
-void bmp::save(const std::string& name_file_to_save) const
-{
-	std::cout << name_file_to_save << " successfully saved\n";
-	std::ofstream fout(name_file_to_save, std::ios::binary);
+	name_file = file_save;
+	
+	std::cout << name_file << " successfully saved\n";
+	std::ofstream fout(name_file, std::ios::binary);
 	auto s = binary_file();
 	fout.write(s.data(), s.size());
 }
@@ -222,10 +218,32 @@ void bmp::setFgColour(const colour& fg_colour_new)
 
 void bmp::drawRectangle(int x_from, int y_from, int x_to, int y_to)
 {
-	draw_rectangle(x_from, y_from, x_to, y_to, colour_fg);
+	drawRectangle(x_from, y_from, x_to, y_to, colour_fg);
 }
 
 void bmp::drawRectangle(int x_from, int y_from, int x_to, int y_to, const colour& draw_colour)
 {
 	draw_rectangle(x_from, y_from, x_to, y_to, draw_colour);
+}
+
+void bmp::drawCentreRectangle(int x, int y, int diamension_x, int diamension_y, const colour& draw_colour)
+{
+	diamension_x /= 2;
+	diamension_y /= 2;
+	draw_rectangle(x - diamension_x, y - diamension_y, x + diamension_x, y + diamension_y, draw_colour);
+}
+
+void bmp::drawCentreRectangle(int x, int y, int diamension_x, int diamension_y)
+{
+	drawCentreRectangle(x, y, diamension_x, diamension_y, colour_fg);
+}
+
+void bmp::drawCentreSquare(int x, int y, int diamension, const colour& draw_colour)
+{
+	drawCentreRectangle(x, y, diamension, diamension, draw_colour);
+}
+
+void bmp::drawCentreSquare(int x, int y, int diamension)
+{
+	drawCentreSquare(x, y, diamension, colour_fg);
 }

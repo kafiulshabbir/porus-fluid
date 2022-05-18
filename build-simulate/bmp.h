@@ -54,6 +54,8 @@ class bmp
 	const int SIZE_DIB_HEADER = 40;
 	const int PADDING_FACTOR = 4;
 	
+	std::string name_file;
+	
 	int width;
 	int height;
 	int padding;
@@ -78,14 +80,16 @@ class bmp
 public:
 	bmp() = delete;
 	bmp(int, int, const colour& bg = white);
-	~bmp();
 	
-	
-	void save(const std::string& name_file_to_save = "out_cpp_bitmap.bmp") const;
+	void save(const std::string& file_save_default = "out_cpp_bitmap.bmp");
 	void setBgColour(const colour& bg_colour_new);
 	void setFgColour(const colour& fg_colour_new);
+	void drawRectangle(int x_from, int y_from, int x_to, int y_to, const colour&);
 	void drawRectangle(int x_from, int y_from, int x_to, int y_to);
-	void drawRectangle(int x_from, int y_from, int x_to, int y_to, const colour& draw_colour);
+	void drawCentreRectangle(int, int, int, int, const colour&);
+	void drawCentreRectangle(int, int, int, int);
+	void drawCentreSquare(int, int, int, const colour&);
+	void drawCentreSquare(int, int, int);
 };
 
 #endif
