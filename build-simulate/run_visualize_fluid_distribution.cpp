@@ -36,11 +36,7 @@ int main()
 	
 	auto file_fill = ReadFillDistribution(N);
 	
-	const int WIDTH = 4000;
-	const int HEIGHT = 3000;
-	const double MARGIN = 0.1; // the graph will be located leaving this margin around - it is proportion to the lease diamension
-	const double SIZE_PRESSURE_BOX = 0.5; // the maximum correspnds to the diamension of the square being equal to 50% of the seperation between the nodes
-	const double SIZE_TUBE = 0.5; // The maximum 1.0 corresponds to the largest tube being eual to the size of the box
+	
 	
 	const int x_start = HEIGHT * margin;
 	const int y_start = WIDTH * margin;
