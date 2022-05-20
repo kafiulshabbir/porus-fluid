@@ -1,7 +1,9 @@
 #include "type_boundary.h"
 
-namespace frw
+namespace typ
 {
+	type_boundary::type_boundary(const std::string& name_file): name_file(name_file) {}
+	
 	void type_boundary::create_file() const
 	{	
 		std::ofstream fout(name_file);

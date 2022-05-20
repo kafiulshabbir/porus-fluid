@@ -2,7 +2,7 @@
 #define DEF_TYPE_BOUNDARY
 
 #include "project_includes.h"
-namespace frw
+namespace typ
 {
 	class type_boundary
 	{
@@ -47,7 +47,7 @@ namespace frw
 		double length_tube;
 		
 		type_boundary() = delete;
-		type_boundary(const std::string& name_file): name_file(name_file) {}
+		type_boundary(const std::string& name_file);
 		
 		bool read_file();
 		

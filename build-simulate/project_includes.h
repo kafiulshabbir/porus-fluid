@@ -14,6 +14,8 @@ typedef std::vector<vec> matrix;
 const std::string tool_generate_radius_distribution = "tool_generate_radius_distribution";
 const std::string radius_distribution_txt_first_line = "nxn-grid-size";
 
+double PI = std::acos(-1);
+
 double ReadNamedData(std::ifstream&);
 matrix ReadMatrix(int, int, std::ifstream&);
 void FileOpenFailure(const std::string&);

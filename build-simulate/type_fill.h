@@ -2,7 +2,9 @@
 #define DEF_TYPE_FILL
 
 #include "project_includes.h"
-namespace frw
+#include "type_node.h"
+
+namespace typ
 {
 	class type_fill
 	{
@@ -17,6 +19,7 @@ namespace frw
 		type_fill(const std::string&, int);
 		
 		bool read_file();
+		double operator() (const typ::node& first, const typ::node& second);
 	};
 }
 #endif

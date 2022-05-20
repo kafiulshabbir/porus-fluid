@@ -1,72 +1,7 @@
 #include "type_radius.h"
 
-namespace frw
+namespace typ
 {
-		
-	point::point(int row, int col): row(row), col(col) {}
-
-	point point::up() const
-	{
-		return point(row - 1, col);
-	}
-
-	point point::down() const
-	{
-		return point(row + 1, col);
-	}
-
-	point point::left() const
-	{
-		return point(row, col - 1);
-	}
-
-	point point::right() const
-	{
-		return point(row, col + 1);
-	}
-
-	point point::rel(int u) const
-	{
-		switch(u)
-		{
-			case 0:
-				return up();
-			
-			case 1:
-				return right();
-			
-			case 2:
-				return down();
-			
-			case 3:
-				return left();
-		}
-		
-		throw std::invalid_argument("relative position is not correct!");
-		
-		return point(-1, -1);
-	}
-
-	int point::linear(int n) const
-	{
-		return n * row + col;
-	}
-
-	bool point::vertical(const point& other) const
-	{
-		return col == other.col;
-	}
-
-	bool point::horizontal(const point& other) const
-	{
-		return row == other.row;
-	}
-		
-	double type_radius::fourth(double x) const
-	{
-		return std::pow(x, 4);
-	}
-
 	void type_radius::error(const std::string& message) const
 	{
 		std::cout << name_file << " " << message << ", please run " << tool_generate_radius_distribution << ", and restart program.";
@@ -88,7 +23,7 @@ namespace frw
 		return m < 0 || m >= n;
 	}
 
-	bool type_radius::outside_matrix(const point& node) const
+	bool type_radius::outside_matrix(const node& node) const
 	{
 		return outside_matrix(node.row) || outside_matrix(node.col);
 	}
@@ -98,7 +33,7 @@ namespace frw
 		return std::min(a, b);
 	}
 
-	double type_radius::extract_radius(const point& node_i, const point& node_j) const
+	double type_radius::extract_radius(const node& node_i, const node& node_j) const
 	{
 		if(node_i.vertical(node_j))
 		{
@@ -160,9 +95,14 @@ namespace frw
 		return false;
 	}
 
-	double type_radius::operator () (const point& node_i, const point& node_j) const
+	double type_radius::operator () (const node& node_i, const node& node_j) const
 	{
-		return fourth(extract_radius(node_i, node_j));
+		return extract_radius(node_i, node_j);
+	}
+	
+	double type_radius::operator()(const node& node_i, const node& node_j, int power) const
+	{
+		return std::pow(extract_radius(node_i, node_j), power);
 	}
 
 	int type_radius::N() const
