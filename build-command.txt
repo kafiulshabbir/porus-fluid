@@ -1,3 +1,1 @@
-g++ simulate.cpp project_includes.cpp type_radius.cpp type_boundary.cpp type_fill.cpp bmp.cpp -o a
-
-g++ -Wall -std=c++17 simulate.cpp project_includes.cpp type_radius.cpp type_boundary.cpp type_fill.cpp bmp.cpp -o simulate
+g++ -Wall -std=c++17 main.cpp dat_boundary.cpp dat_fill.cpp dat_radius.cpp dec.cpp drw.cpp stc_node.cpp prs_pressure.cpp
