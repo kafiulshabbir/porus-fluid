@@ -6,7 +6,7 @@
  
 namespace dat
 {
-	class cls_tube
+	class cls_tube_frw
 	{
 		std::string name_file;
 		int n;
@@ -21,8 +21,8 @@ namespace dat
 		void print_matrix(const matrix& M) const;
 		
 	public:
-		cls_tube() = delete;
-		cls_tube(const std::string& name_file, int n, double multiplier, double left_default, double right_default);
+		cls_tube_frw() = delete;
+		cls_tube_frw(const std::string& name_file, int n, double multiplier, double left_default, double right_default);
 		double operator () (const stc::node& first, const stc::node& second) const;
 		bool read_file();
 		void print_data() const;

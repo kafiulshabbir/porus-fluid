@@ -1,6 +1,6 @@
 nxn_grid_size 3
-fluid_type_input 0
-fluid_type_output 1
+fluid_type_input 1
+fluid_type_output 2
 
 length_tube 0.1
 multiplier_for_radius 0.001
@@ -8,9 +8,9 @@ leak_radius 2
 
 pressure_input 1e3
 pressure_output 1e2 
-viscosity_fluid_1 1e-2
-viscosity_fluid_2 1e-2
+viscosity_fluid_1 1.002e-3
+viscosity_fluid_2 2.000e-3
 
 density_fluid_1 1e3
 density_fluid_2 1.5e3
-sigma_in_tube 1e-2
+sigma_in_tube 7.28e-2

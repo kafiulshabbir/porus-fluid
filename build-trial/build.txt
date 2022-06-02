@@ -1,0 +1,1 @@
+g++ -o a.out dat_boundary.cpp dat_fill.cpp dat_radius.cpp dat_tube.cpp dec.cpp main2.cpp prs.cpp stc_node.cpp 

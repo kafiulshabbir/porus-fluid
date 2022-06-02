@@ -2,7 +2,7 @@
 
 namespace dat
 {
-	cls_tube::cls_tube(const std::string& name_file, int n, double multiplier, double left_default, double right_default)
+	cls_tube_frw::cls_tube_frw(const std::string& name_file, int n, double multiplier, double left_default, double right_default)
 	{
 		this->name_file = name_file;
 		this->n = n;
@@ -11,7 +11,7 @@ namespace dat
 		this->right_default = multiplier * right_default;
 	}
 	
-	matrix cls_tube::read_matrix(int R, int C, double multiplier, std::ifstream& fin)
+	matrix cls_tube_frw::read_matrix(int R, int C, double multiplier, std::ifstream& fin)
 	{
 		matrix M(R, vector(C));
 		for(auto& row: M)
@@ -27,7 +27,7 @@ namespace dat
 	}
 	
 		
-	void cls_tube::print_matrix(const matrix& M) const
+	void cls_tube_frw::print_matrix(const matrix& M) const
 	{
 		for(const auto& row: M)
 		{
@@ -39,7 +39,7 @@ namespace dat
 		}
 	}
 		
-	double cls_tube::operator () (const stc::node& first, const stc::node& second) const
+	double cls_tube_frw::operator () (const stc::node& first, const stc::node& second) const
 	{
 		if(first.vertical(second))
 		{
@@ -62,7 +62,7 @@ namespace dat
 				return right_default;
 			}
 			
-			int starts = std::min(first.col(), first.col());
+			int starts = std::min(first.col(), second.col());
 			return hor[first.row()][starts];
 		}
 		
@@ -71,7 +71,7 @@ namespace dat
 		return -1;
 	}
 
-	bool cls_tube::read_file()
+	bool cls_tube_frw::read_file()
 	{
 		std::ifstream fin(name_file);
 		if(!fin.is_open())
@@ -88,7 +88,7 @@ namespace dat
 		return false;
 	}
 	
-	void cls_tube::print_data() const
+	void cls_tube_frw::print_data() const
 	{
 		std::cout << "\n\n-----------\n" << name_file << '\n';
 		std::cout << "ver:\n";

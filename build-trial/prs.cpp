@@ -52,21 +52,30 @@ namespace prs
 		return 1;
 	}
 	
+	// For jump
+	/*
+	 * derection-0, sign_proportion * +1
+	 * derection-1, sign_proportion * -1
+	 * derection-2, sign_proportion * -1
+	 * derection-3, sign_proportion * +1
+	 */
+					 
+					 
 	double sign_direction(int n)
 	{
 		switch (n)
 		{
 			case 0:
-			return 1;
+			return -1;
 			
 			case 1:
-			return -1;
+			return 1;
 			
 			case 2:
-			return -1;
+			return 1;
 			
 			case 3:
-			return 1;
+			return -1;
 		}
 		
 		std::cout << "Error in sign_direction.";
@@ -76,6 +85,11 @@ namespace prs
 	
 	double sign_jump(double proportion, int direction)
 	{
+		if(std::abs(proportion) == 1)
+		{
+			return 0;
+		}
+		
 		return sign_direction(direction) * sign_proportion(proportion);
 	}
 	
@@ -97,7 +111,7 @@ namespace prs
 				const stc::node node_i(row, col);
 				vector equation(n * n + 1);
 				
-				for(int direction = 0; direction < dec::N_DIRECTIONS; ++ directions)
+				for(int direction = 0; direction < dec::N_DIRECTIONS; ++ direction)
 				{
 					const stc::node node_j = node_i.rel(direction);
 					const double r_ij = radius(node_i, node_j);
@@ -120,36 +134,41 @@ namespace prs
 					
 					const double K = dec::PI / 8.0 / (u1 * l1 + u2 * l2);
 					
-					const double jump_contribution = sign_jump(proportion, direction) * K * sigma2 * std::pow(r_ij, 3);
+					
 					const double pressure_contribution = K * std::pow(r_ij, 4);
 					// For Pressures;
 					equation[node_i.linear(n)] += pressure_contribution;
-					if(j == 0 && direction == 3)
+					
+					if(col == 0 && direction == 3)
 					{
 						equation.back() += pressure_contribution * boundary.pressure_input;
-						
-						continue;
+						continue; // during entry and exit the fluid is assumened without a miniscus
 					}
-					if(j == n - 1 && direction == 1)
+					if(col == n - 1 && direction == 1)
 					{
 						equation.back() += pressure_contribution * boundary.pressure_output;
-						
 						continue;
 					}
 
-					equation[node_j.linear(n)]) -= pressure_contribution;
+					equation[node_j.linear(n)] -= pressure_contribution;
 					
-					// For jump
-					/*
-					 * derection-0, sign_proportion * +1
-					 * derection-1, sign_proportion * -1
-					 * derection-2, sign_proportion * -1
-					 * derection-3, sign_proportion * +1
-					 */
+					const double jump_contribution = sign_jump(proportion, direction) * K * sigma2 * std::pow(r_ij, 3);
+					std::cout << "row: " << row << ", col: " << col << ", direction: " << direction << ", pressure contib: " << pressure_contribution << ", jump: " << jump_contribution << ", proportion: " << proportion << ", radius: " << r_ij << '\n';
+					
+					if(std::abs(proportion) == 1)
+					{
+						continue;
+					}
+					
+					equation.back() -= jump_contribution;
+					
+					
 				}
 				
 				gauss_matrix.push_back(equation);
 			}
+			
+			std::cout << "\n\n\n";
 		}
 		
 		return gauss_matrix;

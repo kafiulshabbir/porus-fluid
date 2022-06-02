@@ -6,7 +6,7 @@
 
 namespace dat
 {
-	class cls_fill: public cls_tube
+	class cls_fill: public cls_tube_frw
 	{
 
 		

@@ -51,7 +51,7 @@ namespace dat
 		density_fluid_2 = read_double(fin);
 		sigma_in_tube = read_double(fin);
 		
-		std::cout << "Feedback: " << name_file << " successfully read!";
+		std::cout << "Feedback: " << name_file << " successfully read!\n";
 		return false;
 	}
 }

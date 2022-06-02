@@ -7,7 +7,7 @@
 namespace dat
 {
 
-	class cls_radius: public cls_tube
+	class cls_radius: public cls_tube_frw
 	{
 	public:
 		cls_radius() = delete;
