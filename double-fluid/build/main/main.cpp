@@ -166,7 +166,7 @@ int main()
 	dat::cls_radius radius(dec::FILE_IN_RADIUS_DISTRIBUTION, n, boundary.multiplier_for_radius, boundary.leak_radius, boundary.leak_radius);
 	if(radius.read_file()) return 1;
 	
-	dat::cls_fill fill(dec::FILE_IN_FILL_DISTRIBUTION, n, 1, prs::fluid_viscosity_default(boundary.fluid_type_input), prs::fluid_viscosity_default(boundary.fluid_type_output));
+	dat::cls_fill fill(dec::FILE_IN_FILL_DISTRIBUTION, n, 1, fluid_viscosity_default(boundary.fluid_type_input), fluid_viscosity_default(boundary.fluid_type_output));
 	if(fill.read_file()) return 1;
 	
 	/*
