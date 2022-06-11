@@ -3,7 +3,8 @@
 
 #include "dec.h"
 #include "stc_node.h"
- 
+#include "stc_table.h"
+
 namespace dat
 {
 	class cls_tube_frw

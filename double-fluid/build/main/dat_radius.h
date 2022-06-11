@@ -7,12 +7,7 @@
 namespace dat
 {
 
-	class cls_radius: public cls_tube_frw
-	{
-	public:
-		cls_radius() = delete;
-		cls_radius(const std::string& name_file, int n, double multiplier, double left_default, double right_default);
-	};
+	
 }
 
 #endif

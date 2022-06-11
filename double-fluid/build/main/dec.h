@@ -25,6 +25,8 @@ namespace dec
 	
 	const int N_DIRECTIONS = 4;
 	const double PI = std::acos(-1);
+	
+	void PrintMatrix(const matrix& v, const std::string& file_name)
 }
 
 #endif

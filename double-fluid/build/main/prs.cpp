@@ -93,7 +93,7 @@ namespace prs
 		return sign_direction(direction) * sign_proportion(proportion);
 	}
 	
-	matrix GaussMatrixForPressure(const dat::cls_boundary& boundary, const dat::cls_fill& fill, const dat::cls_radius& radius)
+	matrix GenerateGaussMatrixForUnknownPressure(const dat::cls_boundary& boundary, const dat::cls_fill& fill, const dat::cls_radius& radius)
 	{
 		const int n = boundary.nxn_grid_size;
 		const double u1 = boundary.viscosity_fluid_1;
@@ -173,5 +173,28 @@ namespace prs
 		
 		return gauss_matrix;
 	}
+	
+	matrix GeneratePressureDistributionFromVector(const vector& v, double left, double right, int n)
+	{
+		matrix M;
+		M.reserve(n);
+		
+		for(int i = 0; i < n; ++ i)
+		{
+			vector x;
+			x.reserve(n + 2);
+			x.push_back(left);
+			for(int j = 0; j < n; ++ j)
+			{
+				x.push_back(v[i * n + j]);
+			}
+			x.push_back(right);
+			
+			M.push_back(x);
+		}
+		
+		return M;
+	}
+
 					
 }

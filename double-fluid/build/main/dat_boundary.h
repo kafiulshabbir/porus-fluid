@@ -10,6 +10,7 @@ namespace dat
 		std::string name_file;
 		int read_int(std::ifstream& fin);
 		double read_double(std::ifstream& fin);
+		bool read_file();
 		
 	public:
 		int nxn_grid_size;
@@ -27,12 +28,11 @@ namespace dat
 
 		double density_fluid_1;
 		double density_fluid_2;
-		double sigma_in_tube;
+		double sigma_input;
+		double sigma_output;
 		
 		cls_boundary() = delete;
 		cls_boundary(const std::string& name_file);
-		
-		bool read_file();
 	};
 }
 #endif

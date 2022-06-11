@@ -8,11 +8,10 @@ namespace dat
 {
 	class cls_fill: public cls_tube_frw
 	{
-
-		
+		double fluid_viscosity_default() // EDIT REQUIRED
 	public:
 		cls_fill() = delete;
-		cls_fill(const std::string& name_file, int n, double multiplier, double left_default, double right_default);
+		cls_fill(const std::string& name_file, int n, double fluid_type_input, double fluid_type_output);
 	};
 }
 #endif

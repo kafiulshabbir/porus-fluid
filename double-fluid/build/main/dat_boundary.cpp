@@ -2,8 +2,10 @@
 
 namespace dat
 {
-	cls_boundary::cls_boundary(const std::string& name_file): name_file(name_file) {}
-	
+	cls_boundary::cls_boundary(const std::string& name_file): name_file(name_file)
+	{
+		read_file();
+	}
 
 	int cls_boundary::read_int(std::ifstream& fin)
 	{
@@ -24,14 +26,14 @@ namespace dat
 		return ipt;
 	}
 	
-	bool cls_boundary::read_file()
+	void cls_boundary::read_file()
 	{
 		std::ifstream fin(name_file);
 		
 		if(!fin.is_open())
 		{
-			std::cout << "EROOR: READ FILE " << name_file << '\n';
-			return true;
+			throw std::runtime_error("Boundary conditons file does not exist!");
+			return;
 		}
 		
 		nxn_grid_size = read_int(fin);
@@ -50,8 +52,5 @@ namespace dat
 		density_fluid_1 = read_double(fin);
 		density_fluid_2 = read_double(fin);
 		sigma_in_tube = read_double(fin);
-		
-		std::cout << "Feedback: " << name_file << " successfully read!\n";
-		return false;
 	}
 }
