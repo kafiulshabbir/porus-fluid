@@ -1,0 +1,10 @@
+NxN-grid-size 3
+multiplier 0.001
+leak-radius 3
+
+2 2 2 
+2 2 0.5 
+
+0.5 2 
+1 2 
+2 0.5 

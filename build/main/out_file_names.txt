@@ -1,7 +1,0 @@
-out_pressure_distribution.txt
-out_flow_rate_vertical.txt
-out_flow_rate_horizontal.txt
-out_fill_distribution_plot_step_001.bmp
-out_fill_distribution_plot_step_002.bmp
-out_pressure_flow_rate_plot_step_001.bmp
-out_pressure_flow_rate_plot_srep_002.bmp

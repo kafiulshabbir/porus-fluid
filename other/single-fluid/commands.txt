@@ -1,3 +1,0 @@
-plot 'pressure_matrix_out.txt' matrix with image
-plot 'out_flow_horizontal.txt' matrix with image
-plot 'out_flow_vertical.txt' matrix with image

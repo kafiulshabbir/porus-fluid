@@ -1,0 +1,7 @@
+Number_of_rows_'n'= 3
+Number_of_columns_'m'= 6
+Length_of_a_tube_'l'= 0.1
+Viscosity_of_fluid_1_'u1'= 1e-3
+Viscosity_of_fluid_2_'u2'= 1e-3
+Type_of_fluid_on_the_input_'type_in'= 1
+Type_of_fluid_on_the_output_'type_out'= 2

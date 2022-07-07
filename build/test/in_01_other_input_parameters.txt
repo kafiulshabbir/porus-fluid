@@ -1,7 +1,0 @@
-n_row= 3
-m_col= 8
-length_tube= 0.1
-fluid_type_input= 1
-fluid_type_output= 2
-viscosity_fluid_1= 0.001
-viscosity_fluid_2= 0.001
