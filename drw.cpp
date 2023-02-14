@@ -3,7 +3,8 @@
 namespace drw
 {
 	//--Class::hex------------------------------------------------------
-	hex::hex(unsigned int value, unsigned int size): value(value), size(size) {}
+	hex::hex(unsigned int value, unsigned int size):
+		value(value), size(size) {}
 	
 	std::string hex::binary() const
 	{
@@ -33,7 +34,8 @@ namespace drw
 
 	colour::colour(): red(0), green(0), blue(0) {}
 	
-	colour::colour(unsigned char red, unsigned char green, unsigned char blue): red(red), green(green), blue(blue) {}
+	colour::colour(unsigned char red, unsigned char green, unsigned char blue):
+	 red(red), green(green), blue(blue) {}
 	
 	std::string colour::binary() const
 	{
@@ -47,7 +49,8 @@ namespace drw
 	
 		
 	//--Class::_matrix_colours-------------------------------------------
-	_matrix_colours::_matrix_colours(int width, int height, const colour& bg_colour): matrix(height, std::vector<colour>(width, bg_colour)) {}
+	_matrix_colours::_matrix_colours(int width, int height, const colour& bg_colour):
+		matrix(height, std::vector<colour>(width, bg_colour)) {}
 	colour& _matrix_colours::operator () (int x, int y)
 	{
 		return matrix[y][x];
@@ -88,7 +91,7 @@ namespace drw
 		const hex number_of_colours_in_palette(0, 4);
 		const hex important_colours(0, 4); //0 implies that all col;ours are important
 		
-		return _make_binary(std::vector<hex>{initial_char_first,	initial_char_second, total_file_size, application_specific_gap,	offset_start_image,		
+		return _make_binary(std::vector<hex>{initial_char_first, initial_char_second, total_file_size, application_specific_gap, offset_start_image,		
 			dib_header_size, width_in_pixels, height_in_pixels,	number_of_colour_planes_used, bits,	compression,
 			size_raw_bitmap, resolution_horizontal, resolution_vertical, number_of_colours_in_palette, important_colours});
 		
@@ -173,24 +176,41 @@ namespace drw
 		drawCentreRectangle(x, y, diamension, diamension);
 	}
 	
-	void bmp::drawVector(int x, int y, int length, int width, int type, float fill)
+	void bmp::drawVector(int x, int y, int effective_length, int thick, int sign, int number_of_meniscus, const std::vector<float>& coordinates_of_meniscus, bool type)
 	{
-		int displacement = length / std::sqrt(2);
-		int lateral_length = width * std::sqrt(2);
+		int displacement = effective_length;
+		int lateral_length = thick;
+		
+		//std::cout << "displacement " << displacement << ", lateral_length " << lateral_length << ", x = " << x << ", y = " << y << "\n";
 		
 		std::vector<colour> colour_pipe{cyan, grey_light};
-		if(fill < 0)
+		
+		std::vector<int> coordinates(number_of_meniscus + 2);
+		
+		for(int i = 1; i <= number_of_meniscus; ++ i)
 		{
-			std::swap(colour_pipe.front(), colour_pipe.back());
+			coordinates[i] = coordinates_of_meniscus[i - 1] * displacement;
 		}
 		
-		for(int i = 0; i <= displacement; ++ i)
+		coordinates.back() = displacement;
+		
+		int current_colour = type;
+		
+		for(int k = 1; k < coordinates.size(); ++ k)
 		{
-			for(int j = -lateral_length / 2; 2 * j <= lateral_length; ++ j)
+			int start_x = coordinates[k - 1];
+			int end_x = coordinates[k];
+			//std::cout << "drawing at, k = " << k << ", start_x = " << start_x << ", end_x = " << end_x << "\n";
+			for(int i = start_x; i <= end_x; ++ i)
 			{
-				data(x + (type * i) + j, y + i) = colour_pipe[i >= std::abs(fill) * displacement];
+				for(int j = -lateral_length / 2; 2 * j <= lateral_length; ++ j)
+				{
+					//std::cout << "okay: " << x + (sign * i) + j << ", " << y + i << ", sign = " << sign << "\n";
+					data(x + (sign * i) + j, y + i) = colour_pipe[current_colour];
+				}
 			}
+			
+			current_colour = (current_colour + 1) % 2;
 		}
-
 	}
 }
