@@ -6,6 +6,7 @@
 #include <cmath>
 #include <utility>
 #include <limits>
+#include <list>
 
 #include "drw.h"
 
@@ -30,7 +31,7 @@ const real MU1 = 1;//1e-3; // viscosity of the invading liquid: water
 const real MU2 = 1;//1e-5; // viscosity of defending liquid: air
 
 //Parameters of simulation
-const real THRESHOLD_FILL = 0.01; //if any meniscus is smaller than this proportion, then it is destroyed
+const real THRESHOLD_FILL = 0.001; //if any meniscus is smaller than this proportion, then it is destroyed
 const real TIME_DIV = 10; // if the nearest meniscus by time is further, then L / TIME_DIV is prefered
 const int IMAGE_SIZE = 1000;
 
@@ -41,12 +42,7 @@ const std::string FOLDER_SAVE_PIC = "pic/";
 
 class Cmns
 {
-	int n; //number of meniscus present
-	bool type; // 0 - corresponds to blue fluid - which is invading
-	std::vector<real> pos; // positions of meniscus
-	
-	/*
-	 * FUNCTION DESCRIPTION - scontb
+	/* FUNCTION DESCRIPTION - scontb
 	 * 
 	 * when we write the equation, about the volume
 	 * q = dV/dt = PI / 8 / MU * r ^ 4 / L * [(P[i] - P[j]) + 2 * SIGMA / r)
@@ -70,13 +66,7 @@ class Cmns
 		return condition ? -1 : 1;
 	}
 	
-	real scontb(int direction) const
-	{
-		return _scontb_sig(direction > 1) * _scontb_sig(type) * (n % 2);
-	}
-	
-	/* 
-	 * generate positions long version
+	/* generate positions long version
 	 * 
 	 * the generated std::vector<real> can be of 3 types:
 	 * 1) [0, 1]
@@ -101,30 +91,7 @@ class Cmns
 		return v;
 	}
 		
-	real mu(const real mu1, const real mu2) const
-	{
-		std::vector<real> muv{mu1, mu2};
-		const auto pos_long = gen_pos_long();
-		for(int i = 1; i < pos_long.size(); ++ i)
-		{
-			sum += muv[(i - 1 + type) % muv.size()] * (pos_long[i] - pos_long[i - 1]);
-		}
-		
-		return sum;
-	}
-	
-	real time(const real velocity, const real length, const real time_div)
-	{
-		if(n == 0)
-		{
-			return length / velocity / time_div;
-		}
-		
-		real dspl = (velocity >= 0 ? (1 - pos[n - 1]): pos.front());
-		dspl = std::min(1.0 / time_div, dspl);
-		return length * dspl / velocity;
-	}
-	
+
 	/*		vel	| [true]	| [false]	|
 	 * drec		| above(<2)	| below(>=2)|
 	 * [true]+1	| out-0		| in-1		|
@@ -159,132 +126,136 @@ class Cmns
 		auto pos_long_after_dslp = gen_pos_long();
 		if(vel < 0)
 		{
-			pos_long_after_dslp.front()  = l;
+			pos_long_after_dslp.front() = l;
 		}
 		else
 		{
-			pos_long_after_dslp.front().back() -= l;
+			pos_long_after_dslp.back() -= l;
 		}
 		
 		return pos_long_after_dslp;
 	}
 	
 	//generate compartments of the configuration which exists
-	std::list<std::pair<bool, real>> gen_cmprt_existing(real vel, real l) const
+	typedef std::list<std::pair<bool, real>> Ccmprt;
+	Ccmprt gen_cmprt_existing(real vel, real l) const
 	{
 		const auto pos_long_after_dspl = gen_pos_long_after_dspl(vel, l);
-		std::list<std::pair<bool, real>> lst_cmprt_existing;
-		for(int i = 1; i < pos_seq_disp.size(); ++ i)
+		Ccmprt cmprt_existing;
+		for(int i = 1; i < pos_long_after_dspl.size(); ++ i)
 		{
-			lst.push_back({(i + type + 1) % 2, pos_seq_disp[i] - pos_seq_disp[i - 1]});
+			cmprt_existing.push_back({(i + type - 1) % 2, pos_long_after_dspl[i] - pos_long_after_dspl[i - 1]});
 		}
 		
-		return lst;
+		return cmprt_existing;
 	}
 	
-	static std::list<std::pair<bool, real>> _merge(std::list<std::pair<bool, real>>& old_config, const std::list<std::pair<bool, real>>& new_addents, real vel)
+	static Ccmprt merge_existing_and_new_cmprts(Ccmprt& cmprt_existing, const Ccmprt& cmprt_new, real vel)
 	{
 		if(vel > 0)
 		{
-			old_config.insert(old_config.begin(), new_addents.crbegin(), new_addents.crend());
+			cmprt_existing.insert(cmprt_existing.begin(), cmprt_new.crbegin(), cmprt_new.crend());
 		}
 		else
 		{
-			old_config.insert(old_config.end(), new_addents.begin(), new_addents.end());
+			cmprt_existing.insert(cmprt_existing.end(), cmprt_new.begin(), cmprt_new.end());
 		}
-		return old_config;
+		return cmprt_existing;
 	}
-	struct _ProcessNewComp
+	
+	struct CmnsAfterDspl
 	{
 		bool type;
 		std::vector<real> v;
 	};
 	
-	_ProcessNewComp _decomp(const std::vector<std::pair<bool, real>>& v)
+	static std::vector<real> gen_pos_from_segmented(std::vector<real> pos_segmented)
 	{
-		int n = v.size() - 1;
-		real sum = 0;
-		std::vector<real> w;
-		for(int i = 0; i < n; ++ i)
+		pos_segmented.pop_back();
+		for(int i = 1; i < pos_segmented.size(); ++ i)
 		{
-			sum += v[i].second;
-			w.push_back(sum);
+			pos_segmented[i] += pos_segmented[i - 1];
 		}
 		
-		return {v.front().first, w};
+		return pos_segmented;
 	}
 	
-	_ProcessNewComp _process_new_comp(const std::list<std::pair<bool, real>>& lst)
+	CmnsAfterDspl gen_pos_new_and_type(const Ccmprt& cmprt_new, const real threshold_fill) const
 	{
-		std::vector<std::pair<int, real>> v;
-		for(const auto& x: lst)
+		std::vector<std::pair<int, real>> cmprt_new_temp_vector;
+		for(const auto& x: cmprt_new) // Step-1 Filter out anything smaller than threshold_fill
 		{
-			if(x.second >= 0.001)
+			if(x.second >= threshold_fill)
 			{
-				v.push_back({x.first, x.second});
+				cmprt_new_temp_vector.push_back({x.first, x.second});
 			}
 		}
 		
-		for(int i = 1; i < v.size(); ++ i)
+		for(int i = 1; i < cmprt_new_temp_vector.size(); ++ i) // Step-2 Merge any two compartments of the smae fluid type
 		{
-			if(v[i - 1].first == v[i].first)
+			if(cmprt_new_temp_vector[i - 1].first == cmprt_new_temp_vector[i].first)
 			{
-				v[i - 1].first = -1;
-				v[i].second += v[i - 1].second;
+				cmprt_new_temp_vector[i - 1].first = -1;
+				cmprt_new_temp_vector[i].second += cmprt_new_temp_vector[i - 1].second;
 			}
 		}
 		
-		std::vector<std::pair<bool, real>> w;
-		for(const auto& x: v)
+		int type_begin_temp = -1;
+		std::vector<real> pos_segmented;
+		for(const auto& x: cmprt_new_temp_vector)
 		{
 			if(x.first != -1)
 			{
-				w.push_back({x.first, x.second});
+				if(type_begin_temp == -1)
+				{
+					type_begin_temp = x.first;
+				}
+				pos_segmented.push_back(x.second);
 			}
 		}
 		
-		if(w.size() < 4)
-		{
-			return _decomp(w);
-		}
+		const bool type_begin = type_begin_temp;
+		const auto pos_new = gen_pos_from_segmented(pos_segmented);
 		
-		if(w.size() == 4)
+		if(pos_new.size() < 3) // Depending on the number of meniscus, recombinate or preenet as it is
 		{
-			auto x = _decomp(w);
-			real l1 = 0;
-			real l2 = x.v[0];
-			real l3 = x.v[1];
-			real l4 = x.v[2];
-			
-			real d1 = l2 - l1;
-			real d2 = l4 - l3;
-			real d = d1 + d2;
-			real c1 = (l1 + l2) / 2;
-			real c2 = (l3 + l4) / 2;
-			
-			real L1 = (c1 * d1 + c2 * d2) / d - d / 2;
-			real L2 = L1 + d;
-			
-			return {!x.type, {L1, L2}};
+			return {type_begin, pos_new};
 		}
-		if(w.size() == 5)
+		if(pos_new.size() == 3)
 		{
-			auto x = _decomp(w);
-			real l1 = x.v[0];
-			real l2 = x.v[1];
-			real l3 = x.v[2];
-			real l4 = x.v[3];
+			const real l1 = 0;
+			const real l2 = pos_new[0];
+			const real l3 = pos_new[1];
+			const real l4 = pos_new[2];
 			
-			real d1 = l2 - l1;
-			real d2 = l4 - l3;
-			real d = d1 + d2;
-			real c1 = (l1 + l2) / 2;
-			real c2 = (l3 + l4) / 2;
+			const real d1 = l2 - l1;
+			const real d2 = l4 - l3;
+			const real d = d1 + d2;
+			const real c1 = (l1 + l2) / 2;
+			const real c2 = (l3 + l4) / 2;
 			
-			real L1 = (c1 * d1 + c2 * d2) / d - d / 2;
-			real L2 = L1 + d;
+			const real L1 = (c1 * d1 + c2 * d2) / d - d / 2;
+			const real L2 = L1 + d;
 			
-			return {x.type, {L1, L2}};
+			return {!type_begin, {L1, L2}};
+		}
+		if(pos_new.size() == 4)
+		{
+			const real l1 = pos_new[0];
+			const real l2 = pos_new[1];
+			const real l3 = pos_new[2];
+			const real l4 = pos_new[3];
+			
+			const real d1 = l2 - l1;
+			const real d2 = l4 - l3;
+			const real d = d1 + d2;
+			const real c1 = (l1 + l2) / 2;
+			const real c2 = (l3 + l4) / 2;
+			
+			const real L1 = (c1 * d1 + c2 * d2) / d - d / 2;
+			const real L2 = L1 + d;
+			
+			return {type_begin, {L1, L2}};
 		}
 		else
 		{
@@ -292,26 +263,61 @@ class Cmns
 		}
 	}
 	
+public:
+	Cmns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
+	Cmns(int n, bool type, real p1, real p2): n(n), type(type), pos{p1, p2} {}
 	
-	void update(real vel, real r, const std::vector<real>& add)
+	real mu(const real mu1, const real mu2) const
+	{
+		std::vector<real> muv{mu1, mu2};
+		const auto pos_long = gen_pos_long();
+		
+		real sum = 0;
+		for(int i = 1; i < pos_long.size(); ++ i)
+		{
+			sum += muv[(i - 1 + type) % muv.size()] * (pos_long[i] - pos_long[i - 1]);
+		}
+		
+		return sum;
+	}
+	
+	real time(const real velocity, const real length, const real time_div)
+	{
+		if(n == 0)
+		{
+			return length / velocity / time_div;
+		}
+		
+		real dspl = (velocity >= 0 ? (1 - pos[n - 1]): pos.front());
+		dspl = std::min(1.0f / time_div, dspl);
+		return length * dspl / velocity;
+	}
+	
+	void update(const real vel, const real r, const std::vector<real>& add, const real threshold_fill)
 	{
 		const real area = PI * std::pow(r, 2);
 		const real l1 = add.front() / area;
 		const real l2 = add.back() / area;
 		const real l = l1 + l2;
 		
-		auto old_config = _gen_vol_comp_old_config(vel, l);
-		auto new_comp = _merge(old_config, {{0, l1}, {1, l2}}, vel);
-		auto comp = _process_new_comp(new_comp);
-		n = comp.v.size();
-		type = comp.type;
-		pos = comp.v;
+		auto cmprt_existing = gen_cmprt_existing(vel, l);
+		Ccmprt cmprt_new{{0, l1}, {1, l2}};
+		auto cmprt = merge_existing_and_new_cmprts(cmprt_existing, cmprt_new, vel);
+		auto pos_new_and_type = gen_pos_new_and_type(cmprt, threshold_fill);
+		n = pos_new_and_type.v.size();
+		type = pos_new_and_type.type;
+		pos = pos_new_and_type.v;
 		pos.resize(2);
 	}
 	
-public:
-	Cmns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
-	Cmns(int n, bool type, real p1, real p2): n(n), type(type), pos{p1, p2} {}
+	real scontb(int direction) const
+	{
+		return _scontb_sig(direction > 1) * _scontb_sig(type) * (n % 2);
+	}
+	
+	int n; //number of meniscus present
+	bool type; // 0 - corresponds to blue fluid - which is invading
+	std::vector<real> pos; // positions of meniscus
 };
 
 std::ifstream& operator>> (std::ifstream& fin, FillProperty& val)
