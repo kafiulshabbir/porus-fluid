@@ -69,13 +69,13 @@ int main()
 		else if(command == 'r')
 		{
 			FUpdateDiamensions(nrows, ncols);
-			const auto def_val_radius = FCinRead<float>("Radius default value");
+			const auto def_val_radius = FCinRead<real>("Radius default value");
 			dst::Radius(nrows, ncols, def_val_radius).write(dst::FILE_NAME_RADIUS);
 		}
 		else if(command == 'R')
 		{
 			std::cout << "Enter x1, x2, y1, y2, val: ";
-			float x1, x2, y1, y2, val;
+			real x1, x2, y1, y2, val;
 			std::cin >> x1 >> x2 >> y1 >> y2 >> val;
 			dst::Radius radius;
 			radius.read(dst::FILE_NAME_RADIUS);

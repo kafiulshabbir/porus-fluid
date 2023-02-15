@@ -125,49 +125,55 @@ class Cmns
 		return length * dspl / velocity;
 	}
 	
-	bool fluid_is_out(int direction, real velocity) const
+	/*		vel	| [true]	| [false]	|
+	 * drec		| above(<2)	| below(>=2)|
+	 * [true]+1	| out-0		| in-1		|
+	 * [flase]-1| in-1		| out-0		|
+	 */
+	 
+	bool is_flow_into_node(const int direction, const real velocity) const
 	{
 		return (direction < 2) ^ (velocity >= 0);
 	}
 	
-	bool type_fluid_in(int direction) const
+	bool type_fluid_into_node(int direction) const
 	{
-		if(direction < 2)
+		if(direction < 2) // if fluid is coming from the above
 		{
-			return type;
+			return type; // whatever is at the lowest part is what gets into the node
 		}
-		
-		return type ^ (n % 2);
+		/*
+		 * What is on the top part?
+		 * 
+		 * n	| type=0 | type=1 |
+		 * 0	| 0		 | 1	  |
+		 * 1	| 1		 | 0	  |
+		 * 2	| 0		 | 1	  |
+		 */
+		 
+		return type ^ (n % 2); 
 	}
 	
-	std::vector<real> _pos_sequence_disp(real vel, real l) const
+	std::vector<real> gen_pos_long_after_dspl(real vel, real l) const
 	{
-		real begin = 0;
-		real end = 1;
-		if(vel > 0)
+		auto pos_long_after_dslp = gen_pos_long();
+		if(vel < 0)
 		{
-			begin = l;
+			pos_long_after_dslp.front()  = l;
 		}
 		else
 		{
-			end -= l;
+			pos_long_after_dslp.front().back() -= l;
 		}
 		
-		std::vector<real> v(n + 2);
-		v.front() = begin;
-		for(int i = 0; i < n; ++ i)
-		{
-			v[i + 1] = pos[i];
-		}
-		v.back() = end;
-		
-		return v;
+		return pos_long_after_dslp;
 	}
 	
-	std::list<std::pair<bool, real>> _gen_vol_comp_old_config(real vel, real l) const
+	//generate compartments of the configuration which exists
+	std::list<std::pair<bool, real>> gen_cmprt_existing(real vel, real l) const
 	{
-		const auto pos_seq_disp = _pos_sequence_disp(vel, l);
-		std::list<std::pair<bool, real>> lst;
+		const auto pos_long_after_dspl = gen_pos_long_after_dspl(vel, l);
+		std::list<std::pair<bool, real>> lst_cmprt_existing;
 		for(int i = 1; i < pos_seq_disp.size(); ++ i)
 		{
 			lst.push_back({(i + type + 1) % 2, pos_seq_disp[i] - pos_seq_disp[i - 1]});
@@ -483,384 +489,7 @@ void FPrintValidityStatus()
 	{
 		std::cout << "-ERR-" << std::string(30, '!') << '\n';
 	}
-}	
-			real sum = 0;
-			for(int i = 1; i < locationsv.size(); ++ i)
-			{
-				sum += muv[(i - 1 + type) % 2] * (locationsv[i] - locationsv[i - 1]);
-			}
-			
-			return sum;
-		}
-		
-		real time(real velocity, real length)
-		{
-			if(n == 0)
-			{
-				return length / velocity / 10;
-			}
-			
-			real dspl = (velocity >= 0 ? (1 - pos[n - 1]): pos.front());
-			dspl = std::min(0.1f, dspl);
-			return length * dspl / velocity;
-		}
-		
-		bool fluid_is_out(int direction, real velocity) const
-		{
-			return (direction < 2) ^ (velocity >= 0);
-		}
-		
-		bool type_fluid_in(int direction) const
-		{
-			if(direction < 2)
-			{
-				return type;
-			}
-			
-			return type ^ (n % 2);
-		}
-		
-		std::vector<real> _pos_sequence_disp(real vel, real l) const
-		{
-			real begin = 0;
-			real end = 1;
-			if(vel > 0)
-			{
-				begin = l;
-			}
-			else
-			{
-				end -= l;
-			}
-			
-			std::vector<real> v(n + 2);
-			v.front() = begin;
-			for(int i = 0; i < n; ++ i)
-			{
-				v[i + 1] = pos[i];
-			}
-			v.back() = end;
-			
-			return v;
-		}
-		
-		std::list<std::pair<bool, real>> _gen_vol_comp_old_config(real vel, real l) const
-		{
-			const auto pos_seq_disp = _pos_sequence_disp(vel, l);
-			std::list<std::pair<bool, real>> lst;
-			for(int i = 1; i < pos_seq_disp.size(); ++ i)
-			{
-				lst.push_back({(i + type + 1) % 2, pos_seq_disp[i] - pos_seq_disp[i - 1]});
-			}
-			
-			return lst;
-		}
-		
-		static std::list<std::pair<bool, real>> _merge(std::list<std::pair<bool, real>>& old_config, const std::list<std::pair<bool, real>>& new_addents, real vel)
-		{
-			if(vel > 0)
-			{
-				old_config.insert(old_config.begin(), new_addents.crbegin(), new_addents.crend());
-			}
-			else
-			{
-				old_config.insert(old_config.end(), new_addents.begin(), new_addents.end());
-			}
-			return old_config;
-		}
-		struct _ProcessNewComp
-		{
-			bool type;
-			std::vector<real> v;
-		};
-		
-		_ProcessNewComp _decomp(const std::vector<std::pair<bool, real>>& v)
-		{
-			int n = v.size() - 1;
-			real sum = 0;
-			std::vector<real> w;
-			for(int i = 0; i < n; ++ i)
-			{
-				sum += v[i].second;
-				w.push_back(sum);
-			}
-			
-			return {v.front().first, w};
-		}
-		
-		_ProcessNewComp _process_new_comp(const std::list<std::pair<bool, real>>& lst)
-		{
-			std::vector<std::pair<int, real>> v;
-			for(const auto& x: lst)
-			{
-				if(x.second >= 0.001)
-				{
-					v.push_back({x.first, x.second});
-				}
-			}
-			
-			for(int i = 1; i < v.size(); ++ i)
-			{
-				if(v[i - 1].first == v[i].first)
-				{
-					v[i - 1].first = -1;
-					v[i].second += v[i - 1].second;
-				}
-			}
-			
-			std::vector<std::pair<bool, real>> w;
-			for(const auto& x: v)
-			{
-				if(x.first != -1)
-				{
-					w.push_back({x.first, x.second});
-				}
-			}
-			
-			if(w.size() < 4)
-			{
-				return _decomp(w);
-			}
-			
-			if(w.size() == 4)
-			{
-				auto x = _decomp(w);
-				real l1 = 0;
-				real l2 = x.v[0];
-				real l3 = x.v[1];
-				real l4 = x.v[2];
-				
-				real d1 = l2 - l1;
-				real d2 = l4 - l3;
-				real d = d1 + d2;
-				real c1 = (l1 + l2) / 2;
-				real c2 = (l3 + l4) / 2;
-				
-				real L1 = (c1 * d1 + c2 * d2) / d - d / 2;
-				real L2 = L1 + d;
-				
-				return {!x.type, {L1, L2}};
-			}
-			if(w.size() == 5)
-			{
-				auto x = _decomp(w);
-				real l1 = x.v[0];
-				real l2 = x.v[1];
-				real l3 = x.v[2];
-				real l4 = x.v[3];
-				
-				real d1 = l2 - l1;
-				real d2 = l4 - l3;
-				real d = d1 + d2;
-				real c1 = (l1 + l2) / 2;
-				real c2 = (l3 + l4) / 2;
-				
-				real L1 = (c1 * d1 + c2 * d2) / d - d / 2;
-				real L2 = L1 + d;
-				
-				return {x.type, {L1, L2}};
-			}
-			else
-			{
-				std::cout << "ER3-oversized decompartalization" << std::endl;
-			}
-		}
-		
-		
-		void update(real vel, real r, const std::vector<real>& add)
-		{
-			const real area = PI * std::pow(r, 2);
-			const real l1 = add.front() / area;
-			const real l2 = add.back() / area;
-			const real l = l1 + l2;
-			
-			auto old_config = _gen_vol_comp_old_config(vel, l);
-			auto new_comp = _merge(old_config, {{0, l1}, {1, l2}}, vel);
-			auto comp = _process_new_comp(new_comp);
-			n = comp.v.size();
-			type = comp.type;
-			pos = comp.v;
-			pos.resize(2);
-		}
-	};
-
-	std::ifstream& operator>> (std::ifstream& fin, FillProperty& val)
-	{
-		fin >> val.n >> val.type >> val.pos.front() >> val.pos.back();
-		return fin;
-	}
-
-	std::ofstream& operator<< (std::ofstream& fout, const FillProperty& val)
-	{
-		fout << '\n' << val.n << ' ' << val.type << ' ' << val.pos.front() << ' ' << val.pos.back();
-		return fout;
-	}
-
-	struct Coordinate
-	{
-		real x;
-		real y;
-	};
-
-	template <class T>
-	struct Tube
-	{
-		int nrows;
-		int ncols;
-		std::vector<std::vector<T>> v;
-		
-		Tube() = default;
-		Tube(int nrows, int ncols, const T& val = T()): nrows(nrows), ncols(ncols), v(nrows, std::vector<T>(ncols, val)) {}
-		
-		bool read(const std::string& file_name)
-		{
-			std::ifstream fin(file_name);
-			if(!(fin >> nrows >> ncols))
-			{
-				std::cout << "-ER2-" << file_name << " is corrupted!" << '\n';
-				return false;
-			}
-			
-			std::vector<T> w;
-			T val;
-			
-			while(fin >> val)
-			{
-				w.push_back(val);
-			}
-			
-			if(nrows * ncols != w.size())
-			{
-				std::cout << "-ER2-" << file_name << " has incorrect diamensions." << '\n';
-				return false;
-			}
-			
-			v.resize(nrows, std::vector<T>(ncols));
-			for(int i = 0; i < w.size(); ++ i)
-			{
-				v[i / ncols][i % ncols] = w[i];
-			}
-			
-			return true;
-		}
-		
-		Coordinate _coordinate (int row, int col) const
-		{
-			return {0.5f + col, -0.5f + nrows - row};
-		}
-		
-		void write(const std::string& file_name) const 
-		{
-			std::ofstream fout(file_name);
-			fout << nrows << ' ' << ncols << "\n\n";
-			for(const auto& row: v)
-			{
-				for(const auto& val: row)
-				{
-					fout << val << ' ';
-				}
-				
-				fout << '\n';
-			}
-		}
-		
-		bool between(real x, real a, real b) const
-		{
-			return x >= a && x <= b;
-		}
-		
-		bool inside(real x1, real x2, real y1, real y2, const Coordinate& coordinate) const
-		{
-			return between(coordinate.x, x1, x2) && between(coordinate.y, y1, y2);
-		}
-		
-		void update(real x1, real x2, real y1, real y2, const T& val)
-		{
-			real xmin = std::min(x1, x2);
-			real xmax = std::max(x1, x2);
-			
-			real ymin = std::min(y1, y2);
-			real ymax = std::max(y1, y2);
-			for(int i = 0; i < nrows; ++ i)
-			{
-				for(int j = 0; j < ncols; ++ j)
-				{
-					if(inside(xmin, xmax, ymin, ymax, _coordinate(i, j)))
-					{
-						v[i][j] = val;
-					}
-				}
-			}
-		}
-		
-		void print() const
-		{
-			for(const auto& row: v)
-			{
-				for(const auto& val: row)
-				{
-					std::cout << val << ' ';
-				}
-				std::cout << '\n';
-			}
-		}
-	};
-
-	typedef Tube<real> Radius;
-	typedef Tube<FillProperty> Fill;
-	
-	bool FCheckValidity()
-	{
-		Radius radius;
-		Fill fill;
-		
-		bool validity = true;
-		if(radius.read(FILE_NAME_RADIUS))
-		{
-			std::cout << "-FDK-" << FILE_NAME_RADIUS << " is valid" << '\n';
-		}
-		else
-		{
-			validity = false;
-		}
-		
-		if(fill.read(FILE_NAME_FILL))
-		{
-			std::cout << "-FDK-" << FILE_NAME_FILL << " is valid, " << '\n';
-		}
-		else
-		{
-			validity = false;
-		}
-		
-		if(validity)
-		{
-			if((radius.nrows == fill.nrows) && (radius.ncols == fill.ncols))
-			{
-				std::cout << "-FDK-" << "diamensions of " << FILE_NAME_RADIUS << " and " << FILE_NAME_FILL << " match" << '\n';
-			}
-			else
-			{
-				std::cout << "-ERR-" << "diamensions of " << FILE_NAME_RADIUS << " and " << FILE_NAME_FILL << " do not match!" << '\n';
-				validity = false;
-			}
-		}
-		
-		return validity;
-	}
-
-	void FPrintValidityStatus()
-	{
-		if(FCheckValidity())
-		{
-			std::cout << "-FDK-" << FILE_NAME_RADIUS << ", " << FILE_NAME_FILL << " is okay" << '\n';
-		}
-		else
-		{
-			std::cout << "-ERR-" << std::string(30, '!') << '\n';
-		}
-	}
-	
+}		
 	
 matrix FReadFileRadius()
 {

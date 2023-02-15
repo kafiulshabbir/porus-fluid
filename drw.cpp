@@ -176,7 +176,7 @@ namespace drw
 		drawCentreRectangle(x, y, diamension, diamension);
 	}
 	
-	void bmp::drawVector(int x, int y, int effective_length, int thick, int sign, int number_of_meniscus, const std::vector<float>& coordinates_of_meniscus, bool type)
+	void bmp::drawVector(int x, int y, int effective_length, int thick, int sign, int number_of_meniscus, const std::vector<real>& coordinates_of_meniscus, bool type)
 	{
 		int displacement = effective_length;
 		int lateral_length = thick;
