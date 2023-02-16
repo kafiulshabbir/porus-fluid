@@ -64,7 +64,7 @@ int main()
 			ncols = DEF_VAL_COLS;
 			
 			dst::Radius(nrows, ncols, 1).write(dst::FILE_NAME_RADIUS);
-			FGenFillInitial(nrows, ncols).write(dst::FILE_NAME_FILL);
+			FGenFillInitial(nrows, ncols).write(dst::FILE_NAME_MNS);
 		}
 		else if(command == 'r')
 		{
@@ -87,7 +87,7 @@ int main()
 		{
 			FUpdateDiamensions(nrows, ncols);
 			//const auto def_val_fill = FCinRead<FillProperty>("Fill value [n_meniscus, type{0,1}, pos1 of men 0.0 - 1.0, pos2");
-			FGenFillInitial(nrows, ncols).write(dst::FILE_NAME_FILL);
+			FGenFillInitial(nrows, ncols).write(dst::FILE_NAME_MNS);
 		}
 		dst::FPrintValidityStatus();	
 		std::cout << "\n\n";	
