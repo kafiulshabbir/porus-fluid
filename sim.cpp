@@ -9,7 +9,7 @@
 #include <list>
 #include <cstdlib>
 #include <ctime>
-
+#include <iomanip>
 #include "drw.h"
 
 // Type Definitions
@@ -31,10 +31,11 @@ const real MU1 = 1;//1e-3; // viscosity of the invading liquid: water
 const real MU2 = 1;//1e-5; // viscosity of defending liquid: air
 
 //Parameters of simulation
-const real MAX_WETTING_PROPORTION = 0.40;
+const real MAX_WETTING_PROPORTION = 0.98;
 const real THRESHOLD_FILL = 0.001; //if any meniscus is smaller than this proportion, then it is destroyed
-const real TIME_DIV = 10; // if the nearest meniscus by time is further, then L / TIME_DIV is prefered
+const real TIME_DIV = 4; // if the nearest meniscus by time is further, then L / TIME_DIV is prefered
 const int IMAGE_SIZE = 1000;
+const real FINE_RADIUS_RANDOMNESS = 1e4;
 
 //Input Output of File names
 const std::string FILE_NAME_RADIUS = "radius.txt";
@@ -80,24 +81,7 @@ class Cmns
 	 * 2) [a], n = 1
 	 * 3) [a, b], n = 2
 	 */
-	 
-	std::vector<real> gen_pos_long() const
-	{
-		std::vector<real> v(n + 2);
-		for(int i = 0; i < n; ++ i)
-		{
-			v[i + 1] = pos[i];
-		}
-		v.back() = 1;
 		
-		return v;
-	}
-		
-
-
-	 
-	
-	
 	std::vector<real> gen_pos_long_after_dspl(real vel, real l) const
 	{
 		auto pos_long_after_dslp = gen_pos_long();
@@ -335,6 +319,18 @@ public:
 		
 		return sum;
 	}
+	
+	std::vector<real> gen_pos_long() const
+	{
+		std::vector<real> v(n + 2);
+		for(int i = 0; i < n; ++ i)
+		{
+			v[i + 1] = pos[i];
+		}
+		v.back() = 1;
+		
+		return v;
+	}
 };
 
 std::ifstream& operator>> (std::ifstream& fin, Cmns& val)
@@ -519,6 +515,14 @@ Treal FReadFileRadius()
 {
 	FTradius radius;
 	radius.read(FILE_NAME_RADIUS);
+	
+	for(auto& row: radius.v)
+	{
+		for(auto& cell: row)
+		{
+			cell += (rand() % 100) / FINE_RADIUS_RANDOMNESS;
+		}
+	}
 	return radius.v;
 }
 
@@ -536,7 +540,7 @@ int FLinearLocNode(int i, int j, int m)
 
 std::pair<int, int> FConnectionEnds(int r, int c, int m)
 {
-	return {FLinearLocNode(r, c/2 + 1 - (r % 2), m), FLinearLocNode(r + 1, c/2 + (r % 2), m)};
+	return {FLinearLocNode(r, c / 2 + (c % 2) * ((r + 1) % 2), m), FLinearLocNode(r + 1, c / 2 + (c % 2) * (r % 2), m)};
 }
 
 int FTotalNodes(int n, int m)
@@ -578,12 +582,12 @@ std::vector<Connections> FGenConnectionsEqu(int r, int c, int n, int m)
 		v[0].a = false;
 		v[3].a = false;
 	}
-	if(c + 1 == m)
+	if(2 * c == m)
 	{
 		v[1].a = false;
 		v[2].a = false;
 	}
-	if(r + 1 == n)
+	if(r == n)
 	{
 		v[2].a = false;
 		v[3].a = false;
@@ -594,7 +598,7 @@ std::vector<Connections> FGenConnectionsEqu(int r, int c, int n, int m)
 
 std::vector<real> FGaussElimination(Treal M)
 {
-	std::cout << "okay-gauss gaussian eleimination" << std::endl;
+	//std::cout << "okay-gauss gaussian eleimination" << std::endl;
 	const int n = M.front().size() - 1;
 	for(int i = 0; i < n; ++ i)
 	{
@@ -629,25 +633,64 @@ std::vector<real> FGaussElimination(Treal M)
 	return v;
 }
 
+void TFPrintMatrix(const std::string& s, const Treal& matrix)
+{
+	std::cout << "\n\n------------------------------------\n";
+	std::cout << s << '\n';
+	
+	std::cout << std::setw(7) << -1 << " | ";
+	for(int j = 0; j < matrix.front().size(); ++ j)
+	{
+		std::cout << std::setw(7) << (float)j << ' ';
+	}
+	std::cout << '\n';
+	for(int i = 0; i < matrix.size(); ++ i)
+	{
+		std::cout << std::setw(7) << (float)i << " | ";
+		for(int j = 0; j < matrix.front().size(); ++ j)
+		{
+			std::cout << std::setw(7) << matrix[i][j] << ' ';
+		}
+		std::cout << '\n';
+	}
+}
+
+void TFPrintMatrix(const std::string& s, const std::vector<float>& v, const int n, const int m)
+{
+	std::cout << "\n\n------------------------------------\n";
+	std::cout << s << '\n';
+	
+	int count = 0;
+	for(int i = 0; i <= n; ++ i)
+	{
+		int mt = m / 2 - i % 2;
+		for(int j = 0; j <= mt; ++ j)
+		{
+			std::cout << std::setw(7) << v[count++] << ' ';
+		}
+		std::cout << '\n';
+	}
+}
 
 Treal FGenEquForGauss(const Treal& radius, const Tmns& mns)
 {
-	std::cout << "okay-FGenEquForGauss" << std::endl;
+	//std::cout << "okay-FGenEquForGauss" << std::endl;
 	const int n = radius.size();
 	const int m = radius.front().size();
 	const int total_nodes = FTotalNodes(n, m);
 	Treal equation(total_nodes, std::vector<real>(total_nodes + 1));
 	
-	std::cout << "okay-FGenEquForGauss" << std::endl;
-	std::cout << "total_nodes=" << total_nodes << std::endl;
+	//std::cout << "okay-FGenEquForGauss" << std::endl;
+	//std::cout << "total_nodes=" << total_nodes << std::endl;
 	
 	for(int i = 0; i <= n; ++ i)
 	{
 		int mt = m / 2 - (i % 2);
+		//std::cout << "n= " << n << ", m=" << m << ", mt=" << mt << std::endl;
 		for(int j = 0; j <= mt; ++ j)
 		{
 			
-			std::cout << "i=" << i << ", j=" << j << std::endl;
+			//std::cout << "i=" << i << ", j=" << j << std::endl;
 			
 			const int l = FLinearLocNode(i, j, m);
 			auto& e = equation[l];
@@ -670,7 +713,7 @@ Treal FGenEquForGauss(const Treal& radius, const Tmns& mns)
 			for(int i = 0; i < connections.size(); ++ i)
 			{
 				const auto& c = connections[i];
-				std::cout << "connection, a=" << c.a << " c=" << c.c << ", r=" << c.r << ", p=" << c.p << std::endl;
+				//std::cout << "connection, a=" << c.a << " c=" << c.c << ", r=" << c.r << ", p=" << c.p << std::endl;
 				if(c.a)
 				{
 					const auto& r = radius[c.r][c.c];
@@ -686,14 +729,14 @@ Treal FGenEquForGauss(const Treal& radius, const Tmns& mns)
 		}
 	}
 	
-	std::cout << "okay-FGenEquForGauss" << std::endl;
-	
+	//std::cout << "okay-FGenEquForGauss" << std::endl;
+	//TFPrintMatrix("Gauss", equation);
 	return equation;
 }
 	
 std::vector<real> FCalcPressure(const Treal& radius, const Tmns& mns)
 {
-	std::cout << "okay-gauss Fclac pres" << std::endl;
+	//std::cout << "okay-gauss Fclac pres" << std::endl;
 	return FGaussElimination(FGenEquForGauss(radius, mns));
 }
 
@@ -780,10 +823,6 @@ struct TubeWhereFlowOut
 
 bool Fcomparison_outflow(const TubeWhereFlowOut& first, const TubeWhereFlowOut& second)
 {
-	if(first.radius == second.radius)
-	{
-		return std::rand() % 2;
-	}
 	return first.radius < second.radius;
 }
 
@@ -831,11 +870,17 @@ Tmns FPerformIntegration(const Tmns& mns, const Treal& volume, const Treal& velo
 	for(int i = 0; i <= n; ++ i)
 	{
 		int mt = m / 2 - i % 2;
-		for(int j = 0; j < mt; ++ j)
+		for(int j = 0; j <= mt; ++ j)
 		{
-			std::cout << "Performing integration i=" << i << ", j=" << j << std::endl;
+			//std::cout << "Performing integration i=" << i << ", j=" << j << std::endl;
 			const auto connections = FGenConnectionsEqu(i, j, n, m);
-
+			
+			/*
+			for(const auto& connection: connections)
+			{
+				std::cout << "connection, a=" << connection.a << " c=" << connection.c << ", r=" << connection.r << ", p=" << connection.p << std::endl;
+			}
+			*/
 			std::vector<real> vol_in(2);
 			std::vector<TubeWhereFlowOut> tubes_flow_out;
 			for(int direction = 0; direction < connections.size(); ++ direction)
@@ -858,6 +903,9 @@ Tmns FPerformIntegration(const Tmns& mns, const Treal& volume, const Treal& velo
 				}
 			}
 			
+			//for(const auto& tpshin: tubes_flow_out)	std::cout << "tube_push_out before short: radius=" << tpshin.radius << ", r=" << tpshin.r << ", c=" << tpshin.c << std::endl;
+			
+			//std::cout << "second stage reached!" << std::endl;
 			if(i == 0)
 			{
 				fluid1out += vol_in.front();
@@ -877,11 +925,13 @@ Tmns FPerformIntegration(const Tmns& mns, const Treal& volume, const Treal& velo
 			std::sort(tubes_flow_out.begin(), tubes_flow_out.end(), *Fcomparison_outflow);
 			for(const auto& tpshin: tubes_flow_out)
 			{
+				//std::cout << "tube_push_out after sort: radius=" << tpshin.radius << ", r=" << tpshin.r << ", c=" << tpshin.c << std::endl;
+				
 				additions[tpshin.r][tpshin.c] = FAmountVolumeToBePushedIn(volume[tpshin.r][tpshin.c], vol_in);
 			}
 		}
 	}
-	std::cout << "-------FCombineFillAndAdditions" << std::endl;
+	//std::cout << "-------FCombineFillAndAdditions" << std::endl;
 	return FCombineFillAndAdditions(mns, velocity, radius, additions);
 }
 
@@ -913,7 +963,7 @@ void FPlot(Tmns mns, Treal radius, real clock, int count)
 	
 	const int start_y = effective_length;
 	const int start_x = effective_length;
-	const real max_thick = effective_length / 3.0;
+	const real max_thick = effective_length;
 	const real min_thick = effective_length / 6.0;
 	
 	
@@ -938,10 +988,44 @@ void FPlot(Tmns mns, Treal radius, real clock, int count)
 		y += effective_length;
 	}
 	
-	a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + "_t-" + std::to_string(clock) + ".bmp");
+	//a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + "_t-" + std::to_string(clock) + ".bmp");
+	a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + ".bmp");
 }
 
+void FPlotWithoutRadius(Tmns mns, int count)
+{
+	std::reverse(mns.begin(), mns.end());
 
+	const int image_size = IMAGE_SIZE;
+	const int n_cols = mns.front().size();
+	const int n_rows = mns.size();
+	
+	const int length = image_size / (std::max(n_rows, n_cols) + 2);
+	
+	drw::bmp a(image_size, image_size);
+	
+	const int start_y = length;
+	const int start_x = length;
+	const int thick = length / 10;
+	
+	
+	int y = start_y;
+	for(int row = 0; row < mns.size(); ++ row)
+	{
+		const auto& w = mns[row];
+		int x = start_x + length * (row % 2);
+		for(int col = 0; col < w.size(); ++ col)
+		{
+			int sign = ((row % 2) ^ (col % 2) ? -1 : 1);
+			a.drawStrip(x, y, length, thick, sign, w[col].gen_pos_long(), w[col].type);
+			x += 2 * length * (sign > 0);
+		}
+		y += length;
+	}
+	
+	//a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + "_t-" + std::to_string(clock) + ".bmp");
+	a.save(FOLDER_SAVE_PIC + "stp-" + std::to_string(count) + ".bmp");
+}
 
 /*
 class Diamension
@@ -989,36 +1073,49 @@ real FMeasureWettingFluidProportion(const Tmns& mns, const Treal& radius)
 	return type_first / total;
 }
 
+
+
 void FSimulate(const Treal& radius, Tmns& mns)
 {
+	TFPrintMatrix("radius", radius);
+	
 	real clock = 0;
 	int count = 10000;
+	
+	FPlot(mns, radius, clock, count);
+	FPlotWithoutRadius(mns, count);
+	
 	real wetting_fluid_proportion;
 	while((wetting_fluid_proportion = FMeasureWettingFluidProportion(mns, radius)) <= MAX_WETTING_PROPORTION)
 	{
 		std::cout << "PRS-" << count << ", clock=" << clock << ", proportion=" << wetting_fluid_proportion << std::endl;
-		FPlot(mns, radius, clock, count++);
 		const auto pressure = FCalcPressure(radius, mns);
-		std::cout << "okay - pressur eis determined" << std::endl;
+		//TFPrintMatrix("pressure", pressure, radius.size(), radius.front().size());
 		
 		const auto velocity = FCalcVelocity(pressure, radius, mns);
-		std::cout << "okay" << std::endl;
-		
+		TFPrintMatrix("velocity", velocity);
+
 		const auto time_step = FDetermineTimeStep(mns, velocity);
 		const auto volume = FCalcVolume(velocity, radius, time_step);
 		
-		std::cout << "TIME is determined correctly" << std::endl; 
+		TFPrintMatrix("volume", volume);
+		
 		mns = FPerformIntegration(mns, volume, velocity, radius);
 		clock += time_step;
+		++ count;
+		FPlot(mns, radius, clock, count);
+		FPlotWithoutRadius(mns, count);
 	}
 }
-
+//ffmpeg -framerate 10 -i filename-%03d.jpg output.mp4
 int main()
 {
 	std::srand((unsigned)std::time(nullptr));
 	FPrintValidityStatus();
 	const auto radius = FReadFileRadius();
 	auto mns = FReadFileFill();
+	
+	std::cout << std::fixed << std::setprecision(4);
 	
 	FSimulate(radius, mns);
 	return 0;

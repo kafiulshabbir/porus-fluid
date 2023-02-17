@@ -213,4 +213,32 @@ namespace drw
 			current_colour = (current_colour + 1) % 2;
 		}
 	}
+		
+	void bmp::drawStrip(const int x, const int y, int length, const int thick, const int sign, std::vector<float> pos_mns, const bool type)
+	{	
+		//std::cout << "x = " << x << ", y = " << y << ", length = " << length << ", thick = " << thick << ", sign = " << sign << std::endl;
+		std::vector<colour> colour_pipe{cyan, grey_light};
+		length -= thick;
+		
+		for(auto& cell: pos_mns)
+		{
+			cell *= length;
+		}
+	
+		for(int k = 1; k < pos_mns.size(); ++ k)
+		{
+			int start_x = pos_mns[k - 1];
+			int end_x = pos_mns[k];
+
+			for(int i = start_x; i <= end_x; ++ i)
+			{
+				for(int j = -thick / 2; 2 * j <= thick; ++ j)
+				{
+					//std::cout << "i = " << x + sign * (i + thick/2) + j << ", j = " << y + i + thick/2 - sign * j << std::endl;
+					data(x + sign * (i + thick/2) + j, y + i + thick/2 - sign * j) = colour_pipe[(k + 1 + type) % 2];
+					data(1 + x + sign * (i + thick/2) + j, y + i + thick/2 - sign * j) = colour_pipe[(k + 1 + type) % 2];
+				}
+			}
+		}
+	}
 }

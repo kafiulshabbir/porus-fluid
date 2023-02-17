@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cmath>
+#include <iostream> //need to remove it later
 
 namespace drw
 {
@@ -102,6 +103,7 @@ namespace drw
 		void drawCentreRectangle(int x, int y, int width, int height);
 		void drawCentreSquare(int x, int y, int diamension);
 		void drawVector(int x, int y, int effective_length, int thick, int sign, int n_mns, const std::vector<float>& pos, bool type);
+		void drawStrip(const int x, const int y, int length, const int thick, const int sign, std::vector<float> pos_mns, const bool type);
 	};
 }
 #endif
