@@ -4,8 +4,8 @@
 \usepackage{mathtools}
 \usepackage{graphicx}
 
-\title{Algorithm for each time-step}
-\author{Draft}
+\title{Simulation of Two-Phase Flow in Porous Media using a Two-Dimensional Network Model}
+\author{Shabbir K.\thanks{Moscow Institute of Physics and Technology}}
 \date{\today}
 
 
@@ -124,6 +124,12 @@ The matrix for Gaussian elimination will be
 \boxed{v_{ij} = \frac{R_{ij}}{8lM_{ij}}(R_{ij}\Delta P_{ij} + 2s_{ij}\sigma)}
 \end{equation}
 
+\section{Description of the Model}
+The algorithms and methods used to simulate two-phase flow in porous media has many practical applications in oil recovery, hydrology, electricity production where pressurized water is passed through heated pipes and is transformed into steam, etc. Our algorithm presented here is used to find the saturation of a phase with respect to time, the hysteresis curve when the pressure across the porous body is reversed, total capillary pressure as a function of saturation[4], and determination of permeability which appears in Darcy’s law.
+
+\includegraphics[height=6cm]{fig_descp-of-model}
+Figure showing two nodes from the network where the size of the node is much larger than the radius such that the capillary force tends to zero when the meniscus enters a node. 
+
 \section{Algorithm steps}
 \begin{enumerate}
 	\item \textbf{Input Files:} read input files, radius.txt and mns.txt, mns.txt contains the initial setup of the meniscus
@@ -150,4 +156,20 @@ The matrix for Gaussian elimination will be
 		\end{enumerate}
 	\item {Video:} Make a video file from the pictures.
 \end{enumerate}
+
+\section{Results}
+\includegraphics[height=6cm]{fig_descp-of-model}
+\includegraphics[height=6cm]{fig_descp-of-model}
+Our model is initially set up such that the wetting fluid is low in saturation and is confined to the bottom of our network. A higher pressure is fixed for all nodes at the bottom layer, while a  low pressure is fixed for the top row. In all nodes, law of conservation of volume is applied, since mass is conserved and the phases are non-compressible. However for the bottom layer of nodes, the wetting fluid is injected as much required according to the sum of flow rates determined in the tubes connected to those nodes, while from the top layer of nodes a fluid is removed.
+\section{Conclusion}
+This algorithm can be extended to the case where there are more than 4 tube connections to a node, since for two phase flow into a node case, we distribute in an ascending order of radii, in our model it is distributed to a maximum number to two tubes, but for hexagonal model it can be 4. We only need to update the function which produces the connections. The same model can be used for a 3-dimensional case[2], where one surface has higher pressure than the opposite surface which has a lower pressure, it is to be used in order to more accurately represent the porous body.
+
+
+\section{References}
+\begin{enumerate}
+	\item Aker, E., Måløy, K.J., Hansen, A., Batrouni, G.G. A two-dimensional network simulator for two-phase flow in porous media // Transp. Porous Med. 1998 V. 32 P. 163 
+	\item Raoof A., Hassanizadeh S. A new method for generating pore-network models of porous media // Transp. Porous Med. 2010. V. 81. P. 391
+	\item S. Sinha et al. Effective rheology of two-phase flow in three-dimensional porous media: experiment and simulation // Transp. Porous Med. 2017. V. 119. P. 77
+	\item Fatt I. The network model of porous media 3, dynamic properties of networks with tube radius distribution Petroleum Trans. AIME 1956. V. 207. P. 164
+
 \end{document}
