@@ -1,4 +1,4 @@
-#include "dst/mns.h"
+#include "dst/dst::Mns.h"
 
 /* FUNCTION DESCRIPTION - scontb
  * 
@@ -18,7 +18,7 @@
  * for which type 0 means the meniscus is oriented away from [i],
  * giving a negative contribution of cappilary pressure
  */
-float mns::_scontb_sig(bool condition) //scontb's sign function
+float dst::Mns::_scontb_sig(bool condition) //scontb's sign function
 {
 	return condition ? -1 : 1;
 }
@@ -35,7 +35,7 @@ float mns::_scontb_sig(bool condition) //scontb's sign function
  * 2) [a], n = 1
  * 3) [a, b], n = 2
  */
-std::vector<float> mns::gen_pos_long_after_dspl(float vel, float l) const
+std::vector<float> dst::Mns::gen_pos_long_after_dspl(float vel, float l) const
 {
 	auto pos_long_after_dslp = gen_pos_long();
 	if(vel < 0)
@@ -51,10 +51,10 @@ std::vector<float> mns::gen_pos_long_after_dspl(float vel, float l) const
 }
 
 
-mns::Ccmprt mns::gen_cmprt_existing(float vel, float l) const
+dst::Mns::Ccmprt dst::Mns::gen_cmprt_existing(float vel, float l) const
 {
 	const auto pos_long_after_dspl = gen_pos_long_after_dspl(vel, l);
-	mns::Ccmprt cmprt_existing;
+	dst::Mns::Ccmprt cmprt_existing;
 	for(int i = 1; i < pos_long_after_dspl.size(); ++ i)
 	{
 		cmprt_existing.push_back({(i + type - 1) % 2, pos_long_after_dspl[i] - pos_long_after_dspl[i - 1]});
@@ -63,7 +63,7 @@ mns::Ccmprt mns::gen_cmprt_existing(float vel, float l) const
 	return cmprt_existing;
 }
 
-mns::Ccmprt mns::merge_existing_and_new_cmprts(mns::Ccmprt& cmprt_existing, const mns::Ccmprt& cmprt_new, float vel)
+dst::Mns::Ccmprt dst::Mns::merge_existing_and_new_cmprts(dst::Mns::Ccmprt& cmprt_existing, const dst::Mns::Ccmprt& cmprt_new, float vel)
 {
 	if(vel > 0)
 	{
@@ -76,13 +76,13 @@ mns::Ccmprt mns::merge_existing_and_new_cmprts(mns::Ccmprt& cmprt_existing, cons
 	return cmprt_existing;
 }
 
-struct mns::mns::CmnsAfterDspl
+struct dst::Mns::dst::Mns::CmnsAfterDspl
 {
 	bool type;
 	std::vector<float> v;
 };
 
-std::vector<float> mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
+std::vector<float> dst::Mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
 {
 	pos_segmented.pop_back();
 	for(int i = 1; i < pos_segmented.size(); ++ i)
@@ -93,7 +93,7 @@ std::vector<float> mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
 	return pos_segmented;
 }
 
-mns::CmnsAfterDspl mns::gen_pos_new_and_type(const mns::Ccmprt& cmprt_new, const float threshold_fill) const
+dst::Mns::CmnsAfterDspl dst::Mns::gen_pos_new_and_type(const dst::Mns::Ccmprt& cmprt_new, const float threshold_fill) const
 {
 	std::vector<std::pair<int, float>> cmprt_new_temp_vector;
 	for(const auto& x: cmprt_new) // Step-1 Filter out anything smaller than threshold_fill
@@ -175,10 +175,10 @@ mns::CmnsAfterDspl mns::gen_pos_new_and_type(const mns::Ccmprt& cmprt_new, const
 	return {type_begin, {-1, -1}};	
 }
 
-mns::mns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
-mns::mns(int n, bool type, float p1, float p2): n(n), type(type), pos{p1, p2} {}
+dst::Mns::dst::Mns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
+dst::Mns::dst::Mns(int n, bool type, float p1, float p2): n(n), type(type), pos{p1, p2} {}
 
-float mns::mu(const float mu1, const float mu2) const
+float dst::Mns::mu(const float mu1, const float mu2) const
 {
 	std::vector<float> muv{mu1, mu2};
 	const auto pos_long = gen_pos_long();
@@ -192,7 +192,7 @@ float mns::mu(const float mu1, const float mu2) const
 	return sum;
 }
 
-float mns::time(const float velocity, const float length, const float time_div) const
+float dst::Mns::time(const float velocity, const float length, const float time_div) const
 {
 	if(n == 0)
 	{
@@ -204,7 +204,7 @@ float mns::time(const float velocity, const float length, const float time_div) 
 	return length * dspl / velocity;
 }
 
-void mns::update(const float vel, const float r, const std::vector<float>& add, const float threshold_fill)
+void dst::Mns::update(const float vel, const float r, const std::vector<float>& add, const float threshold_fill)
 {
 	const float area = simconsts::PI * std::pow(r, 2);
 	const float l1 = add.front() / area;
@@ -212,7 +212,7 @@ void mns::update(const float vel, const float r, const std::vector<float>& add, 
 	const float l = l1 + l2;
 	
 	auto cmprt_existing = gen_cmprt_existing(vel, l);
-	mns::Ccmprt cmprt_new{{0, l1}, {1, l2}};
+	dst::Mns::Ccmprt cmprt_new{{0, l1}, {1, l2}};
 	auto cmprt = merge_existing_and_new_cmprts(cmprt_existing, cmprt_new, vel);
 	auto pos_new_and_type = gen_pos_new_and_type(cmprt, threshold_fill);
 	n = pos_new_and_type.v.size();
@@ -221,7 +221,7 @@ void mns::update(const float vel, const float r, const std::vector<float>& add, 
 	pos.resize(2);
 }
 
-float mns::scontb(int direction) const
+float dst::Mns::scontb(int direction) const
 {
 	return _scontb_sig(direction > 1) * _scontb_sig(type) * (n % 2);
 }
@@ -232,12 +232,12 @@ float mns::scontb(int direction) const
  * [flase]-1| in-1		| out-0		|
  */
  
-bool mns::is_flow_into_node(const int direction, const float velocity) const
+bool dst::Mns::is_flow_into_node(const int direction, const float velocity) const
 {
 	return (direction < 2) ^ (velocity >= 0);
 }
 
-bool mns::type_fluid_into_node(int direction) const
+bool dst::Mns::type_fluid_into_node(int direction) const
 {
 	if(direction < 2) // if fluid is coming from the above
 	{
@@ -255,7 +255,7 @@ bool mns::type_fluid_into_node(int direction) const
 	return type ^ (n % 2); 
 }
 
-float mns::sum_type_first() const
+float dst::Mns::sum_type_first() const
 {
 	const auto pos_long = gen_pos_long();
 	float sum = 0;
@@ -267,7 +267,7 @@ float mns::sum_type_first() const
 	return sum;
 }
 
-std::vector<float> mns::gen_pos_long() const
+std::vector<float> dst::Mns::gen_pos_long() const
 {
 	std::vector<float> v(n + 2);
 	for(int i = 0; i < n; ++ i)
@@ -280,13 +280,13 @@ std::vector<float> mns::gen_pos_long() const
 }
 
 
-std::ifstream& operator>> (std::ifstream& fin, mns& val)
+std::ifstream& operator>> (std::ifstream& fin, dst::Mns& val)
 {
 	fin >> val.n >> val.type >> val.pos.front() >> val.pos.back();
 	return fin;
 }
 
-std::ofstream& operator<< (std::ofstream& fout, const mns& val)
+std::ofstream& operator<< (std::ofstream& fout, const dst::Mns& val)
 {
 	fout << '\n' << val.n << ' ' << val.type << ' ' << val.pos.front() << ' ' << val.pos.back();
 	return fout;

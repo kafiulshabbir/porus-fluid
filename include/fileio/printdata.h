@@ -8,11 +8,14 @@
 #include <vector>
 #include <string>
 
-class PrintData
+namespace fio
 {
-	
-public:
-	static void print_matrix(const std::string& s, const Tfloat& matrix);
-	static void print_matrix(const std::string& s, const std::vector<float>& v, const int n, const int m);
-};
+	class PrintData
+	{
+		
+	public:
+		static void print_matrix(const std::string& s, const Tfloat& matrix);
+		static void print_matrix(const std::string& s, const std::vector<float>& v, const int n, const int m);
+	};
+}
 #endif

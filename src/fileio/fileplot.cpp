@@ -1,12 +1,12 @@
-#include "fio_plot.h"
+#include "fileio/fileplot.h"
 
-static void FioPlot::withoutRadius(Tmns mns, int count)
+void FilePlot::without_radius(TMns dst::Mns, int count)
 {
-	std::reverse(mns.begin(), mns.end());
+	std::reverse(dst::Mns.begin(), dst::Mns.end());
 
 	const int image_size = IMAGE_SIZE;
-	const int n_cols = mns.front().size();
-	const int n_rows = mns.size();
+	const int n_cols = dst::Mns.front().size();
+	const int n_rows = dst::Mns.size();
 	
 	const int length = image_size / (std::max(n_rows, n_cols) + 2);
 	
@@ -18,9 +18,9 @@ static void FioPlot::withoutRadius(Tmns mns, int count)
 	
 	
 	int y = start_y;
-	for(int row = 0; row < mns.size(); ++ row)
+	for(int row = 0; row < dst::Mns.size(); ++ row)
 	{
-		const auto& w = mns[row];
+		const auto& w = dst::Mns[row];
 		int x = start_x + length * (row % 2);
 		for(int col = 0; col < w.size(); ++ col)
 		{
@@ -38,9 +38,9 @@ static void FioPlot::withoutRadius(Tmns mns, int count)
 
 
 //Tested works Correctly
-static void FioPlot::simple(Tmns mns, Tfloat radius, float clock, int count)
+static void FioPlot::with_radius(TMns dst::Mns, Tfloat radius, float clock, int count)
 {
-	std::reverse(mns.begin(), mns.end());
+	std::reverse(dst::Mns.begin(), dst::Mns.end());
 	std::reverse(radius.begin(), radius.end());
 	
 	float max_radius = -1;
@@ -56,8 +56,8 @@ static void FioPlot::simple(Tmns mns, Tfloat radius, float clock, int count)
 	}
 
 	const int image_size = IMAGE_SIZE;
-	const int length = mns.front().size();
-	const int height = mns.size();
+	const int length = dst::Mns.front().size();
+	const int height = dst::Mns.size();
 	
 	const int effective_length = image_size / (std::max(length, height) + 2);
 	
@@ -70,9 +70,9 @@ static void FioPlot::simple(Tmns mns, Tfloat radius, float clock, int count)
 	
 	
 	int y = start_y;
-	for(int row = 0; row < mns.size(); ++ row)
+	for(int row = 0; row < dst::Mns.size(); ++ row)
 	{
-		const auto& w = mns[row];
+		const auto& w = dst::Mns[row];
 		int x = start_x + effective_length * (row % 2);
 		for(int col = 0; col < w.size(); ++ col)
 		{

@@ -22,4 +22,8 @@ dsrccpp := $(addsuffix .cpp, ${dsrccpp})
 
 all:
 	g++ ${dsrccpp} -Iinclude -o ${dprog}
+	
+test2:
+	#g++ src/prog/test2funcglobal.cpp src/func/funcglobal.cpp src/dst/diamension.cpp src/fileio/fileplot.cpp -Iinclude -o build/testfuncglobal
+	g++ -c src/func/funcglobal.cpp  -Iinclude -o build/testfuncglobal.o
 

@@ -1,35 +1,37 @@
-#ifndef DEF_FIO_WRITE_FILES
-#define DEF_FIO_WRITE_FILES
+#ifndef DEF_FILEWRITE
+#define DEF_FILEWRITE
 
-class fio_write_files
+namespace fio
 {
-private:
-	template <class T>
-	static void write(const std::string& file_name, const std::vector<std::vector<T>>& table)
+	class Write
 	{
-		std::ofstream& fout(file_name);
-		fout << table.size() << ' ' << table.front().size() << '\n';
-		
-		for(const auto& row: table)
+		template <class T>
+		static void write(const std::string& file_name, const std::vector<std::vector<T>>& table)
 		{
-			for(const auto& cell: row)
+			std::ofstream& fout(file_name);
+			fout << table.size() << ' ' << table.front().size() << '\n';
+			
+			for(const auto& row: table)
 			{
-				fout << cell << ' ';
+				for(const auto& cell: row)
+				{
+					fout << cell << ' ';
+				}
+				fout << '\n';
 			}
-			fout << '\n';
 		}
-	}
-	
-public:
-	static void write_to_file(const Tfloat& radius)
-	{
-		write(FILE_NAME_RADIUS, radius);
-	}
+		
+	public:
+		static void write_to_file(const Tfloat& radius)
+		{
+			write(FILE_NAME_RADIUS, radius);
+		}
 
-	static void write_to_file(const Tmns& mnsc)
-	{
-		write(FILE_NAME_MNS, mnsc);	
-	}
-};
+		static void write_to_file(const TMns& mnsc)
+		{
+			write(FILE_NAME_MNS, mnsc);	
+		}
+	};
+}
 
 #endif

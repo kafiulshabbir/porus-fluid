@@ -1,12 +1,15 @@
-#ifndef DEF_FIO_PLOT
-#define DEF_FIO_PLOT
+#ifndef DEF_FILEPLOT
+#define DEF_FILEPLOT
 
-class FioPlot
+namespace fio
 {
-	
-public:
-	static void withoutRadius(Tmns mns, int count);
-	//Tested works Correctly
-	static void simple(Tmns mns, Tfloat radius, float clock, int count);
-};
+	class Plot
+	{
+		
+	public:
+		static void without_radius(TMns mnsc, int count);
+		//Tested works Correctly
+		static void with_radius(TMns mnsc, Tfloat radius, float clock, int count);
+	};
+}
 #endif

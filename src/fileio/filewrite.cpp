@@ -21,7 +21,7 @@ static void fio_write_files::write_to_file(const Tfloat& radius)
 	write(FILE_NAME_RADIUS, radius);
 }
 
-static void fio_write_files::write_to_file(const Tmns& mnsc)
+static void fio_write_files::write_to_file(const TMns& mnsc)
 {
 	write(FILE_NAME_MNS, mnsc);	
 }

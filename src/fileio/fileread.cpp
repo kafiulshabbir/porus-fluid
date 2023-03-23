@@ -50,9 +50,9 @@ std::pair<Tfloat, bool> fileread::Func::read_radius()
 	return read_file<float>(filenames::FILE_RADIUS);
 }
 
-std::pair<Tmns, bool> fileread::Func::read_mnsc()
+std::pair<TMns, bool> fileread::Func::read_mnsc()
 {
-	return read_file<mns>(filenames::FILE_MNSC);
+	return read_file<dst::Mns>(filenames::FILE_MNSC);
 }
 
 fileread::Data fileread::Func::read_all_input_files()
