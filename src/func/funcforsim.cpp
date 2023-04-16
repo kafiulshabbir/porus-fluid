@@ -1,1 +1,0 @@
-#include "func/funcforsim.h"

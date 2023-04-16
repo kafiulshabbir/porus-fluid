@@ -1,0 +1,95 @@
+#include "fileio/fileioplot.h"
+
+void fileio::Plot::without_radius(TMns mnsc, int count)
+{
+	std::reverse(mnsc.begin(), mnsc.end());
+
+	const int image_size = declconst::IMAGE_SIZE;
+	const int n_cols = mnsc.front().size();
+	const int n_rows = mnsc.size();
+	
+	const int length = image_size / (std::max(n_rows, n_cols) + 2);
+	
+	drw::bmp a(image_size, image_size);
+	
+	const int start_y = length;
+	const int start_x = length;
+	const int thick = length / 10;
+	
+	
+	int y = start_y;
+	for(int row = 0; row < mnsc.size(); ++ row)
+	{
+		const auto& w = mnsc[row];
+		int x = start_x + length * (row % 2);
+		for(int col = 0; col < w.size(); ++ col)
+		{
+			int sign = ((row % 2) ^ (col % 2) ? -1 : 1);
+			a.drawStrip(x, y, length, thick, sign, w[col].gen_pos_long(), w[col].type);
+			x += 2 * length * (sign > 0);
+		}
+		y += length;
+	}
+	
+	//a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + "_t-" + std::to_string(clock) + ".bmp");
+	a.save(declfilename::FOLDER_PLOTS + "stp-" + std::to_string(count) + ".bmp");
+}
+
+
+
+//Tested works Correctly
+void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
+{
+	std::reverse(mnsc.begin(), mnsc.end());
+	std::reverse(radius.begin(), radius.end());
+	
+	float max_radius = -1;
+	float min_radius = 1e12;
+	
+	for(const auto& x: radius)
+	{
+		for(auto y: x)
+		{
+			max_radius = std::max(max_radius, y);
+			min_radius = std::min(min_radius, y);
+		}
+	}
+
+	const int image_size = declconst::IMAGE_SIZE;
+	const int length = mnsc.front().size();
+	const int height = mnsc.size();
+	
+	const int effective_length = image_size / (std::max(length, height) + 2);
+	
+	drw::bmp a(image_size, image_size);
+	
+	const int start_y = effective_length;
+	const int start_x = effective_length;
+	const float max_thick = effective_length;
+	const float min_thick = effective_length / 6.0;
+	
+	
+	int y = start_y;
+	for(int row = 0; row < mnsc.size(); ++ row)
+	{
+		const auto& w = mnsc[row];
+		int x = start_x + effective_length * (row % 2);
+		for(int col = 0; col < w.size(); ++ col)
+		{
+			int sign = (1 - 2 * (row % 2)) * (1 - 2 * (col % 2));
+			const float r = radius[row][col];
+			float thick = min_thick;
+			if(max_radius != min_radius)
+			{
+				thick  += (r - min_radius) * (max_thick - min_thick) / (max_radius - min_radius);
+			}
+			a.drawVector(x, y, effective_length, thick, sign, w[col].n, w[col].pos, w[col].type);
+			x += 2 * effective_length * (sign > 0);
+		}
+		
+		y += effective_length;
+	}
+	
+	//a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + "_t-" + std::to_string(clock) + ".bmp");
+	a.save(declfilename::FOLDER_PLOTS + "pic-" + std::to_string(count) + ".bmp");
+}
