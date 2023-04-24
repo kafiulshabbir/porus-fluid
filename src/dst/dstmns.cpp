@@ -89,15 +89,12 @@ std::vector<float> dst::Mns::gen_pos_from_segmented(std::vector<float> pos_segme
 	return pos_segmented;
 }
 
-dst::Mns::CmnsAfterDspl dst::Mns::gen_pos_new_and_type(const dst::Mns::Ccmprt& cmprt_new, const float threshold_fill) const
+dst::Mns::CmnsAfterDspl dst::Mns::gen_pos_new_and_type(const dst::Mns::Ccmprt& cmprt_new) const
 {
 	std::vector<std::pair<int, float>> cmprt_new_temp_vector;
-	for(const auto& x: cmprt_new) // Step-1 Filter out anything smaller than threshold_fill
+	for(const auto& x: cmprt_new) // CANCELLED 17.04.2023 Step-1 Filter out anything smaller than threshold_fill
 	{
-		if(x.second >= threshold_fill)
-		{
-			cmprt_new_temp_vector.push_back({x.first, x.second});
-		}
+		cmprt_new_temp_vector.push_back({x.first, x.second});
 	}
 	
 	for(int i = 1; i < cmprt_new_temp_vector.size(); ++ i) // Step-2 Merge any two compartments of the smae fluid type
@@ -192,25 +189,25 @@ float dst::Mns::time(const float velocity, const float length, const float time_
 {
 	if(n == 0)
 	{
-		return length / velocity / time_div;
+		return length / std::abs(velocity) / time_div;
 	}
 	
-	float dspl = (velocity >= 0 ? (1 - pos[n - 1]): pos.front());
+	float dspl = (velocity >= 0 ? (1.0 - pos[n - 1]): pos.front());
 	dspl = std::min(1.0f / time_div, dspl);
-	return length * dspl / velocity;
+	return length * dspl / std::abs(velocity);
 }
 
-void dst::Mns::update(const float vel, const float r, const std::vector<float>& add, const float threshold_fill)
+void dst::Mns::update(const float vel, const float r, const std::vector<float>& add)
 {
 	const float area = declconst::PI * std::pow(r, 2);
-	const float l1 = add.front() / area;
-	const float l2 = add.back() / area;
+	const float l1 = add.front() / area / declconst::TUBE_LENGTH;
+	const float l2 = add.back() / area / declconst::TUBE_LENGTH;
 	const float l = l1 + l2;
 	
 	auto cmprt_existing = gen_cmprt_existing(vel, l);
 	dst::Mns::Ccmprt cmprt_new{{0, l1}, {1, l2}};
 	auto cmprt = merge_existing_and_new_cmprts(cmprt_existing, cmprt_new, vel);
-	auto pos_new_and_type = gen_pos_new_and_type(cmprt, threshold_fill);
+	auto pos_new_and_type = gen_pos_new_and_type(cmprt);
 	n = pos_new_and_type.v.size();
 	type = pos_new_and_type.type;
 	pos = pos_new_and_type.v;

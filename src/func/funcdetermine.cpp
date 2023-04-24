@@ -2,7 +2,7 @@
 
 Tfloat func::Determine::FGenEquForGauss(const Tfloat& radius, const TMns& mnsc)
 {
-	//std::cout << "okay-FGenEquForGauss" << std::endl;
+	//std::cout << std::endl << "START-FGenEquForGauss" << std::endl;
 	const int n = radius.size();
 	const int m = radius.front().size();
 	const int total_nodes = func::Connection::total_nodes(n, m);
@@ -58,7 +58,7 @@ Tfloat func::Determine::FGenEquForGauss(const Tfloat& radius, const TMns& mnsc)
 	}
 	
 	//std::cout << "okay-FGenEquForGauss" << std::endl;
-	//TFPrintMatrix("Gauss", equation);
+	//cmdio::Print::pmat("Gauss", equation);
 	return equation;
 }
 		
@@ -105,6 +105,7 @@ Tfloat func::Determine::FCalcVolume(Tfloat velocity, const Tfloat& radius, const
 
 float func::Determine::FDetermineTimeStep(const TMns& mnsc, const Tfloat& velocity)
 {
+	auto timev(velocity);
 	float min_time = declconst::HUGE;
 	for(int i = 0; i < mnsc.size(); ++ i)
 	{
@@ -112,9 +113,11 @@ float func::Determine::FDetermineTimeStep(const TMns& mnsc, const Tfloat& veloci
 		{
 			
 			const float temp_time = mnsc[i][j].time(velocity[i][j], declconst::TUBE_LENGTH, declconst::TIME_DIV);
+			timev[i][j] = temp_time;
 			min_time = std::min(temp_time, min_time);
 		}
 	}
 	
+	cmdio::Print::pmat("Time", timev);
 	return min_time;
 }

@@ -4,59 +4,34 @@
 #include <string>
 #include <vector>
 
-enum class Type{head, cpp, both};
-
 struct File
 {
+	// enum class Type or File::Type
+	// head: just app.h in src/
+	// cpp: just app.cpp in src/
+	// lib: app.cpp and app.h in src/
+	// exe: only a c++ file with int main() {return 0;} program will be made in run/
+	
+	enum class Type{head, cpp, lib, exe};
+	
 	std::string folder;
-	std::string name;
+	std::string partialname;
 	Type type;
 	
-	std::string full_name() const;
+	std::string name() const;
 	std::string path() const;
-	std::string cpp() const;
-	std::string o() const;
-	std::string head() const;
+	std::string pathname() const;
 	
-	static std::string str_from_vector(const std::vector<std::string>& list_files);
+	std::string cpp() const;
+	std::string object() const;
+	std::string head() const;
+	std::string exe() const;
+	
+	std::vector<std::string> editable() const;	
+	
+	bool can_have_object() const;
 };
 
 
-std::string File::full_name() const
-{
-	return folder + name;
-}
-
-std::string File::path() const
-{
-	return "src/" + folder + "/" + full_name();
-}
-
-std::string File::cpp() const
-{
-	return path() + ".cpp";
-}
-
-std::string File::o() const
-{
-	return "build/" + full_name() + ".o";
-}
-
-std::string File::head() const
-{
-	return path() + ".h";
-}
-
-
-std::string File::str_from_vector(const std::vector<std::string>& list_files)
-{
-	std::string s;
-	for(const auto& file: list_files)
-	{
-		s += file + ' ';
-	}
-	
-	return s;
-}
 
 #endif

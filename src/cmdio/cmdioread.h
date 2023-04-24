@@ -10,15 +10,7 @@ namespace cmdio
 		
 	public:
 		template<class T>
-		static T general(const std::string& text_cmd)
-		{
-			std::cout << std::endl << "-CIN-" << text_cmd << ": ";
-			
-			T ipt;
-			std::cin >> ipt;
-			
-			return ipt;
-		}
+		static T general(const std::string& text_cmd);
 		
 		static char command(const std::string& text_cmd);
 		
@@ -26,6 +18,16 @@ namespace cmdio
 	};
 }
 
+template<class T>
+static T cmdio::Read::general(const std::string& text_cmd)
+{
+	std::cout << std::endl << "-CIN-" << text_cmd << ": ";
+	
+	T ipt;
+	std::cin >> ipt;
+	
+	return ipt;
+}
 
 
 #endif

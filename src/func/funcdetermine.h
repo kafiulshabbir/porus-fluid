@@ -6,6 +6,7 @@
 #include "func/funcdetermine.h"
 #include "func/funclinear.h"
 #include "func/funcconnection.h"
+#include "cmdio/cmdioprint.h"
 
 namespace func
 {

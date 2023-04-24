@@ -14,7 +14,7 @@ void initcon::Mode::Generate::mnsc(const dst::Diamension& diamension)
 {
 	const TMns m(diamension.rows,
 		std::vector<dst::Mns>(diamension.cols));
-	
+		
 	fileio::Write::run(m);
 }
 
@@ -69,10 +69,20 @@ void initcon::Mode::Main::modify()
 	std::cout << "-EXT-exited modify" << std::endl;
 }
 	
-Tfloat add_random_temporary(Tfloat radius)
+Tfloat initcon::Mode::Modify::add_random_temporary(Tfloat radius)
 {
 	const float random = declconst::FINE_RADIUS_RANDOMNESS;
+	for(auto& row: radius)
+	{
+		for(auto& cell: row)
+		{
+			cell += utility::Random::fraction(random);
+		}
+	}
 	
+	return radius;
+}
+
 void initcon::Mode::Modify::add_random_to_radius()
 {
 	const std::string file_name = declfilename::FILE_RADIUS;
@@ -83,15 +93,17 @@ void initcon::Mode::Modify::add_random_to_radius()
 		std::cout << "-ERR-CORRUPTED file, fix the input files and try again, or generate first." << std::endl;
 		return;
 	}
+	
 	Tfloat radius = data.first;
+	cmdio::Print::pmat(file_name + " original", radius);
 	
 	char command = 'r';
 	do 
 	{
 		if(command == 'r')
 		{
-			radius = add_random_temporary();
-			cmdio::Print::pmat(filename, radius);
+			radius = add_random_temporary(radius);
+			cmdio::Print::pmat(file_name, radius);
 		}
 		else if(command == 's')
 		{
@@ -102,7 +114,7 @@ void initcon::Mode::Modify::add_random_to_radius()
 		{
 			std::cout << "-ERR-CIN invalid command" << std::endl;
 		}
-	} while(cmdio::Read::exit_loop_e_command("r)egenerate, s)ave"));
+	} while(!cmdio::Read::exit_loop_e_command("r)egenerate, s)ave", command));
 }
 
 void initcon::Mode::Modify::mnsc()

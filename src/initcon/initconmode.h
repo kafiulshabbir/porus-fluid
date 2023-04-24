@@ -8,7 +8,8 @@
 #include "dst/dstmns.h"
 #include "fileio/fileioread.h"
 
-#include <
+#include "utility/utilityrandom.h"
+
 namespace initcon
 {
 class Mode
@@ -39,6 +40,7 @@ class Mode
 		static std::pair<std::vector<std::vector<T>>, bool>
 			modify_dst_from_cin(std::vector<std::vector<T>> table);
 		
+		static Tfloat add_random_temporary(Tfloat radius);
 		public:
 			static void radius();
 			static void mnsc();

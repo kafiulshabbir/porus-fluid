@@ -2,6 +2,8 @@
 
 void fileio::Plot::without_radius(TMns mnsc, int count)
 {
+	//std::cout << "crashed here 1002 - without radius " << std::endl;
+	
 	std::reverse(mnsc.begin(), mnsc.end());
 
 	const int image_size = declconst::IMAGE_SIZE;
@@ -40,6 +42,8 @@ void fileio::Plot::without_radius(TMns mnsc, int count)
 //Tested works Correctly
 void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 {
+	//std::cout << "crashed here 1001" << std::endl;
+	
 	std::reverse(mnsc.begin(), mnsc.end());
 	std::reverse(radius.begin(), radius.end());
 	
@@ -54,7 +58,9 @@ void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 			min_radius = std::min(min_radius, y);
 		}
 	}
-
+	
+	//std::cout << "crashed here 1002" << std::endl;
+	
 	const int image_size = declconst::IMAGE_SIZE;
 	const int length = mnsc.front().size();
 	const int height = mnsc.size();
@@ -68,6 +74,7 @@ void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 	const float max_thick = effective_length;
 	const float min_thick = effective_length / 6.0;
 	
+	//std::cout << "crashed here 1003" << std::endl;
 	
 	int y = start_y;
 	for(int row = 0; row < mnsc.size(); ++ row)
@@ -83,12 +90,17 @@ void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 			{
 				thick  += (r - min_radius) * (max_thick - min_thick) / (max_radius - min_radius);
 			}
+			//std::cout << std::endl << "#####crashed here 1005" << std::endl;
+			//std::cout << "row=" << row << " col=" << col << std::endl;
 			a.drawVector(x, y, effective_length, thick, sign, w[col].n, w[col].pos, w[col].type);
+			//std::cout << "crashed here 1006" << std::endl;
 			x += 2 * effective_length * (sign > 0);
 		}
 		
 		y += effective_length;
 	}
+	
+	//std::cout << "crashed here 1004" << std::endl;
 	
 	//a.save(FOLDER_SAVE_PIC + "pic-" + std::to_string(count) + "_t-" + std::to_string(clock) + ".bmp");
 	a.save(declfilename::FOLDER_PLOTS + "pic-" + std::to_string(count) + ".bmp");

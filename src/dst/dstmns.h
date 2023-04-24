@@ -25,7 +25,7 @@ namespace dst
 		};
 		
 		static std::vector<float> gen_pos_from_segmented(std::vector<float> pos_segmented);
-		CmnsAfterDspl gen_pos_new_and_type(const Ccmprt& cmprt_new, const float threshold_fill) const;
+		CmnsAfterDspl gen_pos_new_and_type(const Ccmprt& cmprt_new) const;
 		
 	public:
 		int n; //number of meniscus present
@@ -37,7 +37,7 @@ namespace dst
 		
 		float mu(const float mu1, const float mu2) const;
 		float time(const float velocity, const float length, const float time_div) const;
-		void update(const float vel, const float r, const std::vector<float>& add, const float threshold_fill);
+		void update(const float vel, const float r, const std::vector<float>& add);
 		float scontb(int direction) const;
 		bool is_flow_into_node(const int direction, const float velocity) const;
 		bool type_fluid_into_node(int direction) const;

@@ -207,6 +207,8 @@ namespace drw
 				{
 					//std::cout << "okay: " << x + (sign * i) + j << ", " << y + i << ", sign = " << sign << "\n";
 					data(x + (sign * i) + j, y + i) = colour_pipe[current_colour];
+					
+					//std::cout << "passed";
 				}
 			}
 			
