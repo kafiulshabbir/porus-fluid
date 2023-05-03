@@ -1,15 +1,13 @@
 #include "cmdio/cmdioread.h"
 
-
-char cmdio::Read::command(const std::string& text_cmd)
+char cmdio::Read::command_char(const std::string& text_cmd)
 {
-	return general<char>(text_cmd);
+	return command_general<char>(text_cmd);
 }
 
-bool cmdio::Read::exit_loop_e_command(std::string text_promt, char& command)
+bool cmdio::Read::command_char_exit_true(const std::string& text_promt, char& command_char)
 {
-	text_promt += ", e)xit";
-	command = cmdio::Read::command(text_promt);
+	command_char = cmdio::Read::command_char(text_promt + ", e)xit");
 	
-	return command == 'e';
+	return command_char == 'e';
 }

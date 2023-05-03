@@ -71,7 +71,7 @@ void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 	
 	const int start_y = effective_length;
 	const int start_x = effective_length;
-	const float max_thick = effective_length;
+	const float max_thick = effective_length / 2.0;
 	const float min_thick = effective_length / 6.0;
 	
 	//std::cout << "crashed here 1003" << std::endl;

@@ -32,7 +32,7 @@ int main()
 		}
 		else
 		{
-			std::cout << "-ERR-IPT-input command is not valid" << std::endl;
+			std::cout << "-ERR-IPT-input command_char is not valid" << std::endl;
 			continue;
 		}
 		// Display the status of the files

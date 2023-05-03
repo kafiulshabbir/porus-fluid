@@ -9,6 +9,7 @@ void Print::cmd(std::ofstream& fout, const std::string& s, const std::vector<std
 {
 	fout << "\n\n";
 	fout << s << ':' << Utility::str_from_vector(v) << '\n';
+	echo(fout, " ");
 }
 
 void Print::script(std::ofstream& fout, const std::stringstream& str_script)

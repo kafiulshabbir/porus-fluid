@@ -21,6 +21,7 @@ namespace declconst
 	//Parameters of simulation
 	const float MAX_WETTING_PROPORTION = 0.90;
 	//const float THRESHOLD_FILL = 1e-15;		//if any meniscus is smaller than this proportion, then it is destroyed
+	const float TRIMMER_PRECISION = 1e-6;
 	const float TIME_DIV = 5;				// if the nearest meniscus by time is further, then L / TIME_DIV is prefered
 	const int IMAGE_SIZE = 1000;
 	const float FINE_RADIUS_RANDOMNESS = 1e5;

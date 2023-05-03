@@ -2,7 +2,7 @@
 
 void initcon::Mode::Generate::radius(const dst::Diamension& diamension)
 {
-	const auto def_radius = cmdio::Read::general<float>(
+	const auto def_radius = cmdio::Read::command_general<float>(
 		"default value of radius");
 	const Tfloat r(diamension.rows, std::vector<float>(
 		diamension.cols, def_radius));
@@ -29,7 +29,7 @@ void initcon::Mode::Main::generate()
 	const dst::Diamension diamension(nrows, ncols);
 	
 	// Ask which file to rewrite
-	const char cmd_file_regen = cmdio::Read::command(
+	const char cmd_file_regen = cmdio::Read::command_char(
 		"r)adius, m)eniscus_configuration, b)oth, any_other_char)exit");
 		
 	if(cmd_file_regen == 'r')
@@ -51,7 +51,7 @@ void initcon::Mode::Main::generate()
 void initcon::Mode::Main::modify()
 {
 	// Only works if the files are okay
-	const char cmd_file_modify = cmdio::Read::command(
+	const char cmd_file_modify = cmdio::Read::command_char(
 		"r)adius, m)eniscus, a)dd_random_to_radius, e)xit_or_other_char");
 	
 	if(cmd_file_modify == 'r')
@@ -97,24 +97,24 @@ void initcon::Mode::Modify::add_random_to_radius()
 	Tfloat radius = data.first;
 	cmdio::Print::pmat(file_name + " original", radius);
 	
-	char command = 'r';
+	char command_char = 'r';
 	do 
 	{
-		if(command == 'r')
+		if(command_char == 'r')
 		{
 			radius = add_random_temporary(radius);
 			cmdio::Print::pmat(file_name, radius);
 		}
-		else if(command == 's')
+		else if(command_char == 's')
 		{
 			fileio::Write::run(radius);
 			std::cout << "-FDK-File saved successful" << std::endl;
 		}
 		else
 		{
-			std::cout << "-ERR-CIN invalid command" << std::endl;
+			std::cout << "-ERR-CIN invalid command_char" << std::endl;
 		}
-	} while(!cmdio::Read::exit_loop_e_command("r)egenerate, s)ave", command));
+	} while(!cmdio::Read::command_char_exit_true("r)egenerate, s)ave", command_char));
 }
 
 void initcon::Mode::Modify::mnsc()
@@ -145,7 +145,7 @@ void initcon::Mode::Modify::mnsc()
 
 bool initcon::Mode::Modify::exit_code_modify_dst_save(char& save_yes_or_no)
 {
-	save_yes_or_no = cmdio::Read::command("WRR- Save before exit y/n");
+	save_yes_or_no = cmdio::Read::command_char("WRR- Save before exit y/n");
 	
 	if(save_yes_or_no == 'y')
 	{
@@ -159,9 +159,9 @@ bool initcon::Mode::Modify::exit_code_modify_dst_save(char& save_yes_or_no)
 	return false;
 }
 
-bool initcon::Mode::Modify::exit_code_modify_dst(const std::string& text_promt_modify_type_dst, char& command, bool& saved_dst)
+bool initcon::Mode::Modify::exit_code_modify_dst(const std::string& text_promt_modify_type_dst, char& command_char, bool& saved_dst)
 {
-	if(!cmdio::Read::exit_loop_e_command(text_promt_modify_type_dst, command))
+	if(!cmdio::Read::command_char_exit_true(text_promt_modify_type_dst, command_char))
 	{
 		return false;
 	}
@@ -174,7 +174,7 @@ bool initcon::Mode::Modify::exit_code_modify_dst(const std::string& text_promt_m
 	char save_yes_or_no;
 	while(!exit_code_modify_dst_save(save_yes_or_no))
 	{
-		std::cout << "-ERR-CIN invalid command." << std::endl;
+		std::cout << "-ERR-CIN invalid command_char." << std::endl;
 	}
 	
 	if(save_yes_or_no == 'y')
@@ -210,7 +210,7 @@ void initcon::Mode::Modify::radius()
 	}
 }
 
-bool initcon::Mode::Main::exit_code_main_menu(const std::string& text_promt_main_menu, char& command)
+bool initcon::Mode::Main::exit_code_main_menu(const std::string& text_promt_main_menu, char& command_char)
 {
-	return cmdio::Read::exit_loop_e_command(text_promt_main_menu, command);
+	return cmdio::Read::command_char_exit_true(text_promt_main_menu, command_char);
 }

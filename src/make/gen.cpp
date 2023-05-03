@@ -12,11 +12,12 @@ void Gen::run(std::ofstream& fout)
 		const std::string cpp = "src/make/" + file + ".cpp";
 		const std::string object = "build/genmakefile_" + file + ".o";
 		ss << GENERAL_COMPILE << ' ' << cpp << " -o " << object;
+		vobjects.push_back(object);
 		Print::script(fout, ss);
 	}
 	
 	std::stringstream ss;
-	ss << COMPILE_EXE << Utility::str_from_vector(vobjects) << " -o genmakefile.cpp";
+	ss << "g++ " << Utility::str_from_vector(vobjects) << " -o genmakefile";
 	
 	Print::script(fout, ss);
 }

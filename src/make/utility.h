@@ -10,8 +10,10 @@ class Utility
 public:
 
 	static std::vector<std::string> vec_exe(const std::vector<File>& vfile);
+	static std::vector<File> vec_file_exe(const std::vector<File>& vfile);
 	static std::vector<std::string> vec_edit(const std::vector<File>& vfile);
 	static std::vector<std::string> vec_object(const std::vector<File>& vfile);
+	static std::vector<std::string> vec_object_not_exe(const std::vector<File>& vfile);
 	static std::string str_from_vector(const std::vector<std::string>& vec_files);
 };
 

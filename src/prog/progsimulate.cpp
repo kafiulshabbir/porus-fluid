@@ -1,4 +1,3 @@
-#include "drw/drw.h"
 #include "fileio/fileioread.h"
 #include "func/funcglobal.h"
 

@@ -55,7 +55,10 @@ dst::Mns::Ccmprt dst::Mns::gen_cmprt_existing(float vel, float l) const
 {
 	const auto pos_long_after_dspl = gen_pos_long_after_dspl(vel, l);
 	dst::Mns::Ccmprt cmprt_existing;
-	for(int i = 1; i < pos_long_after_dspl.size(); ++ i)
+	
+	const int pos_long_after_dspl_size = pos_long_after_dspl.size();
+	
+	for(int i = 1; i < pos_long_after_dspl_size; ++ i)
 	{
 		cmprt_existing.push_back({(i + type - 1) % 2, pos_long_after_dspl[i] - pos_long_after_dspl[i - 1]});
 	}
@@ -81,7 +84,9 @@ dst::Mns::Ccmprt dst::Mns::merge_existing_and_new_cmprts(dst::Mns::Ccmprt& cmprt
 std::vector<float> dst::Mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
 {
 	pos_segmented.pop_back();
-	for(int i = 1; i < pos_segmented.size(); ++ i)
+	
+	const int pos_segmented_size = pos_segmented.size();
+	for(int i = 1; i < pos_segmented_size; ++ i)
 	{
 		pos_segmented[i] += pos_segmented[i - 1];
 	}
@@ -97,7 +102,8 @@ dst::Mns::CmnsAfterDspl dst::Mns::gen_pos_new_and_type(const dst::Mns::Ccmprt& c
 		cmprt_new_temp_vector.push_back({x.first, x.second});
 	}
 	
-	for(int i = 1; i < cmprt_new_temp_vector.size(); ++ i) // Step-2 Merge any two compartments of the smae fluid type
+	const int cmprt_new_temp_vector_size = cmprt_new_temp_vector.size();
+	for(int i = 1; i < cmprt_new_temp_vector_size; ++ i) // Step-2 Merge any two compartments of the smae fluid type
 	{
 		if(cmprt_new_temp_vector[i - 1].first == cmprt_new_temp_vector[i].first)
 		{
@@ -177,7 +183,8 @@ float dst::Mns::mu(const float mu1, const float mu2) const
 	const auto pos_long = gen_pos_long();
 	
 	float sum = 0;
-	for(int i = 1; i < pos_long.size(); ++ i)
+	const int pos_long_size = pos_long.size();
+	for(int i = 1; i < pos_long_size; ++ i)
 	{
 		sum += muv[(i - 1 + type) % muv.size()] * (pos_long[i] - pos_long[i - 1]);
 	}
@@ -187,14 +194,21 @@ float dst::Mns::mu(const float mu1, const float mu2) const
 
 float dst::Mns::time(const float velocity, const float length, const float time_div) const
 {
+	const float time_step_default = length / std::abs(velocity) / time_div;
+	
 	if(n == 0)
 	{
-		return length / std::abs(velocity) / time_div;
+		return time_step_default;
 	}
 	
-	float dspl = (velocity >= 0 ? (1.0 - pos[n - 1]): pos.front());
-	dspl = std::min(1.0f / time_div, dspl);
-	return length * dspl / std::abs(velocity);
+	float displacement_active = pos.front();
+	if(velocity >= 0)
+	{
+		displacement_active = 1.0 - pos[this->n - 1];
+	}
+	
+	const float time_step = length * displacement_active / std::abs(velocity);
+	return std::min(time_step, time_step_default);
 }
 
 void dst::Mns::update(const float vel, const float r, const std::vector<float>& add)
@@ -252,7 +266,9 @@ float dst::Mns::sum_type_first() const
 {
 	const auto pos_long = gen_pos_long();
 	float sum = 0;
-	for(int i = 1 + type; i < pos_long.size(); i += 2)
+	
+	const int pos_long_size = pos_long.size();
+	for(int i = 1 + type; i < pos_long_size; i += 2)
 	{
 		sum += pos_long[i] - pos_long[i - 1];
 	}

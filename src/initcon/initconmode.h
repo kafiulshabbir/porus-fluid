@@ -29,7 +29,7 @@ class Mode
 
 		static bool exit_code_modify_dst(
 			const std::string& text_promt_modify_type_dst,
-			char& command, bool& saved_dst);
+			char& command_char, bool& saved_dst);
 
 		template <class T>
 		static std::vector<std::vector<T>>
@@ -53,7 +53,7 @@ class Mode
 		public:
 			static void generate();
 			static void modify();
-			static bool exit_code_main_menu(const std::string& text_promt, char& command);
+			static bool exit_code_main_menu(const std::string& text_promt, char& command_char);
 		};
 	};
 }
@@ -67,16 +67,16 @@ std::pair<std::vector<std::vector<T>>, bool>
 	bool saved_dst = true;
 	
 	const std::string text_promt_modify_type_dst = "r)ectangular_modification, s)ave";
-	char command;
+	char command_char;
 	
-	while(!exit_code_modify_dst(text_promt_modify_type_dst, command, saved_dst))
+	while(!exit_code_modify_dst(text_promt_modify_type_dst, command_char, saved_dst))
 	{
-		if(command == 'r')
+		if(command_char == 'r')
 		{
 			table = rectangular_modification_on_dst(table);
 			saved_dst = false;			
 		}
-		else if(command == 's')
+		else if(command_char == 's')
 		{
 			saved_dst = true;
 		}
