@@ -1,14 +1,16 @@
 #include "func/funcintegration.h"
 
-TMns func::Global::integration(const TMns& mnsc, const Tfloat& volume, const Tfloat& velocity, const Tfloat& radius)
+func::IntegrationResult func::Global::integration
+(
+	const Tfloat& radius,
+	const TMns& mnsc,
+	const Tfloat& velocity,
+	const Tfloat& volume,
+	const dst::Diamension& diamension
+)
 {
-	const int n = volume.size();
-	const int m = volume.front().size();
-	
-	float fluid1in = 0;
-	float fluid1out = 0;
-	float fluid2in = 0;
-	float fluid2out = 0;
+	const int n = diamension.rows;
+	const int m = diamension.cols;
 	
 	std::vector<std::vector<std::vector<float>>> additions(n, std::vector<std::vector<float>>(m));
 	
@@ -18,12 +20,12 @@ TMns func::Global::integration(const TMns& mnsc, const Tfloat& volume, const Tfl
 		for(int j = 0; j <= mt; ++ j)
 		{
 			//std::cout << "Performing integration i=" << i << ", j=" << j << std::endl;
-			const auto connections = func::Connection::FGenConnectionsEqu(i, j, n, m);
+			const auto connections = diamension.generate_tubes_connected_to_node(i, j);
 			
 			/*
 			for(const auto& connection: connections)
 			{
-				std::cout << "connection, a=" << connection.a << " c=" << connection.c << ", r=" << connection.r << ", p=" << connection.p << std::endl;
+				std::cout << "connection, active=" << connection.active << " c=" << connection.c << ", r=" << connection.r << ", p=" << connection.p << std::endl;
 			}
 			*/
 			std::vector<float> vol_in(2);
@@ -31,7 +33,7 @@ TMns func::Global::integration(const TMns& mnsc, const Tfloat& volume, const Tfl
 			for(int direction = 0; direction < connections.size(); ++ direction)
 			{
 				const auto& c = connections[direction];
-				if(c.a)
+				if(c.active)
 				{
 					const auto& f = mnsc[c.r][c.c];
 					const auto& vel = velocity[c.r][c.c];
@@ -80,7 +82,10 @@ TMns func::Global::integration(const TMns& mnsc, const Tfloat& volume, const Tfl
 	//cmdio::Print::padd("additions", additions);
 	
 	//std::cout << "-------combine_additions" << std::endl;
-	return combine_additions(mnsc, velocity, radius, additions);
+	func::IntegrationResult integration_result;
+	integration_result.mnsc = combine_additions(mnsc, velocity, radius, additions);
+	
+	return integration_result;
 }
 
 

@@ -10,7 +10,7 @@ namespace func
 	{
 	public:
 		
-		static Tfloat determine_volume(Tfloat velocity, const Tfloat& radius, const float time_step, const dst::Diamension& diamension);
+		static Tfloat determine_volume(const Tfloat& radius, const Tfloat& velocity, const float time_step, const dst::Diamension& diamension);
 	};
 }
 

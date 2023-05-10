@@ -19,13 +19,13 @@ force: clean necessary_compile
 
 clean:
 	@echo " "
-	rm -f build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/proginitcongen.o build/progsimulate.o build/progplot.o build/progcolor.o build/utilityrandom.o
+	rm -f build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/proginitcongen.o build/progsimulate.o build/progplot.o build/progcolor.o build/utilityrandom.o
 	@echo "Command executed = clean"
 
 
 edit:
 	@echo " "
-	geany -i src/cmdio/cmdioprint.h src/cmdio/cmdioprint.cpp src/cmdio/cmdioread.h src/cmdio/cmdioread.cpp src/decl/declconst.h src/decl/declfilename.h src/decl/decltypedef.h src/drw/drw.h src/drw/drw.cpp src/dst/dstdiamension.h src/dst/dstdiamension.cpp src/dst/dstmns.h src/dst/dstmns.cpp src/fileio/fileioplot.h src/fileio/fileioplot.cpp src/fileio/fileioread.h src/fileio/fileioread.cpp src/fileio/fileiowrite.h src/fileio/fileiowrite.cpp src/func/funcglobal.h src/func/funcglobal.cpp src/func/funcpressure.h src/func/funcpressure.cpp src/func/funcvelocity.h src/func/funcvelocity.cpp src/func/functimestep.h src/func/functimestep.cpp src/func/funcdetermine.h src/func/funcdetermine.cpp src/func/funcintegration.h src/func/funcintegration.cpp src/math/mathlinear.h src/math/mathlinear.cpp src/network/networkconnection.h src/network/networkconnection.cpp src/initcon/initconmode.h src/initcon/initconmode.cpp src/prog/proginitcongen.cpp src/prog/progsimulate.cpp src/prog/progplot.cpp src/prog/progcolor.cpp src/utility/utilityrandom.h src/utility/utilityrandom.cpp
+	geany -i src/cmdio/cmdioprint.h src/cmdio/cmdioprint.cpp src/cmdio/cmdioread.h src/cmdio/cmdioread.cpp src/decl/declconst.h src/decl/declfilename.h src/decl/decltypedef.h src/drw/drw.h src/drw/drw.cpp src/dst/dstdiamension.h src/dst/dstdiamension.cpp src/dst/dstmns.h src/dst/dstmns.cpp src/fileio/fileioplot.h src/fileio/fileioplot.cpp src/fileio/fileioread.h src/fileio/fileioread.cpp src/fileio/fileiowrite.h src/fileio/fileiowrite.cpp src/func/funcglobal.h src/func/funcglobal.cpp src/func/funcpressure.h src/func/funcpressure.cpp src/func/funcvelocity.h src/func/funcvelocity.cpp src/func/functimestep.h src/func/functimestep.cpp src/func/funcdetermine.h src/func/funcdetermine.cpp src/func/funcintegration.h src/func/funcintegration.cpp src/func/funcmeasure.h src/func/funcmeasure.cpp src/math/mathlinear.h src/math/mathlinear.cpp src/initcon/initconmode.h src/initcon/initconmode.cpp src/prog/proginitcongen.cpp src/prog/progsimulate.cpp src/prog/progplot.cpp src/prog/progcolor.cpp src/utility/utilityrandom.h src/utility/utilityrandom.cpp
 	@echo "Command executed = open all files to be edited on Geany"
 
 
@@ -47,28 +47,28 @@ gen:
 	g++  build/genmakefile_all.o build/genmakefile_clean.o build/genmakefile_edit.o build/genmakefile_executables.o build/genmakefile_file.o build/genmakefile_force.o build/genmakefile_gen.o build/genmakefile_genmakefile.o build/genmakefile_necessary_compile.o build/genmakefile_objects.o build/genmakefile_print.o build/genmakefile_utility.o -o genmakefile
 
 
-run/initcongen: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/proginitcongen.o
+run/initcongen: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/proginitcongen.o
 	@echo " "
 	@echo "Executing command = link-compile of file [run/initcongen]"
-	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/proginitcongen.o -o run/initcongen
+	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/proginitcongen.o -o run/initcongen
 
 
-run/simulate: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/progsimulate.o
+run/simulate: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/progsimulate.o
 	@echo " "
 	@echo "Executing command = link-compile of file [run/simulate]"
-	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/progsimulate.o -o run/simulate
+	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/progsimulate.o -o run/simulate
 
 
-run/plot: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/progplot.o
+run/plot: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/progplot.o
 	@echo " "
 	@echo "Executing command = link-compile of file [run/plot]"
-	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/progplot.o -o run/plot
+	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/progplot.o -o run/plot
 
 
-run/color: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/progcolor.o
+run/color: build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/progcolor.o
 	@echo " "
 	@echo "Executing command = link-compile of file [run/color]"
-	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/mathlinear.o build/networkconnection.o build/initconmode.o build/utilityrandom.o build/progcolor.o -o run/color
+	g++ build/cmdioprint.o build/cmdioread.o build/drw.o build/dstdiamension.o build/dstmns.o build/fileioplot.o build/fileioread.o build/fileiowrite.o build/funcglobal.o build/funcpressure.o build/funcvelocity.o build/functimestep.o build/funcdetermine.o build/funcintegration.o build/funcmeasure.o build/mathlinear.o build/initconmode.o build/utilityrandom.o build/progcolor.o -o run/color
 
 
 build/cmdioprint.o: src/cmdio/cmdioprint.cpp
@@ -155,16 +155,16 @@ build/funcintegration.o: src/func/funcintegration.cpp
 	g++ -c -Isrc/ -Wall -std=c++17 src/func/funcintegration.cpp -o build/funcintegration.o
 
 
+build/funcmeasure.o: src/func/funcmeasure.cpp
+	@echo " "
+	@echo "Executing command = compile/make object[.o] file for [src/func/funcmeasure.cpp]"
+	g++ -c -Isrc/ -Wall -std=c++17 src/func/funcmeasure.cpp -o build/funcmeasure.o
+
+
 build/mathlinear.o: src/math/mathlinear.cpp
 	@echo " "
 	@echo "Executing command = compile/make object[.o] file for [src/math/mathlinear.cpp]"
 	g++ -c -Isrc/ -Wall -std=c++17 src/math/mathlinear.cpp -o build/mathlinear.o
-
-
-build/networkconnection.o: src/network/networkconnection.cpp
-	@echo " "
-	@echo "Executing command = compile/make object[.o] file for [src/network/networkconnection.cpp]"
-	g++ -c -Isrc/ -Wall -std=c++17 src/network/networkconnection.cpp -o build/networkconnection.o
 
 
 build/initconmode.o: src/initcon/initconmode.cpp

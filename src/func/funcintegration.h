@@ -10,7 +10,7 @@ namespace func
 		int c;
 	};
 	
-		struct IntegrationResult
+	struct IntegrationResult
 	{
 		TMns mnsc;
 		float fluid1in;
@@ -23,7 +23,16 @@ namespace func
 	class Integration
 	{
 		
-		
+	public:
+		static func::IntegrationResult integration(
+			const Tfloat& radius,
+			const TMns& mnsc,
+			const Tfloat& velocity,
+			const Tfloat& volume,
+			const dst::Diamension& diamension
+		);
 		
 	};
 }
+
+#endif

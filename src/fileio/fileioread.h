@@ -84,7 +84,7 @@ std::pair<std::vector<std::vector<T>>, bool> fileio::Read::read_file(const std::
 	}
 	
 	
-	if(lineardata.size() != rows * cols)
+	if(lineardata.size() != size_t(rows * cols))
 	{
 		std::cout << "-ERR-in file " << file_name << " rows, cols are declared differently than the actual data in them." << std::endl;
 		return outdata;

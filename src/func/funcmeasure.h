@@ -6,7 +6,8 @@ namespace func
 	class Measure
 	{
 		
-		
+	public:
+		static float FMeasureWettingFluidProportion(const TMns& mnsc, const Tfloat& radius);
 	};
 }
 

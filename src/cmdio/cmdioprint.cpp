@@ -2,19 +2,21 @@
 
 void cmdio::Print::pmat(const std::string& s, const Tfloat& matrix)
 {
+	const int n = matrix.size();
+	const int m = matrix.front().size();
 	std::cout << "\n\n------------------------------------\n";
 	std::cout << s << '\n';
 	
 	std::cout << std::setw(7) << -1 << " | ";
-	for(int j = 0; j < matrix.front().size(); ++ j)
+	for(int j = 0; j < m; ++ j)
 	{
 		std::cout << std::setw(7) << (float)j << ' ';
 	}
 	std::cout << '\n';
-	for(int i = 0; i < matrix.size(); ++ i)
+	for(int i = 0; i < n; ++ i)
 	{
 		std::cout << std::setw(7) << (float)i << " | ";
-		for(int j = 0; j < matrix.front().size(); ++ j)
+		for(int j = 0; j < m; ++ j)
 		{
 			std::cout << std::setw(7) << matrix[i][j] << ' ';
 		}
@@ -42,19 +44,21 @@ void cmdio::Print::pmat(const std::string& s, const std::vector<float>& v, const
 
 void cmdio::Print::pmat(const std::string& s, const TMns& matrix)
 {
+	const int n = matrix.size();
+	const int m = matrix.front().size();
 	std::cout << "\n\n------------------------------------\n";
 	std::cout << s << '\n';
 	
 	std::cout << std::setw(7) << -1 << " | ";
-	for(int j = 0; j < matrix.front().size(); ++ j)
+	for(int j = 0; j < m; ++ j)
 	{
 		std::cout << std::setw(7) << (float)j << ' ';
 	}
 	std::cout << '\n';
-	for(int i = 0; i < matrix.size(); ++ i)
+	for(int i = 0; i < n; ++ i)
 	{
 		std::cout << std::setw(7) << (float)i << " | ";
-		for(int j = 0; j < matrix.front().size(); ++ j)
+		for(int j = 0; j < m; ++ j)
 		{
 			std::cout << std::setw(7) << matrix[i][j].printable() << ' ';
 		}
@@ -93,15 +97,15 @@ void cmdio::Print::padd(const std::string& s, const std::vector<std::vector<std:
 	std::cout << s << '\n';
 	
 	std::cout << std::setw(4) << -1 << " | ";
-	for(int j = 0; j < matrix.front().size(); ++ j)
+	for(size_t j = 0; j < matrix.front().size(); ++ j)
 	{
 		std::cout << std::setw(19) << j << ' ';
 	}
 	std::cout << '\n';
-	for(int i = 0; i < matrix.size(); ++ i)
+	for(size_t i = 0; i < matrix.size(); ++ i)
 	{
 		std::cout << std::setw(4) << i << " | ";
-		for(int j = 0; j < matrix.front().size(); ++ j)
+		for(size_t j = 0; j < matrix.front().size(); ++ j)
 		{
 			std::cout << "(" << std::setw(7) << matrix[i][j].front() << ", " << std::setw(7) << matrix[i][j].back() << ") ";
 		}

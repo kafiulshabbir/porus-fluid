@@ -8,7 +8,15 @@ namespace func
 {
 	class Velocity
 	{
-		static Tfloat calculate_velocity(const std::vector<float>& pressure, const Tfloat& radius, const TMns& mnsc, const dst::Diamension& diamension);	
+		
+	public:
+		static Tfloat calculate_velocity
+		(
+			const Tfloat& radius,
+			const TMns& mnsc,
+			const std::vector<float>& pressure,
+			const dst::Diamension& diamension
+		);
 	};
 }
 

@@ -2,47 +2,35 @@
 
 Tfloat func::Pressure::generate_equations_aug_matrix(const Tfloat& radius, const TMns& mnsc, const dst::Diamension& diamension)
 {
-	//std::cout << std::endl << "START-FGenEquForGauss" << std::endl;
-	const int n = diamension.rows;
-	const int m = diamension.cols;
 	const int total_nodes = diamension.total_nodes();
-	Tfloat equation(total_nodes, std::vector<float>(total_nodes + 1));
+	Tfloat equations_matrix = diamension.empty_aug_matrix();
 	
-	//std::cout << "okay-FGenEquForGauss" << std::endl;
-	//std::cout << "total_nodes=" << total_nodes << std::endl;
-	
-	for(int i = 0; i <= n; ++ i)
+	for(int row = 0; row <= diamension.rows; ++ row)
 	{
-		int mt = m / 2 - (i % 2);
-		//std::cout << "n= " << n << ", m=" << m << ", mt=" << mt << std::endl;
-		for(int j = 0; j <= mt; ++ j)
+		const int nodes_in_this_row = diamension.number_nodes_in_this_row(row);
+		
+		for(int col = 0; col <= nodes_in_this_row; ++ col)
 		{
-			
-			//std::cout << "i=" << i << ", j=" << j << std::endl;
-			
-			const int l = diamension.linear_node_from_coordinate(i, j);
-			auto& e = equation[l];
-			if(i == 0)
+			const int linear_node = diamension.linear_node_from_coordinate(row, col);
+			std::vector<float>& equation = equations_matrix[linear_node];
+			if(row == 0)
 			{
-				e[l] = 1;
+				e[linear_node] = 1;
 				e.back() = declconst::PRESSURE_TOP;
 				continue;
 			}
-			if(i == n)
+			if(row == n)
 			{
-				e[l] = 1;
+				e[linear_node] = 1;
 				e.back() = declconst::PRESSURE_BOTTOM;
 				continue;
 			}
 			
-			//derection: 0-topleft, 1-topright, 2-bottomright, 3-bottomleft
-			const std::vector<dst::Tube> connections = diamension.generate_tubes_connected_to_node(i, j);
+			const std::vector<dst::Tube> connections_vec = diamension.generate_tubes_connected_to_node(row, col);
 			
-			for(size_t i = 0; i < connections.size(); ++ i)
+			for(const dst::Tube& connection: connections_vec)
 			{
-				const dst::Tube& c = connections[i];
-				//std::cout << "connection, a=" << c.a << " c=" << c.c << ", r=" << c.r << ", p=" << c.p << std::endl;
-				if(c.a)
+				if(connection.active)
 				{
 					const float r = radius[c.r][c.c];
 					const dst::Mns& f = mnsc[c.r][c.c];
@@ -57,15 +45,11 @@ Tfloat func::Pressure::generate_equations_aug_matrix(const Tfloat& radius, const
 		}
 	}
 	
-	//std::cout << "okay-FGenEquForGauss" << std::endl;
-	//cmdio::Print::pmat("Gauss", equation);
 	return equation;
 }
 
 std::vector<float> func::Pressure::calculate_pressure(const Tfloat& radius, const TMns& mnsc, const dst::Diamension& diamension)
 {
-	//std::cout << "okay-gauss Fclac pres" << std::endl;
-	
 	const Tfloat equations = func::Pressure::generate_equations_aug_matrix(radius, mnsc, diamension);
 	const std::vector<float> solution_of_equation = math::Linear::gauss_elimination(equations);
 	

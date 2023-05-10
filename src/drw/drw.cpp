@@ -196,7 +196,7 @@ namespace drw
 		
 		int current_colour = type;
 		
-		for(int k = 1; k < coordinates.size(); ++ k)
+		for(size_t k = 1; k < coordinates.size(); ++ k)
 		{
 			int start_x = coordinates[k - 1];
 			int end_x = coordinates[k];
@@ -227,7 +227,7 @@ namespace drw
 			cell *= length;
 		}
 	
-		for(int k = 1; k < pos_mns.size(); ++ k)
+		for(size_t k = 1; k < pos_mns.size(); ++ k)
 		{
 			int start_x = pos_mns[k - 1];
 			int end_x = pos_mns[k];

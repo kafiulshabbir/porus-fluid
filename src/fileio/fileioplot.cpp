@@ -20,11 +20,11 @@ void fileio::Plot::without_radius(TMns mnsc, int count)
 	
 	
 	int y = start_y;
-	for(int row = 0; row < mnsc.size(); ++ row)
+	for(int row = 0; row < n_rows; ++ row)
 	{
 		const auto& w = mnsc[row];
 		int x = start_x + length * (row % 2);
-		for(int col = 0; col < w.size(); ++ col)
+		for(int col = 0; col < n_cols; ++ col)
 		{
 			int sign = ((row % 2) ^ (col % 2) ? -1 : 1);
 			a.drawStrip(x, y, length, thick, sign, w[col].gen_pos_long(), w[col].type);
@@ -43,7 +43,8 @@ void fileio::Plot::without_radius(TMns mnsc, int count)
 void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 {
 	//std::cout << "crashed here 1001" << std::endl;
-	
+	const int rows = radius.size();
+	const int cols = radius.front().size();
 	std::reverse(mnsc.begin(), mnsc.end());
 	std::reverse(radius.begin(), radius.end());
 	
@@ -77,11 +78,11 @@ void fileio::Plot::with_radius(TMns mnsc, Tfloat radius, float clock, int count)
 	//std::cout << "crashed here 1003" << std::endl;
 	
 	int y = start_y;
-	for(int row = 0; row < mnsc.size(); ++ row)
+	for(int row = 0; row < rows; ++ row)
 	{
 		const auto& w = mnsc[row];
 		int x = start_x + effective_length * (row % 2);
-		for(int col = 0; col < w.size(); ++ col)
+		for(int col = 0; col < cols; ++ col)
 		{
 			int sign = (1 - 2 * (row % 2)) * (1 - 2 * (col % 2));
 			const float r = radius[row][col];
