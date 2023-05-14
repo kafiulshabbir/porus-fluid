@@ -15,16 +15,13 @@ std::pair<int, int> dst::Diamension::linear_node_at_ends_of_tube(const int row, 
 	return {first_linear_node, second_linear_node};
 }
 
-int number_nodes_in_this_row(const int row) const
+int dst::Diamension::number_nodes_in_this_row(const int row) const
 {
 	return this->cols / 2 - (row % 2);
 }
 
 int dst::Diamension::total_nodes() const
 {
-	const int n = this->rows;
-	const int m = this->cols;
-	
 	return ((this->rows + 1) * (this->cols + 1) + 1) / 2;
 }
 

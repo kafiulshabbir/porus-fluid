@@ -10,18 +10,18 @@ func::TimeStepResult func::TimeStep::decide_time_step(const TMns& mnsc, const Tf
 	int col_min = -1;
 	
 	
-	for(int i = 0; i < diamension.rows; ++ i)
+	for(int row = 0; row < diamension.rows; ++ row)
 	{
-		for(int j = 0; j < diamension.cols; ++ j)
+		for(int col = 0; col < diamension.cols; ++ col)
 		{
-			float& time_ref = timev[i][j];
-			time_ref = mnsc[i][j].time(velocity[i][j], declconst::TUBE_LENGTH, declconst::TIME_DIV);
+			float& time_ref = timev[row][col];
+			time_ref = mnsc[row][col].time(velocity[row][col], declconst::TUBE_LENGTH, declconst::TIME_DIV);
 			
 			if(time_ref < time_min)
 			{
 				time_min = time_ref;
-				row_min = i;
-				col_min = j;
+				row_min = row;
+				col_min = col;
 			}
 		}
 	}
@@ -29,3 +29,7 @@ func::TimeStepResult func::TimeStep::decide_time_step(const TMns& mnsc, const Tf
 	return func::TimeStepResult{row_min, col_min, timev};
 }
 	
+const float func::TimeStepResult::time_step() const
+{
+	return this->timev[this->row][this->col];
+}

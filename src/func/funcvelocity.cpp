@@ -9,20 +9,17 @@ Tfloat func::Velocity::calculate_velocity
 	const dst::Diamension& diamension
 )
 {
-	const int n = diamension.rows;
-	const int m = diamension.cols;
-	
-	Tfloat velocity(n, std::vector<float>(m));
-	for(int i = 0; i < n; ++ i)
+	Tfloat velocity = diamension.empty_table();
+	for(int row = 0; row < diamension.rows; ++ row)
 	{
-		for(int j = 0; j < m; ++ j)
+		for(int col = 0; col < diamension.cols; ++ col)
 		{
-			const std::pair<int, int> locs = diamension.linear_node_at_ends_of_tube(i, j);
-			const float delp = pressure[locs.second] - pressure[locs.first];
-			const float r = radius[i][j];
-			const float mu = mnsc[i][j].mu(declconst::MU1, declconst::MU2);
-			const float s = mnsc[i][j].scontb(0);
-			velocity[i][j] = r / 8 / mu / declconst::TUBE_LENGTH * (delp * r + s * 2 * declconst::SIGMA);
+			const std::pair<int, int> linear_nodes_pair = diamension.linear_node_at_ends_of_tube(row, col);
+			const float delp = pressure[linear_nodes_pair.second] - pressure[linear_nodes_pair.first];
+			const float rad = radius[row][col];
+			const float mu = mnsc[row][col].mu(declconst::MU1, declconst::MU2);
+			const float scontb = mnsc[row][col].scontb(0);
+			velocity[row][col] = rad / 8 / mu / declconst::TUBE_LENGTH * (delp * rad + scontb * 2 * declconst::SIGMA);
 		}
 	}
 	

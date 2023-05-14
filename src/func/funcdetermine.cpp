@@ -1,15 +1,22 @@
 #include "func/funcdetermine.h"
 
-Tfloat func::Determine::determine_volume(const Tfloat& radius, const Tfloat& velocity, const float time_step, const dst::Diamension& diamension)
+Tfloat func::Determine::determine_volume
+(
+	const Tfloat& radius,
+	const Tfloat& velocity,
+	const float time_step,
+	const dst::Diamension& diamension
+)
 {
 	Tfloat volume = diamension.empty_table();
 	
-	for(int i = 0; i < diamension.rows; ++ i)
+	for(int row = 0; row < diamension.rows; ++ row)
 	{
-		auto& v = volume[i];
-		for(int j = 0; j < diamension.cols; ++ j)
+		for(int col = 0; col < diamension.cols; ++ col)
 		{
-			v[j] = std::abs(v[j] * std::pow(radius[i][j], 2) * declconst::PI * time_step);
+			const float vel_abs = std::abs(velocity[row][col]);
+			const float area_tube = std::pow(radius[row][col], 2) * declconst::PI
+			volume[row][col] = vel_abs * area_tube * time_step;
 		}
 	}
 	

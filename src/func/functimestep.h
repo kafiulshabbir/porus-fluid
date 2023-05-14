@@ -11,6 +11,8 @@ namespace func
 		int row;
 		int col;
 		Tfloat timev;
+		
+		const float time_step() const;
 	};
 	
 	class TimeStep

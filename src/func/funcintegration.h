@@ -3,28 +3,46 @@
 
 namespace func
 {
-	struct TubeWhereFlowOut
+	struct FluidDisplacements
 	{
-		float radius;
-		int r;
-		int c;
+		std::vector<float> in;
+		std::vector<float> out;
+		FluidDisplacements();
 	};
 	
 	struct IntegrationResult
 	{
 		TMns mnsc;
-		float fluid1in;
-		float fluid1out;
-		float fluid2in;
-		float fluid2out;
+		FluidDisplacements fluid_displacements;
 	};
-		
-		
+	
+	typedef std::vector<std::vector<FluidAdditionToTube>> TFluidAdditionToTube;
+	
 	class Integration
 	{
+		struct FluidAdditionToTube
+		{
+			std::vector<float> fluid;
+			FluidAdditionToTube();
+			void remove(const FluidAdditionToTube& add_fluid);
+		};
+	
+		struct FluidAdditionResult
+		{
+			TFluidAdditionToTube fluid_addition_to_tube_table;
+			FluidDisplacements fluid_displacements;
+		};
+		
+		struct TubeFlowIntoFromNode
+		{
+			float rad;
+			int row;
+			int col;
+		};
 		
 	public:
-		static func::IntegrationResult integration(
+		static func::IntegrationResult integrate
+		(
 			const Tfloat& radius,
 			const TMns& mnsc,
 			const Tfloat& velocity,

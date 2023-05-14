@@ -20,7 +20,7 @@ void func::Global::simulate(const Tfloat& radius, TMns& mnsc, const dst::Diamens
 			
 		// step-3 TIME STEP
 		const func::TimeStepResult time_step_result = func::TimeStep::decide_time_step(mnsc, velocity, diamension);
-		const float time_step = time_step_result.timev[time_step_result.row][time_step_result.col];
+		const float time_step = time_step_result.time_step();
 		
 		// step-4 VOLUME
 		const auto volume = func::Determine::determine_volume(radius, velocity, time_step, diamension);

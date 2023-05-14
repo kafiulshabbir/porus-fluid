@@ -39,7 +39,7 @@ namespace dst
 		std::vector<dst::Tube> generate_tubes_connected_to_node(int row, int col) const;
 		Tfloat empty_table() const;
 		Tfloat empty_table(const int rows, const int cols) const;
-		Tfloat empty_aug_matrix() const
+		Tfloat empty_aug_matrix() const;
 		
 		bool operator== (const Diamension& other) const;
 	};
