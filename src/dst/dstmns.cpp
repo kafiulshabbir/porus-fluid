@@ -239,7 +239,7 @@ float dst::Mns::scontb(int direction) const
  * [flase]-1| in-1		| out-0		|
  */
  
-bool dst::Mns::is_flow_into_node(const int direction, const float velocity) const
+bool dst::Mns::is_the_flow_from_tube_into_node(const int direction, const float velocity) const
 {
 	return (direction < 2) ^ (velocity >= 0);
 }

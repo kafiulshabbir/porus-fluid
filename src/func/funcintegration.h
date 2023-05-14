@@ -1,6 +1,10 @@
 #ifndef FUNCINTEGRATION_H
 #define FUNCINTEGRATION_H
 
+#include "decl/decltypedef.h"
+#include "dst/dstdiamension.h"
+#include <algorithm>
+
 namespace func
 {
 	struct FluidDisplacements
@@ -16,29 +20,54 @@ namespace func
 		FluidDisplacements fluid_displacements;
 	};
 	
-	typedef std::vector<std::vector<FluidAdditionToTube>> TFluidAdditionToTube;
 	
 	class Integration
 	{
-		struct FluidAdditionToTube
+		struct FluidAdditions
 		{
 			std::vector<float> fluid;
-			FluidAdditionToTube();
-			void remove(const FluidAdditionToTube& add_fluid);
+			FluidAdditions();
+			void remove_fluid(const FluidAdditions& fluid_addition_table);
 		};
-	
+		
+		typedef std::vector<std::vector<FluidAdditions>> TFluidAdditions;
+		
 		struct FluidAdditionResult
 		{
-			TFluidAdditionToTube fluid_addition_to_tube_table;
+			TFluidAdditions fluid_addition_table;
 			FluidDisplacements fluid_displacements;
 		};
 		
-		struct TubeFlowIntoFromNode
+		struct Tube_FromNode
 		{
 			float rad;
 			int row;
 			int col;
 		};
+		
+		static FluidAdditionResult calculate_fluid_addition_result
+		(
+			const Tfloat& radius,
+			const TMns& mnsc,
+			const Tfloat& velocity,
+			const Tfloat& volume,
+			const dst::Diamension& diamension
+		);
+		
+		static FluidAdditions add_fluid_from_tank(const float vol, FluidAdditions& tank);
+		
+		static bool compare_where_wetting_fluid_go_first(const Tube_FromNode& first, const Tube_FromNode& second);
+		
+		static TMns combine_fluid_additions
+		(
+			const Tfloat& radius,
+			TMns mnsc,
+			const Tfloat& velocity,
+			const dst::Diamension& diamension,
+			const TFluidAdditions& fluid_addition_table
+		);
+		
+		static TMns trimmer(TMns mnsc, const Tfloat& velocity);
 		
 	public:
 		static func::IntegrationResult integrate

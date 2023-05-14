@@ -39,7 +39,7 @@ namespace dst
 		float time(const float velocity, const float length, const float time_div) const;
 		void update(const float vel, const float r, const std::vector<float>& add);
 		float scontb(int direction) const;
-		bool is_flow_into_node(const int direction, const float velocity) const;
+		bool is_the_flow_from_tube_into_node(const int direction, const float velocity) const;
 		bool type_fluid_into_node(int direction) const;
 		float sum_type_first() const;
 		std::vector<float> gen_pos_long() const;

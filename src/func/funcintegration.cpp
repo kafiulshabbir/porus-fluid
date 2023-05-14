@@ -9,9 +9,13 @@ func::IntegrationResult func::Integration::integrate
 	const dst::Diamension& diamension
 )
 {
-	
-	const FluidAdditionResult fluid_addition_result = calculate_fluid_addition(diamension);
-	TMns new_mnsc = combine_additions(radius, mnsc, velocity, fluid_addition_result.fluid_addition_to_tube_table);
+	const FluidAdditionResult fluid_addition_result =
+		calculate_fluid_addition_result(radius,
+		mnsc, velocity, volume, diamension);
+		
+	const TMns new_mnsc = combine_fluid_additions(radius, mnsc,
+		velocity, diamension,
+		fluid_addition_result.fluid_addition_table);
 	
 	func::IntegrationResult integration_result
 	{
@@ -22,25 +26,32 @@ func::IntegrationResult func::Integration::integrate
 	return integration_result;
 }
 
-FluidAdditionResult func::Integration::calculate_fluid_addition(const dst::Diamension& diamension)
+func::Integration::FluidAdditionResult func::Integration::calculate_fluid_addition_result
+(
+	const Tfloat& radius,
+	const TMns& mnsc,
+	const Tfloat& velocity,
+	const Tfloat& volume,
+	const dst::Diamension& diamension
+)
 {
-	TFluidAdditionToTube add_fluid_table(diamension.rows, std::vector<FluidAdditionToTube>(diamension.cols));
+	TFluidAdditions fluid_addition_table = diamension.empty_table_templated<FluidAdditions>();
 	FluidDisplacements fluid_displacements;
 	
-	for(int row = 0; row <= diamension.rows; ++ row)
+	for(int row = 0; row < diamension.node_rows(); ++ row)
 	{
-		const int nodes_in_this_row = diamension.number_nodes_in_this_row(row);
-		for(int col = 0; col <= nodes_in_this_row; ++ col)
+		for(int col = 0; col < diamension.node_cols(row); ++ col)
 		{
-			FluidAdditionToTube vol_from_tube_into_node;
-			std::vector<func::TubeFlowIntoFromNode> tubes_flow_into_from_node;
+			FluidAdditions tank; //vol fluid from tube into node
+			std::vector<Tube_FromNode> tubes_from_node_vec;
 			
-			const std::vector<dst::Tube> connections_vec =
+			const std::vector<dst::Tube> tubes_connected_vec =
 				diamension.generate_tubes_connected_to_node(row, col);
 				
-			for(int direction = 0; direction < connections_vec.size(); ++ direction)
+			const int total_directions = tubes_connected_vec.size();
+			for(int direction = 0; direction < total_directions; ++ direction)
 			{
-				const dst::Tube& connection = connections_vec[direction];
+				const dst::Tube& connection = tubes_connected_vec[direction];
 				if(connection.active)
 				{
 					const float rad = radius[connection.row][connection.col];
@@ -49,91 +60,104 @@ FluidAdditionResult func::Integration::calculate_fluid_addition(const dst::Diame
 					const float vol = volume[connection.row][connection.col];
 					
 					
-					if(mns.is_flow_into_node(direction, vel))
+					if(mns.is_the_flow_from_tube_into_node(direction, vel))
 					{
 						const int type_fluid = mns.type_fluid_into_node(direction);
-						vol_from_tube_into_node.fluid[type_fluid] += vol;
+						tank.fluid[type_fluid] += vol;
 						continue;
 					}
 
-					TubeFlowIntoFromNode tube
+					Tube_FromNode tube
 					{
 						rad,
 						connection.row,
 						connection.col
 					};
 		
-					tubes_flow_into_from_node.push_back(tube);
+					tubes_from_node_vec.push_back(tube);
 				}
 			}
 			
-			//for(const auto& tpshin: tubes_flow_into_from_node)	std::cout << "tube_push_out before short: radius=" << tpshin.radius << ", r=" << tpshin.r << ", c=" << tpshin.c << std::endl;
+			//for(const auto& tpshin: tubes_from_node_vec)	std::cout << "tube_push_out before short: radius=" << tpshin.radius << ", r=" << tpshin.r << ", c=" << tpshin.c << std::endl;
 			
 			//std::cout << "second stage reached!" << std::endl;
 			if(row == 0)
 			{
-				fluid_displacements.out.front() += vol_in.front();
-				fluid_displacements.out.back() += vol_in.back();
+				fluid_displacements.out.front() += tank.fluid.front();
+				fluid_displacements.out.back() += tank.fluid.back();
 				continue;
 			}
-			if(row == n) // NOTE might remove else
+			if(row == diamension.rows) // NOTE might remove else
 			{ 
-				for(const func::TubeFlowIntoFromNode& tube: tubes_flow_into_from_node)
+				for(const Tube_FromNode& tube: tubes_from_node_vec)
 				{
 					const float vol = volume[tube.row][tube.col];
-					add_fluid_table[tube.row][tube.col].fluid[0] = vol;
-					fluid_displacements.in[0] = vol;
+					fluid_addition_table[tube.row][tube.col].fluid[0] = vol;
+					fluid_displacements.in[0] += vol;
 				}
 				continue;
 			}
 			
-			std::sort(tubes_flow_into_from_node.begin(), tubes_flow_into_from_node.end(), func::Integration::comparison_outflow);
-			for(const auto& tpshin: tubes_flow_into_from_node)
+			std::sort(tubes_from_node_vec.begin(),
+				tubes_from_node_vec.end(),
+				compare_where_wetting_fluid_go_first);
+			
+			for(const auto& tpshin: tubes_from_node_vec)
 			{
 				//std::cout << "tube_push_out after sort: radius=" << tpshin.radius << ", r=" << tpshin.r << ", c=" << tpshin.c << std::endl;
 				
-				additions[tpshin.row][tpshin.col] = add_fluid(volume[tpshin.row][tpshin.col], vol_from_tube_into_node);
+				fluid_addition_table[tpshin.row][tpshin.col] = add_fluid_from_tank(volume[tpshin.row][tpshin.col], tank);
 			}
 		}
 	}
 	
 	FluidAdditionResult fluid_addition_result
 	{
-		add_fluid_table,
+		fluid_addition_table,
 		fluid_displacements
 	};
 	
 	return fluid_addition_result;
 }
 
-TMns func::Global::trimmer(TMns mnsc, const Tfloat& velocity)
+TMns func::Integration::trimmer(TMns mnsc, const Tfloat& velocity)
 {
 	return mnsc;
 }
 
-TMns func::Global::combine_additions(TMns mnsc, const Tfloat& velocity, const Tfloat& radius, const std::vector<std::vector<std::vector<float>>>& additions)
+TMns func::Integration::combine_fluid_additions
+(
+	const Tfloat& radius,
+	TMns mnsc,
+	const Tfloat& velocity,
+	const dst::Diamension& diamension,
+	const TFluidAdditions& fluid_addition_table
+)
 {
-	for(int i = 0; i < mnsc.size(); ++ i)
+	for(int row = 0; row < diamension.rows; ++ row)
 	{
-		auto& f = mnsc[i];
-		for(int j = 0; j < f.size(); ++ j)
+		for(int col = 0; col < diamension.cols; ++ col)
 		{
-			f[j].update(velocity[i][j], radius[i][j], additions[i][j]);
+			const float vel = velocity[row][col];
+			const float rad = radius[row][col];
+			const std::vector<float>& add_fluid_from_tank_to_tube = fluid_addition_table[row][col].fluid;
+			
+			mnsc[row][col].update(vel, rad, add_fluid_from_tank_to_tube);
 		}
 	}
 	
 	return mnsc;
 }
 
-bool func::Integration::comparison_outflow(const func::TubeFlowIntoFromNode& first, const func::TubeFlowIntoFromNode& second)
+bool func::Integration::compare_where_wetting_fluid_go_first(const Tube_FromNode& first, const Tube_FromNode& second)
 {
 	return first.rad < second.rad;
 }
 
-std::vector<float> func::Integration::add_fluid(const float vol, FluidAdditionToTube& tank)
+func::Integration::FluidAdditions func::Integration::add_fluid_from_tank(const float vol, func::Integration::FluidAdditions& tank)
 {
-	FluidAdditionToTube fluid_addtion_to_tube;
-	const float vol_first_fluid = std::min(tank.fluid.front(), vol)
+	FluidAdditions fluid_addtion_to_tube;
+	const float vol_first_fluid = std::min(tank.fluid.front(), vol);
 	// min_of(fluid_1_left_in_tank, amount_to_be_actually_pushed_in);
 	
 	fluid_addtion_to_tube.fluid.front() = vol_first_fluid;
@@ -144,13 +168,14 @@ std::vector<float> func::Integration::add_fluid(const float vol, FluidAdditionTo
 	return fluid_addtion_to_tube;
 }
 
-func::FluidAdditionToTube::FluidAdditionToTube(): fluid(2) {}
+func::Integration::FluidAdditions::FluidAdditions(): fluid(2) {}
+
 func::FluidDisplacements::FluidDisplacements(): in(2), out(2) {}
 
-void func::FluidAdditionToTube::remove_fluid(const FluidAdditionToTube& add_fluid)
+void func::Integration::FluidAdditions::remove_fluid(const func::Integration::FluidAdditions& add_fluid_from_tank)
 {
-	for(size_t i = 0; i < this->fluid.size(); ++ i)
+	for(size_t i = 0; i < fluid.size(); ++ i)
 	{
-		this->fluid[i] -= add_fluid[i];
+		fluid[i] -= add_fluid_from_tank.fluid[i];
 	}
 }

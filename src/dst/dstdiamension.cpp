@@ -15,9 +15,14 @@ std::pair<int, int> dst::Diamension::linear_node_at_ends_of_tube(const int row, 
 	return {first_linear_node, second_linear_node};
 }
 
-int dst::Diamension::number_nodes_in_this_row(const int row) const
+int node_rows() const
 {
-	return this->cols / 2 - (row % 2);
+	return this->rows + 1;
+}
+
+int dst::Diamension::node_cols(const int row) const
+{
+	return this->cols / 2 - (row % 2) + 1;
 }
 
 int dst::Diamension::total_nodes() const
@@ -40,52 +45,52 @@ bool dst::Diamension::operator== (const Diamension& other) const
 std::vector<dst::Tube> dst::Diamension::generate_tubes_connected_to_node(int row, int col) const
 {	
 	const auto linear_node = this->linear_node_from_coordinate(row, col);
-	std::vector<dst::Tube> connections_vec(4);
+	std::vector<dst::Tube> tubes_connected_vec(4);
 	
-	connections_vec[0].row = row - 1;
-	connections_vec[0].col = 2 * col - 1 + row % 2;
-	connections_vec[0].linear_node = linear_node - this->rows / 2 - 1;
+	tubes_connected_vec[0].row = row - 1;
+	tubes_connected_vec[0].col = 2 * col - 1 + row % 2;
+	tubes_connected_vec[0].linear_node = linear_node - this->rows / 2 - 1;
 	
-	connections_vec[1].row = row - 1;
-	connections_vec[1].col = 2 * col + row % 2;
-	connections_vec[1].linear_node = linear_node - this->rows / 2 ;
+	tubes_connected_vec[1].row = row - 1;
+	tubes_connected_vec[1].col = 2 * col + row % 2;
+	tubes_connected_vec[1].linear_node = linear_node - this->rows / 2 ;
 	
-	connections_vec[2].row = row;
-	connections_vec[2].col = 2 * col + row % 2;
-	connections_vec[2].linear_node = linear_node + this->rows / 2 + 1;
+	tubes_connected_vec[2].row = row;
+	tubes_connected_vec[2].col = 2 * col + row % 2;
+	tubes_connected_vec[2].linear_node = linear_node + this->rows / 2 + 1;
 	
-	connections_vec[3].row = row;
-	connections_vec[3].col = 2 * col - 1 + row % 2;
-	connections_vec[3].linear_node = linear_node + this->rows / 2;
+	tubes_connected_vec[3].row = row;
+	tubes_connected_vec[3].col = 2 * col - 1 + row % 2;
+	tubes_connected_vec[3].linear_node = linear_node + this->rows / 2;
 
 	
 	if(row % 2)
 	{
-		return connections_vec;
+		return tubes_connected_vec;
 	}
 	
 	if(row == 0)
 	{
-		connections_vec[0].active = false;
-		connections_vec[1].active = false;
+		tubes_connected_vec[0].active = false;
+		tubes_connected_vec[1].active = false;
 	}
 	if(col == 0)
 	{
-		connections_vec[0].active = false;
-		connections_vec[3].active = false;
+		tubes_connected_vec[0].active = false;
+		tubes_connected_vec[3].active = false;
 	}
 	if(2 * col == this->cols)
 	{
-		connections_vec[1].active = false;
-		connections_vec[2].active = false;
+		tubes_connected_vec[1].active = false;
+		tubes_connected_vec[2].active = false;
 	}
 	if(row == this->rows)
 	{
-		connections_vec[2].active = false;
-		connections_vec[3].active = false;
+		tubes_connected_vec[2].active = false;
+		tubes_connected_vec[3].active = false;
 	}
 	
-	return connections_vec;
+	return tubes_connected_vec;
 }
 
 

@@ -4,11 +4,11 @@ Tfloat func::Pressure::generate_equations_aug_matrix(const Tfloat& radius, const
 {
 	Tfloat equations_matrix = diamension.empty_aug_matrix();
 	
-	for(int row = 0; row <= diamension.rows; ++ row)
+	for(int row = 0; row < diamension.node_rows(); ++ row)
 	{
 		const int nodes_in_this_row = diamension.number_nodes_in_this_row(row);
 		
-		for(int col = 0; col <= nodes_in_this_row; ++ col)
+		for(int col = 0; col < diamension.node_cols(row); ++ col)
 		{
 			const int linear_node = diamension.linear_node_from_coordinate(row, col);
 			std::vector<float>& equation = equations_matrix[linear_node];
@@ -27,12 +27,12 @@ Tfloat func::Pressure::generate_equations_aug_matrix(const Tfloat& radius, const
 				continue;
 			}
 			
-			const std::vector<dst::Tube> connections_vec = diamension.generate_tubes_connected_to_node(row, col);
+			const std::vector<dst::Tube> tubes_connected_vec = diamension.generate_tubes_connected_to_node(row, col);
 			
-			const int total_directions = connections_vec.size();
+			const int total_directions = tubes_connected_vec.size();
 			for(int direction = 0; direction < total_directions; ++ directions)
 			{
-				const dst::Tube& connection = connections_vec[direction];
+				const dst::Tube& connection = tubes_connected_vec[direction];
 				if(connection.active)
 				{
 					const float r = radius[connection.row][connection.col];
