@@ -1,6 +1,107 @@
 #include "dst/dstmns.h"
 
-/* FUNCTION DESCRIPTION - scontb
+dst::Mns::Mns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
+
+dst::Mns::Mns(int n, bool type, float p1, float p2): n(n), type(type), pos{p1, p2} {}
+
+// Data access
+int dst::Mns::number_mns() const
+{
+	return n;
+}
+
+bool dst::Mns::type_fluid_start() const
+{
+	return type;
+}
+
+std::vector<float> dst::Mns::positions_of_mns() const
+{
+	return pos;
+}
+
+// Part-0 Universial Functions
+std::vector<float> dst::Mns::gen_pos_long() const
+{
+	/* generate positions long version
+ * 
+ * the generated std::vector<float> can be of 3 types:
+ * 1) [0, 1]
+ * 2) [0, pos1, 1]
+ * 3) [0, pos1, pos2, 1]
+ * 
+ * it is distinguished from the short version which is of the form
+ * 1) [], n = 0
+ * 2) [a], n = 1
+ * 3) [a, b], n = 2
+ */
+ 
+	std::vector<float> v(n + 2);
+	for(int i = 0; i < n; ++ i)
+	{
+		v[i + 1] = pos[i];
+	}
+	v.back() = 1;
+	
+	return v;
+}
+
+
+
+// Part-1 Linear Equations and pressure determination
+float dst::Mns::sign_of_capll_pressure(int direction) const
+{
+	/*
+	 * Direction	|	Type	|	Product
+	 * 
+	 * 	0 (+1)		|  false	|	+1
+	 *  0 (+1)		|  true		|	-1
+	 * 
+	 * 	1 (+1)		|  false	|	+1
+	 *  1 (+1)		|  true		|	-1
+	 * 
+	 * 	2 (-1)		|  false	|	-1
+	 *  2 (-1)		|  true		|	+1
+	 * 
+	 * 	3 (-1)		|  false	|	-1
+	 *  3 (-1)		|  true		|	+1
+	 */
+	 
+	return true_is_minus_one(direction > 1) *
+		true_is_minus_one(type) *
+		(n % 2); // {even} = sign_of_capll_pressure = 0;
+}
+
+float dst::Mns::true_is_minus_one(bool condition)
+{
+	if(condition)
+	{
+		return -1;
+	}
+	
+	return 1;
+}
+ 
+float dst::Mns::mu(const float mu1, const float mu2) const
+{
+	std::vector<float> mu_vec{mu1, mu2};
+	const auto pos_long = gen_pos_long();
+	
+	float sum = 0;
+	const int pos_long_size = pos_long.size();
+	for(int i = 1; i < pos_long_size; ++ i)
+	{
+		const int which_fluid = (i - 1 + type) % mu_vec.size();
+		const float normalized_length = pos_long[i] - pos_long[i - 1];
+		sum += mu_vec[which_fluid] * normalized_length;
+	}
+	
+	return sum;
+}
+
+
+ 
+/* FUNCTION DESCRIPTION - sign_of_capll_pressure
  * 
  * when we write the equation, about the volume
  * q = dV/dt = PI / 8 / MU * r ^ 4 / L * [(P[i] - P[j]) + 2 * SIGMA / r)
@@ -18,121 +119,246 @@
  * for which type 0 means the meniscus is oriented away from [i],
  * giving a negative contribution of cappilary pressure
  */
-float dst::Mns::_scontb_sig(bool condition) //scontb's sign function
-{
-	return condition ? -1 : 1;
-}
 
-/* generate positions long version
- * 
- * the generated std::vector<float> can be of 3 types:
- * 1) [0, 1]
- * 2) [0, pos1, 1]
- * 3) [0, pos1, pos2, 1]
- * 
- * it is distinguished from the short version which is of the form
- * 1) [], n = 0
- * 2) [a], n = 1
- * 3) [a, b], n = 2
- */
-std::vector<float> dst::Mns::gen_pos_long_after_dspl(float vel, float l) const
+
+
+// Part-2 Minimum Time----------------------------------------------------------
+
+float dst::Mns::time(const float velocity, const float length, const float time_div) const
 {
-	auto pos_long_after_dslp = gen_pos_long();
-	if(vel < 0)
+	const float time_step_default = length / std::abs(velocity) / time_div;
+	
+	if(n == 0)
 	{
-		pos_long_after_dslp.front() = l;
-	}
-	else
-	{
-		pos_long_after_dslp.back() -= l;
+		return time_step_default;
 	}
 	
-	return pos_long_after_dslp;
+	float displacement_active = pos.front();
+	if(velocity >= 0)
+	{
+		displacement_active = 1.0 - pos[this->n - 1];
+	}
+	
+	const float time_step = length * displacement_active / std::abs(velocity);
+	return std::min(time_step, time_step_default);
 }
 
 
-dst::Mns::Ccmprt dst::Mns::gen_cmprt_existing(float vel, float l) const
+
+// Part-3 Distribution --------------------------------------------------------
+
+bool dst::Mns::is_the_flow_from_tube_into_node(const int direction,
+	const float velocity) const
 {
-	const auto pos_long_after_dspl = gen_pos_long_after_dspl(vel, l);
-	dst::Mns::Ccmprt cmprt_existing;
+	/*
+	 * direction	|	velocity	|	result = direction ^ velocity
+	 * 
+	 * 0 (1)		|	+ (1)		|	0
+	 * 0 (1)		|	- (0)		|	1
+	 * 
+	 * 1 (1)		|	+ (1)		|	0
+	 * 1 (1)		|	- (0)		|	1
+	 * 
+	 * 2 (0)		|	+ (1)		|	1
+	 * 2 (0)		|	- (0)		|	0
+	 * 
+	 * 3 (0)		|	+ (1)		|	1
+	 * 3 (0)		|	- (0)		|	0
+	 */
+	 
+	return (direction < 2) ^ (velocity >= 0);
+}
+
+bool dst::Mns::type_fluid_into_node(int direction) const
+{
+	if(direction < 2) // if fluid is coming from the above
+	{
+		return type; // whatever is at the lowest part is what gets into the node
+	}
+	/*
+	 * What is on the top part?
+	 * 
+	 * direction	|	velocity	|	result = direction ^ velocity
+	 * 
+	 * 0 (1)		|	+ (1)		|	0
+	 * 0 (1)		|	- (0)		|	1
+	 * 
+	 * 1 (1)		|	+ (1)		|	0
+	 * 1 (1)		|	- (0)		|	1
+	 * 
+	 * 2 (0)		|	+ (1)		|	1
+	 * 2 (0)		|	- (0)		|	0
+	 * 
+	 * 3 (0)		|	+ (1)		|	1
+	 * 3 (0)		|	- (0)		|	0
+	 */
+	 
+	return type ^ (n % 2); 
+}
+
+
+
+// Part-4 Update --------------------------------------------------------------
+void dst::Mns::update(const float vel, const float rad,
+	const std::vector<float>& add, bool tube_with_minimum_time)
+{
+	const float area = declconst::PI * std::pow(rad, 2);
+	const float l1 = add.front() / area / declconst::TUBE_LENGTH;
+	const float l2 = add.back() / area / declconst::TUBE_LENGTH;
+	const float l = l1 + l2;
+	
+	Cmprt cmprt_existing = gen_cmprt_existing(vel, l, tube_with_minimum_time);
+	Cmprt cmprt_additon = gen_cmprt_addition(vel, l1, l2);
+	
+	Cmprt cmprt_merged = merge_existing_and_cmprt_addition(cmprt_existing, cmprt_addition, vel);
+	Cmprt cmprt_without_dupl = remove_dupl_cmprt(cmprt_merged);
+	
+	const bool type_begin_temp = cmprt_without_dupl.front().first;
+	std::vector<float> pos_new_temp = cmprt_to_vector(cmprt);
+	
+	PosNew_Type_Result pos_new_and_type = gen_pos_new_and_type(type_begin_temp, pos_new_temp, vel);
+	
+	n = pos_new_and_type.v.size();
+	type = pos_new_and_type.type;
+	
+	for(int i = 0; i < n; ++ i)
+	{
+		pos[i] = pos_new_and_type.v[i];
+	}
+}
+
+std::vector<float> dst::Mns::cmprt_to_vector(const dst::Mns::Cmprt& cmprt)
+{
+	std::vector<float> v;
+	float sum = 0;
+	for(const std::pair<bool, float>& section: cmprt)
+	{
+		sum += section.second;
+		v.push_back(sum);
+	}
+	
+	v.pop_back();
+	return v;
+}
+
+Cmprt dst::Mns::gen_cmprt_addition(const float vel, const float l1, const float l2)
+{
+	Cmprt cmprt_addition;
+	
+	if(l1 > 0)
+	{
+		cmprt_addition.push_back{0, l1};
+	}
+	if(l2 > 0)
+	{
+		cmprt_addition.push_back{1, l2};
+	}
+	
+	if(vel > 0)
+	{
+		std::reverse(cmprt_addition.begin(), cmprt_addition.end());
+	}
+	
+	return cmprt_addition;
+}
+	
+	
+dst::Mns::Cmprt dst::Mns::gen_cmprt_existing(float vel,
+	float l, bool tube_with_minimum_time) const
+{
+	//typedef std::list<std::pair<bool, float>> Cmprt;
+	std::vector<float> pos_long_after_dspl = gen_pos_long_after_dspl(vel, l);
+	
+	Cmprt cmprt_existing;
 	
 	const int pos_long_after_dspl_size = pos_long_after_dspl.size();
 	
 	for(int i = 1; i < pos_long_after_dspl_size; ++ i)
 	{
-		cmprt_existing.push_back({(i + type - 1) % 2, pos_long_after_dspl[i] - pos_long_after_dspl[i - 1]});
+		const int fluid_type = (i + type - 1) % 2;
+		const float length_fluid = pos_long_after_dspl[i] -
+			pos_long_after_dspl[i - 1];
+			
+		std::pair<bool, float> cmprt_section
+		{
+			fluid_type,
+			length_fluid
+		};
+		
+		cmprt_existing.push_back(cmprt_section);
+	}
+	
+	if(tube_with_minimum_time)
+	{
+		if(vel > 0)
+		{
+			cmprt_existing.pop_back();
+		}
+		else
+		{
+			cmprt_existing.pop_front();
+		}
 	}
 	
 	return cmprt_existing;
 }
 
-dst::Mns::Ccmprt dst::Mns::merge_existing_and_new_cmprts(dst::Mns::Ccmprt& cmprt_existing, const dst::Mns::Ccmprt& cmprt_new, float vel)
+
+std::vector<float> dst::Mns::gen_pos_long_after_dspl(float vel, float l) const
 {
-	if(vel > 0)
+	std::vector<float> pos_long_after_dspl = gen_pos_long();
+	
+	if(vel < 0)
 	{
-		cmprt_existing.insert(cmprt_existing.begin(), cmprt_new.crbegin(), cmprt_new.crend());
+		pos_long_after_dspl.front() = l;
 	}
 	else
 	{
-		cmprt_existing.insert(cmprt_existing.end(), cmprt_new.begin(), cmprt_new.end());
+		pos_long_after_dspl.back() -= l;
 	}
+	
+	return pos_long_after_dspl;
+}
+
+dst::Mns::Cmprt dst::Mns::merge_existing_and_cmprt_addition(dst::Mns::Cmprt& cmprt_existing, dst::Mns::Cmprt& cmprt_addition, float vel)
+{
+	if(vel > 0)
+	{
+		cmprt_addition.insert(cmprt_addition.end(), cmprt_existing.begin(), cmprt_existing.end());
+		return cmprt_addition
+	}
+
+	cmprt_existing.insert(cmprt_existing.end(), cmprt_addition.begin(), cmprt_addition.end());
 	return cmprt_existing;
 }
 
-
-
-std::vector<float> dst::Mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
+dst::Mns::Cmprt dst::Mns::remove_dupl_cmprt(const dst::Mns::Cmprt& cmprt_merged)
 {
-	pos_segmented.pop_back();
-	
-	const int pos_segmented_size = pos_segmented.size();
-	for(int i = 1; i < pos_segmented_size; ++ i)
+	Cmprt cmprt_without_dupl;
+
+	for(const std::pair<bool, float>& section: cmprt_merged)
 	{
-		pos_segmented[i] += pos_segmented[i - 1];
+		if(cmprt_without_dupl.empty())
+		{
+			cmprt_without_dupl.push_back(section);
+			continue;
+		}
+		
+		if(cmprt_without_dupl.back().first == section.first)
+		{
+			cmprt_without_dupl.back().second += section.second;
+			continue;
+		}
+		
+		cmprt_without_dupl.push_back(section);
 	}
 	
-	return pos_segmented;
+	return cmprt_without_dupl;
 }
 
-dst::Mns::CmnsAfterDspl dst::Mns::gen_pos_new_and_type(const dst::Mns::Ccmprt& cmprt_new) const
+
+dst::Mns::PosNew_Type_Result dst::Mns::gen_pos_new_and_type(bool type_begin, const vector<float> pos_new, const float vel) const
 {
-	std::vector<std::pair<int, float>> cmprt_new_temp_vector;
-	for(const auto& x: cmprt_new) // CANCELLED 17.04.2023 Step-1 Filter out anything smaller than threshold_fill
-	{
-		cmprt_new_temp_vector.push_back({x.first, x.second});
-	}
-	
-	const int cmprt_new_temp_vector_size = cmprt_new_temp_vector.size();
-	for(int i = 1; i < cmprt_new_temp_vector_size; ++ i) // Step-2 Merge any two compartments of the smae fluid type
-	{
-		if(cmprt_new_temp_vector[i - 1].first == cmprt_new_temp_vector[i].first)
-		{
-			cmprt_new_temp_vector[i - 1].first = -1;
-			cmprt_new_temp_vector[i].second += cmprt_new_temp_vector[i - 1].second;
-		}
-	}
-	
-	int type_begin_temp = -1;
-	std::vector<float> pos_segmented;
-	for(const auto& x: cmprt_new_temp_vector)
-	{
-		if(x.first != -1)
-		{
-			if(type_begin_temp == -1)
-			{
-				type_begin_temp = x.first;
-			}
-			pos_segmented.push_back(x.second);
-		}
-	}
-	
-	const bool type_begin = type_begin_temp;
-	const auto pos_new = gen_pos_from_segmented(pos_segmented);
-	
-	if(pos_new.size() < 3) // Depending on the number of meniscus, recombinate or preenet as it is
-	{
-		return {type_begin, pos_new};
-	}
 	if(pos_new.size() == 3)
 	{
 		const float l1 = 0;
@@ -170,98 +396,27 @@ dst::Mns::CmnsAfterDspl dst::Mns::gen_pos_new_and_type(const dst::Mns::Ccmprt& c
 		return {type_begin, {L1, L2}};
 	}
 	
-	std::cout << "ER3-oversized decompartalization" << std::endl;
-	return {type_begin, {-1, -1}};	
+	return {type_begin, pos_new};
 }
 
-dst::Mns::Mns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
-dst::Mns::Mns(int n, bool type, float p1, float p2): n(n), type(type), pos{p1, p2} {}
 
-float dst::Mns::mu(const float mu1, const float mu2) const
+std::vector<float> dst::Mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
 {
-	std::vector<float> muv{mu1, mu2};
-	const auto pos_long = gen_pos_long();
+	pos_segmented.pop_back();
 	
-	float sum = 0;
-	const int pos_long_size = pos_long.size();
-	for(int i = 1; i < pos_long_size; ++ i)
+	const int pos_segmented_size = pos_segmented.size();
+	for(int i = 1; i < pos_segmented_size; ++ i)
 	{
-		sum += muv[(i - 1 + type) % muv.size()] * (pos_long[i] - pos_long[i - 1]);
+		pos_segmented[i] += pos_segmented[i - 1];
 	}
 	
-	return sum;
+	return pos_segmented;
 }
 
-float dst::Mns::time(const float velocity, const float length, const float time_div) const
-{
-	const float time_step_default = length / std::abs(velocity) / time_div;
-	
-	if(n == 0)
-	{
-		return time_step_default;
-	}
-	
-	float displacement_active = pos.front();
-	if(velocity >= 0)
-	{
-		displacement_active = 1.0 - pos[this->n - 1];
-	}
-	
-	const float time_step = length * displacement_active / std::abs(velocity);
-	return std::min(time_step, time_step_default);
-}
 
-void dst::Mns::update(const float vel, const float r, const std::vector<float>& add)
-{
-	const float area = declconst::PI * std::pow(r, 2);
-	const float l1 = add.front() / area / declconst::TUBE_LENGTH;
-	const float l2 = add.back() / area / declconst::TUBE_LENGTH;
-	const float l = l1 + l2;
-	
-	auto cmprt_existing = gen_cmprt_existing(vel, l);
-	dst::Mns::Ccmprt cmprt_new{{0, l1}, {1, l2}};
-	auto cmprt = merge_existing_and_new_cmprts(cmprt_existing, cmprt_new, vel);
-	auto pos_new_and_type = gen_pos_new_and_type(cmprt);
-	n = pos_new_and_type.v.size();
-	type = pos_new_and_type.type;
-	pos = pos_new_and_type.v;
-	pos.resize(2);
-}
 
-float dst::Mns::scontb(int direction) const
-{
-	return _scontb_sig(direction > 1) * _scontb_sig(type) * (n % 2);
-}
 
-/*		vel	| [true]	| [false]	|
- * drec		| above(<2)	| below(>=2)|
- * [true]+1	| out-0		| in-1		|
- * [flase]-1| in-1		| out-0		|
- */
- 
-bool dst::Mns::is_the_flow_from_tube_into_node(const int direction, const float velocity) const
-{
-	return (direction < 2) ^ (velocity >= 0);
-}
-
-bool dst::Mns::type_fluid_into_node(int direction) const
-{
-	if(direction < 2) // if fluid is coming from the above
-	{
-		return type; // whatever is at the lowest part is what gets into the node
-	}
-	/*
-	 * What is on the top part?
-	 * 
-	 * n	| type=0 | type=1 |
-	 * 0	| 0		 | 1	  |
-	 * 1	| 1		 | 0	  |
-	 * 2	| 0		 | 1	  |
-	 */
-	 
-	return type ^ (n % 2); 
-}
-
+// Part-5 Measurement ---------------------------------------------------------
 float dst::Mns::sum_type_first() const
 {
 	const auto pos_long = gen_pos_long();
@@ -276,17 +431,9 @@ float dst::Mns::sum_type_first() const
 	return sum;
 }
 
-std::vector<float> dst::Mns::gen_pos_long() const
-{
-	std::vector<float> v(n + 2);
-	for(int i = 0; i < n; ++ i)
-	{
-		v[i + 1] = pos[i];
-	}
-	v.back() = 1;
-	
-	return v;
-}
+
+
+// Part-6 Printing and Reading mnsc overloads ---------------------------------
 
 float dst::Mns::printable() const
 {

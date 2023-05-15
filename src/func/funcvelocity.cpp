@@ -18,8 +18,8 @@ Tfloat func::Velocity::calculate_velocity
 			const float delp = pressure[linear_nodes_pair.second] - pressure[linear_nodes_pair.first];
 			const float rad = radius[row][col];
 			const float mu = mnsc[row][col].mu(declconst::MU1, declconst::MU2);
-			const float scontb = mnsc[row][col].scontb(0);
-			velocity[row][col] = rad / 8 / mu / declconst::TUBE_LENGTH * (delp * rad + scontb * 2 * declconst::SIGMA);
+			const float sign_of_capll_pressure = mnsc[row][col].sign_of_capll_pressure(0);
+			velocity[row][col] = rad / 8 / mu / declconst::TUBE_LENGTH * (delp * rad + sign_of_capll_pressure * 2 * declconst::SIGMA);
 		}
 	}
 	

@@ -12,20 +12,27 @@ namespace dst
 {
 	class Mns
 	{
-		static float _scontb_sig(bool condition);
-		std::vector<float> gen_pos_long_after_dspl(float vel, float l) const;
-		typedef std::list<std::pair<bool, float>> Ccmprt;
-		Ccmprt gen_cmprt_existing(float vel, float l) const;
-		static Ccmprt merge_existing_and_new_cmprts(Ccmprt& cmprt_existing, const Ccmprt& cmprt_new, float vel);
+		static float true_is_minus_one(bool condition);
 		
-		struct CmnsAfterDspl
+		struct PosNew_Type_Result
 		{
 			bool type;
 			std::vector<float> v;
 		};
 		
+		PosNew_Type_Result gen_pos_new_and_type(const Cmprt& cmprt_addition) const;
+		std::vector<float> gen_pos_long_after_dspl(float vel, float l) const;
+		
+		typedef std::list<std::pair<bool, float>> Cmprt;
+		Cmprt gen_cmprt_existing(float vel, float l) const;
+		Cmprt dst::Mns::gen_cmprt_addition(const float vel, const float l1, const float l2);
+		
+		static Cmprt merge_existing_and_cmprt_addition(Cmprt& cmprt_existing, const Cmprt& cmprt_addition, float vel);
+		static dst::Mns::Cmprt remove_dupl_cmprt(const dst::Mns::Cmprt& cmprt_merged)
+		static std::vector<float> dst::Mns::cmprt_to_vector(const dst::Mns::Cmprt& cmprt);
+		
 		static std::vector<float> gen_pos_from_segmented(std::vector<float> pos_segmented);
-		CmnsAfterDspl gen_pos_new_and_type(const Ccmprt& cmprt_new) const;
+		
 		
 	public:
 		int n; //number of meniscus present
@@ -33,16 +40,24 @@ namespace dst
 		std::vector<float> pos; // positions of meniscus
 		
 		Mns();
-		Mns(int n, bool type, float p1, float p2);
+		Mns(int number_mns, bool type_fluid_start, float position_meniscus_1, float position_meniscus_1);
+		
+		int number_mns() const;
+		bool type_fluid_start() const;
+		std::vector<float> positions_of_mns() const;
+		
+		std::vector<float> gen_pos_long() const;
+		float sign_of_capll_pressure(int direction) const;
 		
 		float mu(const float mu1, const float mu2) const;
 		float time(const float velocity, const float length, const float time_div) const;
-		void update(const float vel, const float r, const std::vector<float>& add);
-		float scontb(int direction) const;
+		
 		bool is_the_flow_from_tube_into_node(const int direction, const float velocity) const;
 		bool type_fluid_into_node(int direction) const;
+		
+		void update(const float vel, const float r, const std::vector<float>& add, bool tube_with_minimum_time);
+		
 		float sum_type_first() const;
-		std::vector<float> gen_pos_long() const;
 		float printable() const;
 	};
 }

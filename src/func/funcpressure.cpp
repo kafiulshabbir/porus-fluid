@@ -37,12 +37,12 @@ Tfloat func::Pressure::generate_equations_aug_matrix(const Tfloat& radius, const
 				{
 					const float r = radius[connection.row][connection.col];
 					const dst::Mns& mns = mnsc[connection.row][connection.col];
-					const float scontb = mns.scontb(direction);
+					const float sign_of_capll_pressure = mns.sign_of_capll_pressure(direction);
 					
 					const float K = std::pow(r, 3) / mns.mu(declconst::MU1, declconst::MU2);
 					equation[linear_node] += r * K;
 					equation[connection.linear_node] -= r * K;
-					equation.back() -= declconst::SIGMA * 2 * scontb  * K;
+					equation.back() -= declconst::SIGMA * 2 * sign_of_capll_pressure  * K;
 				}
 			}
 		}
