@@ -39,6 +39,7 @@ const std::vector<File> VFILE
 	{"prog",	"simulate",		File::Type::exe},
 	{"prog",	"plot",			File::Type::exe},
 	{"prog",	"color",		File::Type::exe},
+	{"prog",	"test",			File::Type::exe},
 	
 	{"utility", "random",		File::Type::lib}
 };

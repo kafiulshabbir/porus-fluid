@@ -1,4 +1,4 @@
-#include "func/funclinear.h"
+#include "math/mathlinear.h"
 
 std::vector<float> math::Linear::gauss_elimination(Tfloat M)
 {

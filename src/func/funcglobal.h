@@ -19,11 +19,20 @@ namespace func
 {
 	class Global
 	{	
-		static void makeplot(const Tfloat& radius, const TMns& mnsc,
-			const float clock, const int count);
+		static void makeplot
+		(
+			const Tfloat& radius,
+			const TMns& mnsc,
+			const int count,
+			const float clock
+		);
 			
-		static bool within_limits_fluid_first_type(float& proportion,
-			const TMns& mnsc, const Tfloat& radius);
+		static bool within_limits_fluid_first_type
+		(
+			const Tfloat& radius,
+			const TMns& mnsc,
+			float& proportion
+		);
 				
 	public:
 		static void simulate(const Tfloat& radius,

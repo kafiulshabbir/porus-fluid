@@ -10,6 +10,7 @@ namespace func
 	{
 		int row;
 		int col;
+		bool does_mns_reach_node;
 		Tfloat timev;
 		
 		const float time_step() const;

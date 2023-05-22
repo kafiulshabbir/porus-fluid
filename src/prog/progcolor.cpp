@@ -49,5 +49,6 @@ void plotstrip()
 int main()
 {
 	plotstrip();
+	
 	return 0;
 }

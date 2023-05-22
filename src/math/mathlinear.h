@@ -1,5 +1,5 @@
-#ifndef FUNCLINEAR_H
-#define FUNCLINEAR_H
+#ifndef MATHLINEAR_H
+#define MATHLINEAR_H
 
 #include "decl/decltypedef.h"
 #include <vector>

@@ -6,16 +6,25 @@ func::IntegrationResult func::Integration::integrate
 	const TMns& mnsc,
 	const Tfloat& velocity,
 	const Tfloat& volume,
-	const dst::Diamension& diamension
+	const dst::Diamension& diamension,
+	const int row_minimum_time,
+	const int col_minimum_time
 )
 {
 	const FluidAdditionResult fluid_addition_result =
 		calculate_fluid_addition_result(radius,
 		mnsc, velocity, volume, diamension);
 		
-	const TMns new_mnsc = combine_fluid_additions(radius, mnsc,
-		velocity, diamension,
-		fluid_addition_result.fluid_addition_table);
+	const TMns new_mnsc = combine_fluid_additions
+	(
+		radius,
+		mnsc,
+		velocity,
+		diamension,
+		fluid_addition_result.fluid_addition_table,
+		row_minimum_time,
+		col_minimum_time
+	);
 	
 	func::IntegrationResult integration_result
 	{
@@ -131,7 +140,9 @@ TMns func::Integration::combine_fluid_additions
 	TMns mnsc,
 	const Tfloat& velocity,
 	const dst::Diamension& diamension,
-	const TFluidAdditions& fluid_addition_table
+	const TFluidAdditions& fluid_addition_table,
+	const int row_minimum_time,
+	const int col_minimum_time
 )
 {
 	for(int row = 0; row < diamension.rows; ++ row)
@@ -141,8 +152,13 @@ TMns func::Integration::combine_fluid_additions
 			const float vel = velocity[row][col];
 			const float rad = radius[row][col];
 			const std::vector<float>& add_fluid_from_tank_to_tube = fluid_addition_table[row][col].fluid;
+			const bool tube_with_minimum_time =
+				(row == row_minimum_time) &&
+				(col == col_minimum_time);
 			
-			mnsc[row][col].update(vel, rad, add_fluid_from_tank_to_tube);
+			std::cout << std::endl << "(" << row << ", " << col << "): ";
+			
+			mnsc[row][col].update(vel, rad, add_fluid_from_tank_to_tube, tube_with_minimum_time);
 		}
 	}
 	

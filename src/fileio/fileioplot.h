@@ -17,6 +17,7 @@ namespace fileio
 		static void without_radius(TMns mnsc, int count);
 		//Tested works Correctly
 		static void with_radius(TMns mnsc, Tfloat radius, float clock, int count);
+		static void with_radius2(TMns mnsc, Tfloat radius, float clock, int count);
 	};
 }
 #endif

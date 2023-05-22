@@ -5,7 +5,7 @@
 
 int main()
 {
-	//std::cout << std::setprecision(1) << std::scientific;
+	//std::cout << std::setprecision(2) << std::scientific;
 	
 	fileio::Data data = fileio::Read::loop_until_proper_files();
 	func::Global::simulate(data.radius, data.mnsc, data.diamension);

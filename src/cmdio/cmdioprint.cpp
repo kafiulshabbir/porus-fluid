@@ -73,7 +73,7 @@ void cmdio::Print::pmnsc(const TMns& matrix)
 		for(size_t j = 0; j < matrix[i].size(); ++ j)
 		{
 			const auto& a = matrix[i][j];
-			std::cout << "(" << i << ", " << j << "): " << a.n << " " << a.type << " {" << a.pos.front() << ", " << a.pos.back() << "}" << std::endl;
+			std::cout << "(" << i << ", " << j << "): " << a.n << " " << a.type << " {" << a.pos.front() << ", " << a.pos.back() << "}" << '\t';
 		}
 		std::cout << std::endl;
 	}

@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.2.25)  15 MAR 2023 18:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=latex 2023.2.25)  16 MAY 2023 03:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**algorithm
+**algorithm.tex
 (./algorithm.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
@@ -64,7 +64,7 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
 )
 (/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
@@ -147,21 +147,28 @@ Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
 \c@Item=\count185
 \c@Hfootnote=\count186
 )
-Package hyperref Info: Driver (autodetected): hpdftex.
+Package hyperref Info: Driver (default): hdvips.
 
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hdvips.def
+File: hdvips.def 2020/01/14 v7.00d Hyperref driver for dvips
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pdfmark.def
+File: pdfmark.def 2020/01/14 v7.00d Hyperref definitions for pdfmark specials
+\pdf@docset=\toks16
+\pdf@box=\box45
+\pdf@toks=\toks17
+\pdf@defaulttoks=\toks18
+\HyField@AnnotCount=\count187
+\Fld@listcount=\count188
+\c@bookmark@seq@number=\count189
+
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
 
 (/usr/share/texlive/texmf-dist/tex/latex/atveryend/atveryend.sty
 Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
 )
-\Fld@listcount=\count187
-\c@bookmark@seq@number=\count188
-
-(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
-Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
-
 (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
@@ -169,21 +176,21 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
 \Hy@SectionHShift=\skip49
-)
+))
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2020/01/17 v1.23 mathematical typesetting tools
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count189
-\calc@Bcount=\count190
+\calc@Acount=\count190
+\calc@Bcount=\count191
 \calc@Adimen=\dimen147
 \calc@Bdimen=\dimen148
 \calc@Askip=\skip50
 \calc@Bskip=\skip51
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count191
+\calc@Ccount=\count192
 \calc@Cskip=\skip52
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
@@ -199,7 +206,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks16
+\@emptytoks=\toks19
 \ex@=\dimen149
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
@@ -209,41 +216,41 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count192
+\inf@bad=\count193
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count193
-\leftroot@=\count194
+\uproot@=\count194
+\leftroot@=\count195
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count195
-\DOTSCASE@=\count196
+\classnum@=\count196
+\DOTSCASE@=\count197
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box45
-\strutbox@=\box46
+\Mathstrutbox@=\box46
+\strutbox@=\box47
 \big@size=\dimen151
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count197
-\c@MaxMatrixCols=\count198
+\macc@depth=\count198
+\c@MaxMatrixCols=\count199
 \dotsspace@=\muskip17
-\c@parentequation=\count199
-\dspbrk@lvl=\count266
-\tag@help=\toks17
-\row@=\count267
-\column@=\count268
-\maxfields@=\count269
-\andhelp@=\toks18
+\c@parentequation=\count266
+\dspbrk@lvl=\count267
+\tag@help=\toks20
+\row@=\count268
+\column@=\count269
+\maxfields@=\count270
+\andhelp@=\toks21
 \eqnshift@=\dimen152
 \alignsep@=\dimen153
 \tagshift@=\dimen154
 \tagwidth@=\dimen155
 \totwidth@=\dimen156
 \lineht@=\dimen157
-\@envbody=\toks19
+\@envbody=\toks22
 \multlinegap=\skip54
 \multlinetaggap=\skip55
-\mathdisplay@stack=\toks20
+\mathdisplay@stack=\toks23
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
 )
@@ -251,7 +258,7 @@ LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count270
+\g_MT_multlinerow_int=\count271
 \l_MT_multwidth_dim=\dimen158
 \origjot=\skip56
 \l_MT_shortvdotswithinadjustabove_dim=\dimen159
@@ -273,18 +280,23 @@ Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: dvips.def on input line 105.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 ))
 \Gin@req@height=\dimen165
 \Gin@req@width=\dimen166
 )
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
-File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count271
-\l__pdf_internal_box=\box47
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+File: l3backend-dvips.def 2020-02-03 L3 backend support: dvips
+\l__pdf_internal_box=\box48
+\g__pdf_backend_object_int=\count272
+\l__pdf_backend_content_box=\box49
+\l__pdf_backend_model_box=\box50
+\g__pdf_backend_annotation_int=\count273
+\g__pdf_backend_link_int=\count274
+\g__pdf_backend_link_sf_int=\count275
 )
 (./algorithm.aux)
 \openout1 = `algorithm.aux'.
@@ -307,9 +319,9 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: dvips
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: dvips
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -340,7 +352,7 @@ LaTeX Font Info:    ... okay on input line 13.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box48
+\AtBeginShipoutBox=\box51
 Package hyperref Info: Link coloring OFF on input line 13.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -351,7 +363,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count272
+\c@section@level=\count276
 )
 LaTeX Info: Redefining \ref on input line 13.
 LaTeX Info: Redefining \pageref on input line 13.
@@ -362,141 +374,96 @@ LaTeX Info: Redefining \nameref on input line 13.
 \openout3 = `algorithm.out'.
 
 
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count273
-\scratchdimen=\dimen167
-\scratchbox=\box49
-\nofMPsegments=\count274
-\nofMParguments=\count275
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count276
-\MPscratchDim=\dimen168
-\MPnumerator=\count277
-\makeMPintoPDFobject=\count278
-\everyMPtoPDFconversion=\toks22
-) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-<fig_capact-of-water.png, id=36, 220.825pt x 295.1025pt>
-File: fig_capact-of-water.png Graphic file (type png)
-<use fig_capact-of-water.png>
-Package pdftex.def Info: fig_capact-of-water.png  used on input line 37.
-(pdftex.def)             Requested size: 106.4564pt x 142.26378pt.
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
+
+! LaTeX Error: File `fig_capact-of-water' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37 ...egraphics[height=5cm]{fig_capact-of-water}
+                                                   \label{fig_capact-of-water}
+? 
+
+! LaTeX Error: File `fig_flowr-1-men' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 	\includegraphics{fig_flowr-1-men}
+                                       
+? 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./fig_capact-of-water.png>
 ]
-<fig_flowr-1-men.png, id=54, 300.12125pt x 114.4275pt>
-File: fig_flowr-1-men.png Graphic file (type png)
-<use fig_flowr-1-men.png>
-Package pdftex.def Info: fig_flowr-1-men.png  used on input line 41.
-(pdftex.def)             Requested size: 300.12051pt x 114.42722pt.
- [2 <./fig_flowr-1-men.png>]
-<fig_simple-5-nodes.png, id=82, 301.125pt x 311.1625pt>
-File: fig_simple-5-nodes.png Graphic file (type png)
-<use fig_simple-5-nodes.png>
-Package pdftex.def Info: fig_simple-5-nodes.png  used on input line 102.
-(pdftex.def)             Requested size: 165.21031pt x 170.71652pt.
- [3 <./fig_simple-5-nodes.png (PNG copy)>]
-<fig_descp-of-model.png, id=92, 2891.5227pt x 2048.8545pt>
-File: fig_descp-of-model.png Graphic file (type png)
-<use fig_descp-of-model.png>
-Package pdftex.def Info: fig_descp-of-model.png  used on input line 134.
-(pdftex.def)             Requested size: 240.9008pt x 170.71652pt.
 
-[4 <./fig_descp-of-model.png>]
-<fig_initial-fill-distribution.png, id=107, 753.81625pt x 528.97626pt>
-File: fig_initial-fill-distribution.png Graphic file (type png)
-<use fig_initial-fill-distribution.png>
-Package pdftex.def Info: fig_initial-fill-distribution.png  used on input line 
-166.
-(pdftex.def)             Requested size: 243.27354pt x 170.71652pt.
-<fig_final-fill-distribution.png, id=108, 782.925pt x 527.9725pt>
-File: fig_final-fill-distribution.png Graphic file (type png)
-<use fig_final-fill-distribution.png>
-Package pdftex.def Info: fig_final-fill-distribution.png  used on input line 16
-7.
-(pdftex.def)             Requested size: 253.14545pt x 170.71652pt.
+! LaTeX Error: File `fig_simple-5-nodes' not found.
 
-Overfull \hbox (15.3332pt too wide) in paragraph at lines 166--168
-[] [] 
- []
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.102 ...egraphics[height=6cm]{fig_simple-5-nodes}
+                                                  
+? 
+[2]
 
-[5 <./fig_initial-fill-distribution.png> <./fig_final-fill-distribution.png>]
+! LaTeX Error: File `fig_descp-of-model' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...egraphics[height=6cm]{fig_descp-of-model}
+                                                  
+? 
+[3]
+
+! LaTeX Error: File `fig_initial-fill-distribution' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.166 ...eight=6cm]{fig_initial-fill-distribution}
+                                                  
+? 
+
+! LaTeX Error: File `fig_final-fill-distribution' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.167 ...[height=6cm]{fig_final-fill-distribution}
+                                                  
+? 
+[4]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-
-[6]
+ [5]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
  (./algorithm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+Package rerunfilecheck Info: File `algorithm.out' has not changed.
+(rerunfilecheck)             Checksum: D4121EAA8F4198B5C219DD7CCC6066B4;491.
 
-
-Package rerunfilecheck Warning: File `algorithm.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `algorithm.out':
-(rerunfilecheck)             Before: A73152BF773F5F214D0310C9E02E52A4;444
-(rerunfilecheck)             After:  D4121EAA8F4198B5C219DD7CCC6066B4;491.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 6915 strings out of 481239
- 105526 string characters out of 5920377
- 379870 words of memory out of 5000000
- 22021 multiletter control sequences out of 15000+600000
+ 6489 strings out of 481240
+ 99581 string characters out of 5920403
+ 381550 words of memory out of 5000000
+ 21658 multiletter control sequences out of 15000+600000
  539225 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,11n,34p,1004b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{equation.3.12} has been referenced but does not e
-xist, replaced by a fixed one
+ 37i,11n,34p,1008b,397s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-pdfTeX warning (dest): name{equation.2.10} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{equation.2.6} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{equation.2.5} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{equation.2.4} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{equation.2.3} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{equation.2.2} has been referenced but does not exis
-t, replaced by a fixed one
-
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/s
-hare/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/typ
-e1/public/cm-super/sfrm1000.pfb>
-Output written on algorithm.pdf (6 pages, 465072 bytes).
-PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
- 56 named destinations out of 1000 (max. 500000)
- 95 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+Output written on algorithm.dvi (5 pages, 30000 bytes).

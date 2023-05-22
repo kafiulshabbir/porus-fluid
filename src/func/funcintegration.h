@@ -64,7 +64,9 @@ namespace func
 			TMns mnsc,
 			const Tfloat& velocity,
 			const dst::Diamension& diamension,
-			const TFluidAdditions& fluid_addition_table
+			const TFluidAdditions& fluid_addition_table,
+			const int row_mimimum_time,
+			const int col_minimum_time
 		);
 		
 		static TMns trimmer(TMns mnsc, const Tfloat& velocity);
@@ -76,7 +78,9 @@ namespace func
 			const TMns& mnsc,
 			const Tfloat& velocity,
 			const Tfloat& volume,
-			const dst::Diamension& diamension
+			const dst::Diamension& diamension,
+			const int row_mimimum_time,
+			const int col_minimum_time
 		);
 		
 	};

@@ -15,7 +15,7 @@ Tfloat func::Determine::determine_volume
 		for(int col = 0; col < diamension.cols; ++ col)
 		{
 			const float vel_abs = std::abs(velocity[row][col]);
-			const float area_tube = std::pow(radius[row][col], 2) * declconst::PI
+			const float area_tube = std::pow(radius[row][col], 2) * declconst::PI;
 			volume[row][col] = vel_abs * area_tube * time_step;
 		}
 	}

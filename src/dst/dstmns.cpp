@@ -1,8 +1,22 @@
 #include "dst/dstmns.h"
 
+
 dst::Mns::Mns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
 
-dst::Mns::Mns(int n, bool type, float p1, float p2): n(n), type(type), pos{p1, p2} {}
+dst::Mns::Mns(const int n, const bool type,
+	const float p1,	const float p2):
+	n(n), type(type), pos{p1, p2} {}
+
+dst::Mns dst::Mns::inverse() const
+{
+	if(n == 1)
+	{
+		return Mns(n, !type, 1.0 - pos[0], -1);
+	}
+	
+	
+	return Mns(n, type, 1.0 - pos[1], 1.0 - pos[0]);
+}
 
 // Data access
 int dst::Mns::number_mns() const
@@ -124,23 +138,33 @@ float dst::Mns::mu(const float mu1, const float mu2) const
 
 // Part-2 Minimum Time----------------------------------------------------------
 
-float dst::Mns::time(const float velocity, const float length, const float time_div) const
+dst::Mns::TimeType dst::Mns::time(const float velocity, const float length, const float time_div) const
 {
+	//std::cout << "n=" << n << " type=" << type << " -> ";
 	const float time_step_default = length / std::abs(velocity) / time_div;
 	
 	if(n == 0)
 	{
-		return time_step_default;
+		//std::cout << "def=" << time_step_default << std::endl;
+		return TimeType{time_step_default, false};
 	}
 	
 	float displacement_active = pos.front();
+	
 	if(velocity >= 0)
 	{
-		displacement_active = 1.0 - pos[this->n - 1];
+		displacement_active = 1.0f - pos[n - 1];
 	}
 	
 	const float time_step = length * displacement_active / std::abs(velocity);
-	return std::min(time_step, time_step_default);
+	
+	//std::cout << "ts=" << time_step << ", tsd=" << time_step_default << ", dac" << displacement_active << std::endl;
+	if(time_step > time_step_default)
+	{
+		return TimeType{time_step_default, false};
+	}
+	
+	return TimeType{time_step, true};
 }
 
 
@@ -207,16 +231,31 @@ void dst::Mns::update(const float vel, const float rad,
 	const float l2 = add.back() / area / declconst::TUBE_LENGTH;
 	const float l = l1 + l2;
 	
-	Cmprt cmprt_existing = gen_cmprt_existing(vel, l, tube_with_minimum_time);
-	Cmprt cmprt_additon = gen_cmprt_addition(vel, l1, l2);
+	Cmprt cmprt_existing =
+		gen_cmprt_existing(vel, l, tube_with_minimum_time);
+	Cmprt cmprt_addition = gen_cmprt_addition(vel, l1, l2);
 	
-	Cmprt cmprt_merged = merge_existing_and_cmprt_addition(cmprt_existing, cmprt_addition, vel);
+	Cmprt cmprt_merged =
+		merge_existing_and_cmprt_addition(cmprt_existing, cmprt_addition, vel);
 	Cmprt cmprt_without_dupl = remove_dupl_cmprt(cmprt_merged);
 	
-	const bool type_begin_temp = cmprt_without_dupl.front().first;
-	std::vector<float> pos_new_temp = cmprt_to_vector(cmprt);
-	
-	PosNew_Type_Result pos_new_and_type = gen_pos_new_and_type(type_begin_temp, pos_new_temp, vel);
+	bool type_begin_temp = cmprt_without_dupl.front().first;
+	std::vector<float> pos_new_temp = cmprt_to_vector(cmprt_without_dupl);
+	/*
+	if(tube_with_minimum_time)
+	{
+		if(vel > 0)
+		{
+			cmprt_existing.pop_back();
+		}
+		else
+		{
+			cmprt_existing.pop_front();
+		}
+	}
+	*/
+	PosNew_Type_Result pos_new_and_type =
+		centre_of_mass_recombination(type_begin_temp, pos_new_temp);
 	
 	n = pos_new_and_type.v.size();
 	type = pos_new_and_type.type;
@@ -241,17 +280,17 @@ std::vector<float> dst::Mns::cmprt_to_vector(const dst::Mns::Cmprt& cmprt)
 	return v;
 }
 
-Cmprt dst::Mns::gen_cmprt_addition(const float vel, const float l1, const float l2)
+dst::Mns::Cmprt dst::Mns::gen_cmprt_addition(const float vel, const float l1, const float l2)
 {
 	Cmprt cmprt_addition;
 	
 	if(l1 > 0)
 	{
-		cmprt_addition.push_back{0, l1};
+		cmprt_addition.push_back({0, l1});
 	}
 	if(l2 > 0)
 	{
-		cmprt_addition.push_back{1, l2};
+		cmprt_addition.push_back({1, l2});
 	}
 	
 	if(vel > 0)
@@ -288,6 +327,9 @@ dst::Mns::Cmprt dst::Mns::gen_cmprt_existing(float vel,
 		cmprt_existing.push_back(cmprt_section);
 	}
 	
+	//cmdio::Print::cmprt("old", cmprt_existing);
+	
+	//std::cout << "tube, min, time = " << tube_with_minimum_time;
 	if(tube_with_minimum_time)
 	{
 		if(vel > 0)
@@ -304,7 +346,7 @@ dst::Mns::Cmprt dst::Mns::gen_cmprt_existing(float vel,
 }
 
 
-std::vector<float> dst::Mns::gen_pos_long_after_dspl(float vel, float l) const
+std::vector<float> dst::Mns::gen_pos_long_after_dspl(const float vel, const float l) const
 {
 	std::vector<float> pos_long_after_dspl = gen_pos_long();
 	
@@ -320,12 +362,17 @@ std::vector<float> dst::Mns::gen_pos_long_after_dspl(float vel, float l) const
 	return pos_long_after_dspl;
 }
 
-dst::Mns::Cmprt dst::Mns::merge_existing_and_cmprt_addition(dst::Mns::Cmprt& cmprt_existing, dst::Mns::Cmprt& cmprt_addition, float vel)
+dst::Mns::Cmprt dst::Mns::merge_existing_and_cmprt_addition
+(
+	dst::Mns::Cmprt& cmprt_existing,
+	dst::Mns::Cmprt& cmprt_addition,
+	float vel
+)
 {
 	if(vel > 0)
 	{
 		cmprt_addition.insert(cmprt_addition.end(), cmprt_existing.begin(), cmprt_existing.end());
-		return cmprt_addition
+		return cmprt_addition;
 	}
 
 	cmprt_existing.insert(cmprt_existing.end(), cmprt_addition.begin(), cmprt_addition.end());
@@ -357,10 +404,34 @@ dst::Mns::Cmprt dst::Mns::remove_dupl_cmprt(const dst::Mns::Cmprt& cmprt_merged)
 }
 
 
-dst::Mns::PosNew_Type_Result dst::Mns::gen_pos_new_and_type(bool type_begin, const vector<float> pos_new, const float vel) const
+dst::Mns::PosNew_Type_Result dst::Mns::centre_of_mass_recombination
+(
+	const bool type_begin,
+	const std::vector<float>& pos_new
+) const
 {
+	// NEEED CLARIFICATION SOON 15.05.2023 TRY BOTH
 	if(pos_new.size() == 3)
 	{
+		if(type_begin)
+		{
+			const float l1 = pos_new[0];
+			const float l2 = pos_new[1];
+			const float l3 = pos_new[2];
+			const float l4 = 1;
+			
+			const float d1 = l2 - l1;
+			const float d2 = l4 - l3;
+			const float d = d1 + d2;
+			const float c1 = (l1 + l2) / 2;
+			const float c2 = (l3 + l4) / 2;
+			
+			const float L1 = (c1 * d1 + c2 * d2) / d - d / 2;
+			const float L2 = L1 + d;
+			
+			return {type_begin, {L1, L2}};	
+		}
+		
 		const float l1 = 0;
 		const float l2 = pos_new[0];
 		const float l3 = pos_new[1];
@@ -398,22 +469,6 @@ dst::Mns::PosNew_Type_Result dst::Mns::gen_pos_new_and_type(bool type_begin, con
 	
 	return {type_begin, pos_new};
 }
-
-
-std::vector<float> dst::Mns::gen_pos_from_segmented(std::vector<float> pos_segmented)
-{
-	pos_segmented.pop_back();
-	
-	const int pos_segmented_size = pos_segmented.size();
-	for(int i = 1; i < pos_segmented_size; ++ i)
-	{
-		pos_segmented[i] += pos_segmented[i - 1];
-	}
-	
-	return pos_segmented;
-}
-
-
 
 
 // Part-5 Measurement ---------------------------------------------------------

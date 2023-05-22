@@ -15,7 +15,7 @@ std::pair<int, int> dst::Diamension::linear_node_at_ends_of_tube(const int row, 
 	return {first_linear_node, second_linear_node};
 }
 
-int node_rows() const
+int dst::Diamension::node_rows() const
 {
 	return this->rows + 1;
 }
@@ -45,23 +45,24 @@ bool dst::Diamension::operator== (const Diamension& other) const
 std::vector<dst::Tube> dst::Diamension::generate_tubes_connected_to_node(int row, int col) const
 {	
 	const auto linear_node = this->linear_node_from_coordinate(row, col);
+
 	std::vector<dst::Tube> tubes_connected_vec(4);
 	
 	tubes_connected_vec[0].row = row - 1;
 	tubes_connected_vec[0].col = 2 * col - 1 + row % 2;
-	tubes_connected_vec[0].linear_node = linear_node - this->rows / 2 - 1;
+	tubes_connected_vec[0].linear_node = linear_node - cols / 2 - 1;
 	
 	tubes_connected_vec[1].row = row - 1;
 	tubes_connected_vec[1].col = 2 * col + row % 2;
-	tubes_connected_vec[1].linear_node = linear_node - this->rows / 2 ;
+	tubes_connected_vec[1].linear_node = linear_node - cols / 2 ;
 	
 	tubes_connected_vec[2].row = row;
 	tubes_connected_vec[2].col = 2 * col + row % 2;
-	tubes_connected_vec[2].linear_node = linear_node + this->rows / 2 + 1;
+	tubes_connected_vec[2].linear_node = linear_node + cols / 2 + 1;
 	
 	tubes_connected_vec[3].row = row;
 	tubes_connected_vec[3].col = 2 * col - 1 + row % 2;
-	tubes_connected_vec[3].linear_node = linear_node + this->rows / 2;
+	tubes_connected_vec[3].linear_node = linear_node + cols / 2;
 
 	
 	if(row % 2)
