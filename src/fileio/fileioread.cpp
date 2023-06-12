@@ -1,8 +1,8 @@
 #include "fileio/fileioread.h"
 
-std::pair<Tfloat, bool> fileio::Read::read_radius()
+std::pair<Tdouble, bool> fileio::Read::read_radius()
 {
-	return read_file<float>(declfilename::FILE_RADIUS);
+	return read_file<double>(declfilename::FILE_RADIUS);
 }
 
 std::pair<TMns, bool> fileio::Read::read_mnsc()
@@ -69,7 +69,7 @@ std::map<std::string, dst::Diamension> fileio::Read::diamension()
 {
 	std::map<std::string, dst::Diamension> outmap;
 	
-	std::pair<Tfloat, bool> radius = read_radius();
+	std::pair<Tdouble, bool> radius = read_radius();
 	if(radius.second)
 	{
 		outmap.insert({declfilename::FILE_RADIUS, dst::Diamension(radius.first)});

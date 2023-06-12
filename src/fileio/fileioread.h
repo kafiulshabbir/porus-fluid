@@ -16,7 +16,7 @@ namespace fileio
 {
 	struct Data
 	{
-		Tfloat radius;
+		Tdouble radius;
 		TMns mnsc;
 		dst::Diamension diamension;
 		bool success;
@@ -35,7 +35,7 @@ namespace fileio
 			const std::string& file_name);
 				
 	public:
-		static std::pair<Tfloat, bool> read_radius();
+		static std::pair<Tdouble, bool> read_radius();
 		static std::pair<TMns, bool> read_mnsc();
 		static std::map<std::string, dst::Diamension> diamension();
 		static Data all();

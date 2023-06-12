@@ -1,34 +1,35 @@
 #include "cmdio/cmdioprint.h"
 
-void cmdio::Print::pmat(const std::string& s, const Tfloat& matrix)
+void cmdio::Print::pmat(const std::string& s, const Tdouble& matrix)
 {
 	const int n = matrix.size();
 	const int m = matrix.front().size();
-	std::cout << "\n\n------------------------------------\n";
-	std::cout << s << '\n';
+	
+	std::cout << std::endl << s << std::string(100, '-') << std::endl;
 	
 	std::cout << std::setw(7) << -1 << " | ";
 	for(int j = 0; j < m; ++ j)
 	{
-		std::cout << std::setw(7) << (float)j << ' ';
+		std::cout << std::setw(7) << (double)j << ' ';
 	}
 	std::cout << '\n';
 	for(int i = 0; i < n; ++ i)
 	{
-		std::cout << std::setw(7) << (float)i << " | ";
+		std::cout << std::setw(7) << (double)i << " | ";
 		for(int j = 0; j < m; ++ j)
 		{
 			std::cout << std::setw(7) << matrix[i][j] << ' ';
 		}
 		std::cout << '\n';
 	}
+	
+	std::cout << std::endl;
 }
 
 
-void cmdio::Print::pmat(const std::string& s, const std::vector<float>& v, const int n, const int m)
+void cmdio::Print::pmat(const std::string& s, const std::vector<double>& v, const int n, const int m)
 {
-	std::cout << "\n\n------------------------------------\n";
-	std::cout << s << '\n';
+	std::cout << std::endl << s << std::string(100, '-') << std::endl;
 	
 	int count = 0;
 	for(int i = 0; i <= n; ++ i)
@@ -40,44 +41,55 @@ void cmdio::Print::pmat(const std::string& s, const std::vector<float>& v, const
 		}
 		std::cout << '\n';
 	}
+	std::cout << "THE END";
+	std::cout << std::endl;
 }
+
 
 void cmdio::Print::pmat(const std::string& s, const TMns& matrix)
 {
+	std::cout << std::endl << s << std::string(100, '-') << std::endl;
+	
 	const int n = matrix.size();
 	const int m = matrix.front().size();
-	std::cout << "\n\n------------------------------------\n";
-	std::cout << s << '\n';
 	
 	std::cout << std::setw(7) << -1 << " | ";
 	for(int j = 0; j < m; ++ j)
 	{
-		std::cout << std::setw(7) << (float)j << ' ';
+		std::cout << std::setw(7) << (double)j << ' ';
 	}
 	std::cout << '\n';
 	for(int i = 0; i < n; ++ i)
 	{
-		std::cout << std::setw(7) << (float)i << " | ";
+		std::cout << std::setw(7) << (double)i << " | ";
 		for(int j = 0; j < m; ++ j)
 		{
 			std::cout << std::setw(7) << matrix[i][j].printable() << ' ';
 		}
 		std::cout << '\n';
 	}
+	
+	std::cout << std::endl;
 }
+
 
 void cmdio::Print::pmnsc(const TMns& matrix)
 {
+	std::cout << std::endl << "MNSC LONG" << std::string(100, '-') << std::endl;
+	
 	for(size_t i = 0; i < matrix.size(); ++ i)
 	{
 		for(size_t j = 0; j < matrix[i].size(); ++ j)
 		{
 			const auto& a = matrix[i][j];
-			std::cout << "(" << i << ", " << j << "): " << a.n << " " << a.type << " {" << a.pos.front() << ", " << a.pos.back() << "}" << '\t';
+			std::cout << "(" << i << ", " << j << "): " << a.n << " " << a.type << " {" << a.pos.front() << ", " << a.pos.back() << "}" << std::endl;
 		}
 		std::cout << std::endl;
 	}
+	
+	std::cout << std::endl;
 }
+
 
 void cmdio::Print::diamension()
 {
@@ -87,28 +99,5 @@ void cmdio::Print::diamension()
 	for(const auto& [file_name, d]: lst_diamension)
 	{
 		std::cout << "-IFR-diamension " << file_name << " (r, c) = (" << d.rows << ", " << d.cols << ")" << std::endl;
-	}
-}
-	
-	
-void cmdio::Print::padd(const std::string& s, const std::vector<std::vector<std::vector<float>>>& matrix)
-{
-	std::cout << "\n\n------------------------------------\n";
-	std::cout << s << '\n';
-	
-	std::cout << std::setw(4) << -1 << " | ";
-	for(size_t j = 0; j < matrix.front().size(); ++ j)
-	{
-		std::cout << std::setw(19) << j << ' ';
-	}
-	std::cout << '\n';
-	for(size_t i = 0; i < matrix.size(); ++ i)
-	{
-		std::cout << std::setw(4) << i << " | ";
-		for(size_t j = 0; j < matrix.front().size(); ++ j)
-		{
-			std::cout << "(" << std::setw(7) << matrix[i][j].front() << ", " << std::setw(7) << matrix[i][j].back() << ") ";
-		}
-		std::cout << '\n';
 	}
 }

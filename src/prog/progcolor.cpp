@@ -1,6 +1,6 @@
 #include "drw/drw.h"
 
-float color_trim(int val, const int height)
+double color_trim(int val, const int height)
 {
 	val = std::max(val, 0);
 	val = std::min(val, height);
@@ -8,11 +8,11 @@ float color_trim(int val, const int height)
 	return val;
 }
 
-drw::colour rainbow_scale(const float val, const float min, const float max)
+drw::colour rainbow_scale(const double val, const double min, const double max)
 {
-	const float height = 255;
-	const float val_dash = val - (max + min) / 2.0;
-	const float slope = 4.0 * height / (max - min);
+	const double height = 255;
+	const double val_dash = val - (max + min) / 2.0;
+	const double slope = 4.0 * height / (max - min);
 	
 	int red = slope * val_dash;
 	int green = 2.0 * height - slope * std::abs(val_dash);

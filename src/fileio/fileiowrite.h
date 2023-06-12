@@ -17,8 +17,12 @@ namespace fileio
 			const std::vector<std::vector<T>>& table);
 			
 	public:
-		static void run(const Tfloat& radius);
+		static void run(const Tdouble& radius);
 		static void run(const TMns& mnsc);
+		static void fluid_ppr(
+			const std::vector<std::string>& header,
+			const std::vector<std::vector<double>>& table
+		);
 	};
 }
 

@@ -14,7 +14,7 @@ namespace utility
 		static int integer();
 		static int integer(const int max);
 		static int integer(const int min, const int max);
-		static float fraction(const float decimal_shift);
+		static double fraction(const double decimal_shift);
 		
 	};
 }

@@ -3,6 +3,7 @@
 
 #include "cmdio/cmdioprint.h"
 #include "fileio/fileioplot.h"
+#include "fileio/fileiowrite.h"
 #include "dst/dstdiamension.h"
 
 #include "func/funcdetermine.h"
@@ -21,21 +22,21 @@ namespace func
 	{	
 		static void makeplot
 		(
-			const Tfloat& radius,
+			const Tdouble& radius,
 			const TMns& mnsc,
 			const int count,
-			const float clock
+			const double clock
 		);
 			
 		static bool within_limits_fluid_first_type
 		(
-			const Tfloat& radius,
+			const Tdouble& radius,
 			const TMns& mnsc,
-			float& proportion
+			double& proportion
 		);
 				
 	public:
-		static void simulate(const Tfloat& radius,
+		static void simulate(const Tdouble& radius,
 			TMns& mnsc, const dst::Diamension& diamension);
 	};
 }

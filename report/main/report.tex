@@ -1,0 +1,43 @@
+\documentclass[12pt]{report}
+
+\usepackage[a4paper, margin=3cm]{geometry} %for setting margin
+\usepackage{hyperref} %for label and references ref
+\usepackage{mathtools} %for begin equation
+\usepackage{graphicx} %for include graphics
+\usepackage{parskip} %for leaving some space after paragraphs
+\usepackage{float} %to not make images float around
+
+\graphicspath{{figures/}}
+
+\title{Simulation of Two-Phase Flow in Porous Media using a Two-Dimensional Network Model}
+\author{Kafi Ul Shabbir\thanks{kafiulshabbir@phystech.edu, Moscow Institute of Physics and Technology}}
+\date{\today}
+
+
+\begin{document}
+	\maketitle
+
+	\tableofcontents
+
+	\chapter{Introduction}
+		\input{chapters/01introduction.tex}
+		
+	\chapter{Theory}
+		\input{chapters/02theory.tex}
+		
+	\chapter{Model}
+		\input{chapters/03model.tex}
+
+	\chapter{Result}
+		\input{chapters/04result.tex}
+
+	\chapter{Conclusion}
+		\input{chapters/05conclusion.tex}
+
+	\chapter{Reference}
+		\input{chapters/06reference.tex}
+		
+	\chapter{Appendix-sample}
+		\input{chapters/07appendix.tex}
+
+\end{document}

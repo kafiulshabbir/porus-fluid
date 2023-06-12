@@ -10,13 +10,14 @@ namespace func
 	{
 		
 	public:
-		static Tfloat calculate_velocity
-		(
-			const Tfloat& radius,
+		static Tdouble calculate_velocity(
+			const Tdouble& radius,
 			const TMns& mnsc,
-			const std::vector<float>& pressure,
+			const std::vector<double>& pressure,
 			const dst::Diamension& diamension
 		);
+		
+		static Tdouble refine_velocity(Tdouble v);
 	};
 }
 

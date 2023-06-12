@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.1)  2 JUN 2023 18:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.1)  12 JUN 2023 15:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**report.tex
-(./report.tex
+**main/report.tex
+(./main/report.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
@@ -289,30 +289,38 @@ Package: parskip 2020-01-22 v2.0d non-zero parskip adjustments
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count272
 ))
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count273
+\float@exts=\toks21
+\float@box=\box47
+\@float@everytoks=\toks22
+\@floatcapt=\box48
+)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count273
-\l__pdf_internal_box=\box47
+\l__kernel_color_stack_int=\count274
+\l__pdf_internal_box=\box49
 )
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -322,15 +330,15 @@ LaTeX Font Info:    ... okay on input line 16.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
-* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=455.24411pt
-* \textheight=702.78308pt
-* \oddsidemargin=-1.1381pt
-* \evensidemargin=-1.1381pt
-* \topmargin=-38.1381pt
+* \textwidth=426.79135pt
+* \textheight=674.33032pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-23.91173pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
@@ -348,8 +356,8 @@ LaTeX Font Info:    ... okay on input line 16.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box48
-Package hyperref Info: Link coloring OFF on input line 16.
+\AtBeginShipoutBox=\box50
+Package hyperref Info: Link coloring OFF on input line 17.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -359,11 +367,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count274
+\c@section@level=\count275
 )
-LaTeX Info: Redefining \ref on input line 16.
-LaTeX Info: Redefining \pageref on input line 16.
-LaTeX Info: Redefining \nameref on input line 16.
+LaTeX Info: Redefining \ref on input line 17.
+LaTeX Info: Redefining \pageref on input line 17.
+LaTeX Info: Redefining \nameref on input line 17.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
@@ -372,17 +380,17 @@ LaTeX Info: Redefining \nameref on input line 16.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count275
+\scratchcounter=\count276
 \scratchdimen=\dimen167
-\scratchbox=\box49
-\nofMPsegments=\count276
-\nofMParguments=\count277
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count278
+\scratchbox=\box51
+\nofMPsegments=\count277
+\nofMParguments=\count278
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count279
 \MPscratchDim=\dimen168
-\MPnumerator=\count279
-\makeMPintoPDFobject=\count280
-\everyMPtoPDFconversion=\toks22
+\MPnumerator=\count280
+\makeMPintoPDFobject=\count281
+\everyMPtoPDFconversion=\toks24
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -402,106 +410,230 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.22 \chapter
-             {Introduction} [1
+l.22 	\chapter
+              {Introduction} [1
 
 ]
 Chapter 1.
-(./s01-introduction/introduction.tex) [2
+(./chapters/01introduction.tex) [2
 
 ]
 Chapter 2.
-(./s02-theory/theory.tex
-Underfull \hbox (badness 10000) in paragraph at lines 9--14
+(./chapters/02theory.tex [3
 
+] [4]
+<figures/fig_capact-of-water.png, id=185, 220.825pt x 295.1025pt>
+File: figures/fig_capact-of-water.png Graphic file (type png)
+<use figures/fig_capact-of-water.png>
+Package pdftex.def Info: figures/fig_capact-of-water.png  used on input line 10
+6.
+(pdftex.def)             Requested size: 170.33228pt x 227.62204pt.
+ [5]
+<figures/fig_shape-meniscus.png, id=193, 631.35875pt x 288.07625pt>
+File: figures/fig_shape-meniscus.png Graphic file (type png)
+<use figures/fig_shape-meniscus.png>
+Package pdftex.def Info: figures/fig_shape-meniscus.png  used on input line 114
+.
+(pdftex.def)             Requested size: 187.07771pt x 85.35826pt.
+<figures/fig_capillary_flow_brick.jpg, id=194, 770.88pt x 442.0515pt>
+File: figures/fig_capillary_flow_brick.jpg Graphic file (type jpg)
+<use figures/fig_capillary_flow_brick.jpg>
+Package pdftex.def Info: figures/fig_capillary_flow_brick.jpg  used on input li
+ne 122.
+(pdftex.def)             Requested size: 396.94295pt x 227.62204pt.
+ [6pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.126 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+2.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.126 
+       <./figures/fig_capact-of-water.png> <./figures/fig_shape-meniscus.png>]
+<figures/fig_flowr-1-men.png, id=204, 300.12125pt x 114.4275pt>
+File: figures/fig_flowr-1-men.png Graphic file (type png)
+<use figures/fig_flowr-1-men.png>
+Package pdftex.def Info: figures/fig_flowr-1-men.png  used on input line 132.
+(pdftex.def)             Requested size: 223.88597pt x 85.35826pt.
+
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.155 	\end{equation}
+                     pdfTeX warning (ext4): destination with the same identifie
+r (name{figure.2.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.155 	\end{equation}
+                      <./figures/fig_capillary_flow_brick.jpg> <./figures/fig_f
+lowr-1-men.png>]
+Overfull \hbox (8.1364pt too wide) in paragraph at lines 192--192
+[]\OT1/cmr/bx/n/17.28 Flow Rate Equa-tion used in our net-work model 
  []
 
-[3
+<figures/fig_tube-length-viscosity-numbering.png, id=223, 704.6325pt x 270.0087
+4pt>
+File: figures/fig_tube-length-viscosity-numbering.png Graphic file (type png)
+<use figures/fig_tube-length-viscosity-numbering.png>
+Package pdftex.def Info: figures/fig_tube-length-viscosity-numbering.png  used 
+on input line 194.
+(pdftex.def)             Requested size: 222.75604pt x 85.35826pt.
+[8]
+<figures/fig_simple-5-nodes.png, id=234, 1047.915pt x 967.615pt>
+File: figures/fig_simple-5-nodes.png Graphic file (type png)
+<use figures/fig_simple-5-nodes.png>
+Package pdftex.def Info: figures/fig_simple-5-nodes.png  used on input line 219
+.
+(pdftex.def)             Requested size: 246.49991pt x 227.62204pt.
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.223 ...}(R_{31}\Delta P_{31} + 2s_{31}\sigma) \]
+                                                   <./figures/fig_tube-length-v
+iscosity-numbering.png> <./figures/fig_simple-5-nodes.png (PNG copy)>]
+<figures/fig_numbering-of-ij-tube.png, id=245, 743.77875pt x 507.8975pt>
+File: figures/fig_numbering-of-ij-tube.png Graphic file (type png)
+<use figures/fig_numbering-of-ij-tube.png>
+Package pdftex.def Info: figures/fig_numbering-of-ij-tube.png  used on input li
+ne 265.
+(pdftex.def)             Requested size: 249.99875pt x 170.71652pt.
+ [10])
+[11pdfTeX warning (ext4): destination with the same identifier (name{figure.2.6
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.28 	\chapter
+              {Model} <./figures/fig_numbering-of-ij-tube.png (PNG copy)>]
+Chapter 3.
+(./chapters/03model.tex [12
 
 ]
-<diagram/fig_capact-of-water.png, id=94, 220.825pt x 295.1025pt>
-File: diagram/fig_capact-of-water.png Graphic file (type png)
-<use diagram/fig_capact-of-water.png>
-Package pdftex.def Info: diagram/fig_capact-of-water.png  used on input line 43
-.
-(pdftex.def)             Requested size: 106.4564pt x 142.26378pt.
-<diagram/fig_flowr-1-men.png, id=96, 300.12125pt x 114.4275pt>
-File: diagram/fig_flowr-1-men.png Graphic file (type png)
-<use diagram/fig_flowr-1-men.png>
-Package pdftex.def Info: diagram/fig_flowr-1-men.png  used on input line 47.
-(pdftex.def)             Requested size: 300.12051pt x 114.42722pt.
- [4 <./diagram/fig_capact-of-water.png> <./diagram/fig_flowr-1-men.png>]
-<diagram/fig_simple-5-nodes.png, id=117, 301.125pt x 311.1625pt>
-File: diagram/fig_simple-5-nodes.png Graphic file (type png)
-<use diagram/fig_simple-5-nodes.png>
-Package pdftex.def Info: diagram/fig_simple-5-nodes.png  used on input line 108
-.
-(pdftex.def)             Requested size: 165.21031pt x 170.71652pt.
+<figures/fig_descp-of-model.png, id=261, 2891.5227pt x 2048.8545pt>
+File: figures/fig_descp-of-model.png Graphic file (type png)
+<use figures/fig_descp-of-model.png>
+Package pdftex.def Info: figures/fig_descp-of-model.png  used on input line 20.
 
-[5]) [6 <./diagram/fig_simple-5-nodes.png (PNG copy)>]
-Chapter 3.
-(./s03-model/model.tex
-<diagram/fig_descp-of-model.png, id=137, 2891.5227pt x 2048.8545pt>
-File: diagram/fig_descp-of-model.png Graphic file (type png)
-<use diagram/fig_descp-of-model.png>
-Package pdftex.def Info: diagram/fig_descp-of-model.png  used on input line 4.
 (pdftex.def)             Requested size: 240.9008pt x 170.71652pt.
- [7
 
- <./diagram/fig_descp-of-model.png>]) [8]
-Chapter 4.
-(./s04-result/result.tex
-<diagram/fig_initial-fill-distribution.png, id=167, 753.81625pt x 528.97626pt>
-File: diagram/fig_initial-fill-distribution.png Graphic file (type png)
-<use diagram/fig_initial-fill-distribution.png>
-Package pdftex.def Info: diagram/fig_initial-fill-distribution.png  used on inp
-ut line 1.
-(pdftex.def)             Requested size: 243.27354pt x 170.71652pt.
-<diagram/fig_final-fill-distribution.png, id=168, 782.925pt x 527.9725pt>
-File: diagram/fig_final-fill-distribution.png Graphic file (type png)
-<use diagram/fig_final-fill-distribution.png>
-Package pdftex.def Info: diagram/fig_final-fill-distribution.png  used on input
- line 2.
-(pdftex.def)             Requested size: 253.14545pt x 170.71652pt.
-
-Overfull \hbox (43.78596pt too wide) in paragraph at lines 1--3
-[] [] 
+Overfull \hbox (0.31241pt too wide) in paragraph at lines 24--24
+[]\OT1/cmr/bx/n/17.28 Algorithm steps !UN-DER CON-STRUC-TION 
  []
 
-) [9
+[13 <./figures/fig_descp-of-model.png>]) [14]
+Chapter 4.
+(./chapters/04result.tex
+<figures/fig_result10by10_1.png, id=291, 864.22874pt x 867.24pt>
+File: figures/fig_result10by10_1.png Graphic file (type png)
+<use figures/fig_result10by10_1.png>
+Package pdftex.def Info: figures/fig_result10by10_1.png  used on input line 4.
+(pdftex.def)             Requested size: 226.83047pt x 227.62204pt.
+<figures/fig_result10by10_2.png, id=292, 869.2475pt x 865.2325pt>
+File: figures/fig_result10by10_2.png Graphic file (type png)
+<use figures/fig_result10by10_2.png>
+Package pdftex.def Info: figures/fig_result10by10_2.png  used on input line 10.
 
- <./diagram/fig_initial-fill-distribution.png> <./diagram/fig_final-fill-distri
-bution.png>]
+(pdftex.def)             Requested size: 228.67827pt x 227.62204pt.
+ [15
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.14 	
+       <./figures/fig_result10by10_1.png>]
+<figures/fig_result10by10_3.png, id=299, 866.23625pt x 864.22874pt>
+File: figures/fig_result10by10_3.png Graphic file (type png)
+<use figures/fig_result10by10_3.png>
+Package pdftex.def Info: figures/fig_result10by10_3.png  used on input line 17.
+
+(pdftex.def)             Requested size: 228.15044pt x 227.62204pt.
+<figures/fig_plot-sat-vs-time.png, id=300, 905.3825pt x 342.27875pt>
+File: figures/fig_plot-sat-vs-time.png Graphic file (type png)
+<use figures/fig_plot-sat-vs-time.png>
+Package pdftex.def Info: figures/fig_plot-sat-vs-time.png  used on input line 2
+3.
+(pdftex.def)             Requested size: 455.24408pt x 172.10515pt.
+
+Overfull \hbox (28.45273pt too wide) in paragraph at lines 23--24
+[][]
+ []
+
+[16pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.27 	
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+4.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.27 	
+       <./figures/fig_result10by10_2.png> <./figures/fig_result10by10_3.png>]
+[17pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.44 			\item T
+               he node at the centre was chosen to have 0 pressure. Which is...
+ <./figures/fig_plot-sat-vs-time.png>]
+<figures/fig_initial-fill-distribution.png, id=324, 753.81625pt x 528.97626pt>
+File: figures/fig_initial-fill-distribution.png Graphic file (type png)
+<use figures/fig_initial-fill-distribution.png>
+Package pdftex.def Info: figures/fig_initial-fill-distribution.png  used on inp
+ut line 52.
+(pdftex.def)             Requested size: 243.27354pt x 170.71652pt.
+<figures/fig_final-fill-distribution.png, id=325, 782.925pt x 527.9725pt>
+File: figures/fig_final-fill-distribution.png Graphic file (type png)
+<use figures/fig_final-fill-distribution.png>
+Package pdftex.def Info: figures/fig_final-fill-distribution.png  used on input
+ line 55.
+(pdftex.def)             Requested size: 253.14545pt x 170.71652pt.
+) [18 <./figures/fig_initial-fill-distribution.png> <./figures/fig_final-fill-d
+istribution.png>]
 Chapter 5.
-(./s05-conclusion/conclusion.tex) [10
+(./chapters/05conclusion.tex) [19
 
 ]
 Chapter 6.
-(./s06-reference/reference.tex) [11
+(./chapters/06reference.tex) [20
 
 ]
 Chapter 7.
-(./s07-appendix/appendix.tex)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 54.
- [12
+(./chapters/07appendix.tex)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 43.
+ [21
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 54.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 43.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 54.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 54.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 43.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 43.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 7085719605833142F17395AF4AD665CD;728.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 54.
+(rerunfilecheck)             Checksum: 96F32A43B10D515A8C7DF81C8A5254F7;1980.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 43.
  ) 
 Here is how much of TeX's memory you used:
- 7317 strings out of 481239
- 111062 string characters out of 5920378
- 385883 words of memory out of 5000000
- 22376 multiletter control sequences out of 15000+600000
- 540070 words of font info for 51 fonts, out of 8000000 for 9000
+ 7509 strings out of 481239
+ 114533 string characters out of 5920378
+ 389222 words of memory out of 5000000
+ 22521 multiletter control sequences out of 15000+600000
+ 540604 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,11n,34p,1034b,413s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,13n,34p,1041b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
@@ -511,11 +643,12 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
 type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy6.pfb>
-Output written on report.pdf (13 pages, 459992 bytes).
+/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb>
+Output written on report.pdf (22 pages, 1025072 bytes).
 PDF statistics:
- 242 PDF objects out of 1000 (max. 8388607)
- 203 compressed objects within 3 object streams
- 62 named destinations out of 1000 (max. 500000)
- 135 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 415 PDF objects out of 1000 (max. 8388607)
+ 351 compressed objects within 4 object streams
+ 112 named destinations out of 1000 (max. 500000)
+ 295 words of extra memory for PDF output out of 10000 (max. 10000000)
 

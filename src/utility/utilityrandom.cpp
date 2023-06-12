@@ -20,10 +20,10 @@ int utility::Random::integer(const int min, const int max)
 	return integer(max - min) + min;	
 }
 
-float utility::Random::fraction(const float decimal_shift)
+double utility::Random::fraction(const double decimal_shift)
 {
-	float ans = 0;
-	float divider = 1;
+	double ans = 0;
+	double divider = 1;
 	for(int i = 0; i < 3; ++ i)
 	{
 		ans += integer(1, 10) / divider;

@@ -2,9 +2,9 @@
 
 void initcon::Mode::Generate::radius(const dst::Diamension& diamension)
 {
-	const auto def_radius = cmdio::Read::command_general<float>(
+	const auto def_radius = cmdio::Read::command_general<double>(
 		"default value of radius");
-	const Tfloat r(diamension.rows, std::vector<float>(
+	const Tdouble r(diamension.rows, std::vector<double>(
 		diamension.cols, def_radius));
 	
 	fileio::Write::run(r);
@@ -69,9 +69,9 @@ void initcon::Mode::Main::modify()
 	std::cout << "-EXT-exited modify" << std::endl;
 }
 	
-Tfloat initcon::Mode::Modify::add_random_temporary(Tfloat radius)
+Tdouble initcon::Mode::Modify::add_random_temporary(Tdouble radius)
 {
-	const float random = declconst::FINE_RADIUS_RANDOMNESS;
+	const double random = declconst::FINE_RADIUS_RANDOMNESS;
 	for(auto& row: radius)
 	{
 		for(auto& cell: row)
@@ -86,7 +86,7 @@ Tfloat initcon::Mode::Modify::add_random_temporary(Tfloat radius)
 void initcon::Mode::Modify::add_random_to_radius()
 {
 	const std::string file_name = declfilename::FILE_RADIUS;
-	const std::pair<Tfloat, bool> data = fileio::Read::read_radius();
+	const std::pair<Tdouble, bool> data = fileio::Read::read_radius();
 	
 	if(data.second == false)
 	{
@@ -94,7 +94,7 @@ void initcon::Mode::Modify::add_random_to_radius()
 		return;
 	}
 	
-	Tfloat radius = data.first;
+	Tdouble radius = data.first;
 	cmdio::Print::pmat(file_name + " original", radius);
 	
 	char command_char = 'r';
@@ -188,7 +188,7 @@ bool initcon::Mode::Modify::exit_code_modify_dst(const std::string& text_promt_m
 void initcon::Mode::Modify::radius()
 {
 	const std::string file_name = declfilename::FILE_RADIUS;
-	const std::pair<Tfloat, bool> data = fileio::Read::read_radius();
+	const std::pair<Tdouble, bool> data = fileio::Read::read_radius();
 	
 	if(data.second == false)
 	{
@@ -213,4 +213,117 @@ void initcon::Mode::Modify::radius()
 bool initcon::Mode::Main::exit_code_main_menu(const std::string& text_promt_main_menu, char& command_char)
 {
 	return cmdio::Read::command_char_exit_true(text_promt_main_menu, command_char);
+}
+
+/*
+void initcon::Mode::Main::imhibition_generator()
+{
+	const int size = 10;
+	const int leave = 2;
+	const double rad_outer = 3;
+	const double rad_inner = 1;
+	const double initial_fill = 0.30; //from the blue side
+	
+	Tdouble radius(size, std::vector<double>(size, rad_outer));
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		for(int col = leave; col + leave < size; ++ col)
+		{
+			radius[row][col] = rad_inner;
+		}
+	}
+	
+	fileio::Write::run(radius);
+	
+	const dst::Mns mns_blue(0, 0, -1, -1);
+	TMns mnsc(size, std::vector<dst::Mns>(size, mns_blue));
+	
+	const dst::Mns mns_grey(0, 1, -1, -1);
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		for(int col = leave; col + leave < size; ++ col)
+		{
+			mnsc[row][col] = mns_grey;
+		}
+	}
+	
+	const dst::Mns mns_up_facing(1, 0, initial_fill, -1);
+	const dst::Mns mns_down_facing(1, 1, 1.0f - initial_fill, -1);
+	
+	
+	for(int col = leave - 1; col + leave - 1 < size; ++ col)
+	{
+		mnsc[leave - 1][col] = mns_down_facing;
+		mnsc[size - leave][col] = mns_up_facing;
+	}
+	
+	std::vector<dst::Mns> v{mns_up_facing, mns_down_facing};
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		const dst::Mns& copy_ref_mns =v[row % 2];
+		
+		mnsc[row][leave - 1] = copy_ref_mns;
+		mnsc[row][size - leave] = copy_ref_mns;
+	}
+	
+	fileio::Write::run(mnsc);
+}
+*/
+
+void initcon::Mode::Main::imhibition_generator()
+{
+	const int size = 10;
+	const int leave = 2;
+	const double rad_outer = 3;
+	const double rad_inner = 1;
+	const double initial_fill = 0.30; //from the blue side
+	
+	Tdouble radius(size, std::vector<double>(size, rad_outer));
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		for(int col = leave; col + leave < size; ++ col)
+		{
+			radius[row][col] = rad_inner;
+		}
+	}
+	
+	fileio::Write::run(radius);
+	
+	const dst::Mns mns_blue(0, 0, -1, -1);
+	TMns mnsc(size, std::vector<dst::Mns>(size, mns_blue));
+	
+	const dst::Mns mns_grey(0, 1, -1, -1);
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		for(int col = leave; col + leave < size; ++ col)
+		{
+			mnsc[row][col] = mns_grey;
+		}
+	}
+	
+	const dst::Mns mns_up_facing(1, 0, initial_fill, -1);
+	const dst::Mns mns_down_facing(1, 1, 1.0f - initial_fill, -1);
+	
+	
+	for(int col = leave + 1; col + leave + 1 < size; ++ col)
+	{
+		mnsc[leave - 1][col] = mns_down_facing;
+		mnsc[size - leave][col] = mns_up_facing;
+	}
+	
+	std::vector<dst::Mns> v{mns_up_facing, mns_down_facing};
+	for(int row = leave + 1; row + leave + 1 < size; ++ row)
+	{
+		const dst::Mns& copy_ref_mns =v[row % 2];
+		
+		mnsc[row][leave - 1] = copy_ref_mns;
+		mnsc[row][size - leave] = copy_ref_mns;
+	}
+	
+	mnsc[leave][leave] = mns_down_facing;
+	mnsc[leave][size - leave - 1] = mns_down_facing;
+	mnsc[size - 1 - leave][leave] = mns_up_facing;
+	mnsc[size - 1 - leave][size - leave - 1] = mns_up_facing;
+
+	fileio::Write::run(mnsc);
 }

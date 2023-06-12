@@ -7,83 +7,75 @@
 
 namespace func
 {
-	struct FluidDisplacements
-	{
-		std::vector<float> in;
-		std::vector<float> out;
-		FluidDisplacements();
-	};
-	
-	struct IntegrationResult
-	{
-		TMns mnsc;
-		FluidDisplacements fluid_displacements;
-	};
-	
-	
 	class Integration
 	{
-		struct FluidAdditions
+		struct Fluid
 		{
-			std::vector<float> fluid;
-			FluidAdditions();
-			void remove_fluid(const FluidAdditions& fluid_addition_table);
+			double blue = 0;
+			double grey = 0;
 		};
-		
-		typedef std::vector<std::vector<FluidAdditions>> TFluidAdditions;
-		
-		struct FluidAdditionResult
-		{
-			TFluidAdditions fluid_addition_table;
-			FluidDisplacements fluid_displacements;
-		};
+	
+		typedef std::vector<std::vector<Fluid>> TFluid;
 		
 		struct Tube_FromNode
 		{
-			float rad;
+			double rad;
 			int row;
 			int col;
 		};
 		
-		static FluidAdditionResult calculate_fluid_addition_result
-		(
-			const Tfloat& radius,
+		class Tank
+		{
+			Fluid fluid;
+			bool blue_present = false;
+			bool grey_present = false;
+			
+		public:
+			void add_fluid(const std::vector<double>& add);
+			Fluid pour_out_fluid(const double vol);
+			double show_blue() const;
+			double show_grey() const;
+			std::string yes_blue() const;
+			std::string yes_grey() const;
+			
+		};
+		
+		static TFluid calculate_fluid_table(
+			const Tdouble& radius,
 			const TMns& mnsc,
-			const Tfloat& velocity,
-			const Tfloat& volume,
-			const dst::Diamension& diamension
-		);
-		
-		static FluidAdditions add_fluid_from_tank(const float vol, FluidAdditions& tank);
-		
-		static bool compare_where_wetting_fluid_go_first(const Tube_FromNode& first, const Tube_FromNode& second);
-		
-		static TMns combine_fluid_additions
-		(
-			const Tfloat& radius,
-			TMns mnsc,
-			const Tfloat& velocity,
+			const Tdouble& velocity,
+			const Tdouble& volume,
 			const dst::Diamension& diamension,
-			const TFluidAdditions& fluid_addition_table,
-			const int row_mimimum_time,
-			const int col_minimum_time
-		);
+			const double time_step
+			);
 		
-		static TMns trimmer(TMns mnsc, const Tfloat& velocity);
+		static bool compare_where_wetting_fluid_go_first(
+			const Tube_FromNode& first,
+			const Tube_FromNode& second
+			);
+		
+		static TMns combine_fluid_additions(
+			const Tdouble& radius,
+			TMns mnsc,
+			const Tdouble& velocity,
+			const dst::Diamension& diamension,
+			const TFluid& fluid_addition_table
+			);
+			
 		
 	public:
-		static func::IntegrationResult integrate
-		(
-			const Tfloat& radius,
+		static TMns integrate(
+			const Tdouble& radius,
 			const TMns& mnsc,
-			const Tfloat& velocity,
-			const Tfloat& volume,
+			const Tdouble& velocity,
+			const Tdouble& volume,
 			const dst::Diamension& diamension,
-			const int row_mimimum_time,
-			const int col_minimum_time
-		);
+			const double time_step
+			);
 		
 	};
 }
+
+
 
 #endif

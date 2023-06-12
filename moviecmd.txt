@@ -1,0 +1,1 @@
+ffmpeg -framerate 10 -i filename-%03d.bmp output.mp4

@@ -94,49 +94,24 @@ std::vector<dst::Tube> dst::Diamension::generate_tubes_connected_to_node(int row
 	return tubes_connected_vec;
 }
 
-
-int dst::Diamension::count_active_tubes(const std::vector<dst::Tube>& connections)
-{
-	int count = 0;
-	
-	for(const auto& connection: connections)
-	{
-		count += connection.active;
-	}
-	
-	return count;
-}
-
-Tfloat dst::Diamension::empty_table() const
+Tdouble dst::Diamension::empty_table() const
 {
 	return empty_table(this->rows, this->cols);
 }
 
-Tfloat dst::Diamension::empty_table(const int rows, const int cols) const
+Tdouble dst::Diamension::empty_table(const int rows, const int cols) const
 {
-	return Tfloat(rows, std::vector<float>(cols));
+	return Tdouble(rows, std::vector<double>(cols));
 }
 
-Tfloat dst::Diamension::empty_aug_matrix() const
+Tdouble dst::Diamension::empty_aug_matrix() const
 {
 	const int total_num_nodes = this->total_nodes();
 	return empty_table(total_num_nodes, total_num_nodes + 1);
 }
 
-
-/*
-int network::Connection::linear_node_from_coordinate(int i, int j, int m)
+std::ostream& operator<< (std::ostream& cout, const dst::Tube& tube)
 {
-	return (i * (m + 1) + (i % 2)) / 2 + j;
+	cout << "Tube a=" << tube.active << ", (r=" << tube.row << ", c=" << tube.col << "), ln=" << tube.linear_node;
+	return cout;
 }
-
-std::pair<int, int> network::Connection::linear_node_at_ends_of_tube(int r, int c, int m)
-{
-	return {linear_node_from_coordinate(r, c / 2 + (c % 2) * ((r + 1) % 2), m), linear_node_from_coordinate(r + 1, c / 2 + (c % 2) * (r % 2), m)};
-}
-
-int network::Connection::total_nodes(int n, int m)
-{
-	return ((n + 1) * (m + 1) + 1) / 2;
-}
-*/

@@ -3,6 +3,7 @@
 
 #include "decl/decltypedef.h"
 #include "dst/dstdiamension.h"
+#include "cmdio/cmdioprint.h"
 #include "math/mathlinear.h"
 #include <vector>
 
@@ -10,10 +11,10 @@ namespace func
 {
 	class Pressure
 	{
-		static Tfloat generate_equations_aug_matrix(const Tfloat& radius, const TMns& mnsc, const dst::Diamension& diamension);
+		static Tdouble generate_equations_aug_matrix(const Tdouble& radius, const TMns& mnsc, const dst::Diamension& diamension);
 		
 	public:
-		static std::vector<float> calculate_pressure(const Tfloat& radius, const TMns& mnsc, const dst::Diamension& diamension);
+		static std::vector<double> calculate_pressure(const Tdouble& radius, const TMns& mnsc, const dst::Diamension& diamension);
 	};
 }
 

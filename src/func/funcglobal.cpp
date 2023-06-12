@@ -1,57 +1,76 @@
 #include "func/funcglobal.h"
 	
-void func::Global::simulate(const Tfloat& radius, TMns& mnsc, const dst::Diamension& diamension)
+void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamension& diamension)
 {
-	float clock = 0;
+	double clock = 0;
 	int count = 10000;
+	const int steps = 150;
 	
-	func::Global::makeplot(radius, mnsc, count, clock);
+	std::vector<std::vector<double>> fluid_ppr_vec;
 	
-	float wetting_fluid_proportion;
+	//func::Global::makeplot(radius, mnsc, count, clock);
+	//cmdio::Print::pmat("radius", radius);
+	
+	/*
+	double wetting_fluid_proportion;
 	while(within_limits_fluid_first_type(radius, mnsc, wetting_fluid_proportion))
+	*/
+	
+	for(int step = 0; step < steps; ++ step)
 	{
+		const func::Measure::FluidPpr fluid_ppr
+			= func::Measure::fluid_ppr(
+				radius,
+				mnsc,
+				clock,
+				declconst::ROW_THIN_B,
+				declconst::COL_THIN_B,
+				declconst::ROW_THIN_E,
+				declconst::COL_THIN_E,
+				diamension
+			);
+			
+		fluid_ppr_vec.push_back(fluid_ppr.val_vec());
+		
 		//std::cout << std::endl << std::endl << std::string(50, '-') << std::endl;
-		std::cout << "-Rel-sat, [frm-n=" << count << "], [clk=" << clock << "], [ppr=" << wetting_fluid_proportion << "]" << std::endl;
-			cmdio::Print::pmat("radius", radius);
-			cmdio::Print::pmnsc(mnsc);
 		
 		// step-1 PRESSURE
-		const std::vector<float> pressure = func::Pressure::calculate_pressure(radius, mnsc, diamension);
-			//cmdio::Print::pmat("pressure", pressure, radius.size(), radius.front().size());
+		const std::vector<double> pressure 
+			= func::Pressure::calculate_pressure(
+				radius, mnsc, diamension);
+		
+		//cmdio::Print::pmat("pressure", pressure, radius.size(), radius.front().size());
 		
 		// step-2 VELOCITY
-		const Tfloat velocity = func::Velocity::calculate_velocity(radius, mnsc, pressure, diamension);
-			cmdio::Print::pmat("velocity", velocity);
+		const Tdouble velocity
+			= func::Velocity::calculate_velocity(
+				radius, mnsc, pressure, diamension);
+		
+		//cmdio::Print::pmat("velocity", velocity);
 			
 		// step-3 TIME STEP
-		const func::TimeStepResult time_step_result = func::TimeStep::decide_time_step(mnsc, velocity, diamension);
-		const float time_step = time_step_result.time_step();
-		
-			std::cout << "[min_time=" << time_step << "], at [(row, col)=(" << time_step_result.row << ", " << time_step_result.col << ")]" << std::endl;
-			cmdio::Print::pmat("time", time_step_result.timev);
+		const double time_step
+			= func::TimeStep::decide_time_step(
+				velocity, diamension);
 		
 		// step-4 VOLUME
-		const auto volume = func::Determine::determine_volume(radius, velocity, time_step, diamension);
-			cmdio::Print::pmat("volume", volume);
+		const auto volume
+			= func::Determine::determine_volume(radius,
+				velocity, time_step, diamension);
+		
+		//cmdio::Print::pmat("volume", volume);
 		
 		// step-5 INTEGRATION
-		int special_row = -1;
-		int special_col = -1;
-		if(time_step_result.does_mns_reach_node)
-		{
-			special_row = time_step_result.row;
-			special_col = time_step_result.col;
-		}
+
+		mnsc = func::Integration::integrate(radius,
+			mnsc, velocity, volume, diamension, time_step);
 		
-		const func::IntegrationResult integration_result =
-			func::Integration::integrate(radius,
-			mnsc, velocity, volume, diamension,
-			special_row, special_col);
+		/*	
+		std::cout << "[count-frame=" << count << "], [clock="
+			<< clock << "], [ppr=" << wetting_fluid_proportion
+			<< "]" << std::endl;
+		*/
 			
-		mnsc = integration_result.mnsc;
-		
-		// step-6 TRIMMING
-		
 		clock += time_step;
 		
 		if((count++) % declconst::PLOT_EACH_N)
@@ -59,20 +78,21 @@ void func::Global::simulate(const Tfloat& radius, TMns& mnsc, const dst::Diamens
 			continue;
 		}
 
-		cmdio::Print::pmnsc(mnsc);
-
-		func::Global::makeplot(radius, mnsc, count, clock); 
+		//cmdio::Print::pmnsc(mnsc);
+		//func::Global::makeplot(radius, mnsc, count, clock); 
 		
 	}
+	
+	fileio::Write::fluid_ppr(func::Measure::FluidPpr::header(), fluid_ppr_vec);
 }
 
-void func::Global::makeplot(const Tfloat& radius, const TMns& mnsc, const int count, const float clock)
+void func::Global::makeplot(const Tdouble& radius, const TMns& mnsc, const int count, const double clock)
 {
 	fileio::Plot::with_radius(mnsc, radius, clock, count);
 	fileio::Plot::without_radius(mnsc, count);
 }
 		
-bool func::Global::within_limits_fluid_first_type(const Tfloat& radius, const TMns& mnsc, float& proportion)
+bool func::Global::within_limits_fluid_first_type(const Tdouble& radius, const TMns& mnsc, double& proportion)
 {
 	proportion = func::Measure::measure_wetting_fluid_proportion(radius, mnsc);
 	return proportion <= declconst::MAX_WETTING_PROPORTION;

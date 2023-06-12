@@ -17,7 +17,7 @@ int main()
 	std::cout << PROGRAM_PROPERTY_NAME << std::endl;
 	
 	char command_main_menu;
-	const std::string text_promt_main_menu = "g)enerate, m)odify";
+	const std::string text_promt_main_menu = "g)enerate, m)odify, i)mhibition-generator";
 	while(!initcon::Mode::Main::exit_code_main_menu(text_promt_main_menu, command_main_menu))
 	{
 		if(command_main_menu == 'g')
@@ -29,6 +29,11 @@ int main()
 		{
 			std::cout << "-modify mode" << std::endl;
 			initcon::Mode::Main::modify();
+		}
+		else if(command_main_menu == 'i')
+		{
+			std::cout << "-imhibition_generator mode" << std::endl;
+			initcon::Mode::Main::imhibition_generator();
 		}
 		else
 		{

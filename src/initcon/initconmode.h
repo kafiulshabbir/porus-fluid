@@ -24,23 +24,23 @@ class Mode
 		class Modify
 		{
 
-		static bool exit_code_modify_dst_save(
-			char& save_yes_or_no);
+			static bool exit_code_modify_dst_save(
+				char& save_yes_or_no);
 
-		static bool exit_code_modify_dst(
-			const std::string& text_promt_modify_type_dst,
-			char& command_char, bool& saved_dst);
+			static bool exit_code_modify_dst(
+				const std::string& text_promt_modify_type_dst,
+				char& command_char, bool& saved_dst);
 
-		template <class T>
-		static std::vector<std::vector<T>>
-			rectangular_modification_on_dst(
-			std::vector<std::vector<T>> table);
-		
-		template <class T>
-		static std::pair<std::vector<std::vector<T>>, bool>
-			modify_dst_from_cin(std::vector<std::vector<T>> table);
-		
-		static Tfloat add_random_temporary(Tfloat radius);
+			template <class T>
+			static std::vector<std::vector<T>>
+				rectangular_modification_on_dst(
+				std::vector<std::vector<T>> table);
+			
+			template <class T>
+			static std::pair<std::vector<std::vector<T>>, bool>
+				modify_dst_from_cin(std::vector<std::vector<T>> table);
+			
+			static Tdouble add_random_temporary(Tdouble radius);
 		public:
 			static void radius();
 			static void mnsc();
@@ -54,6 +54,7 @@ class Mode
 			static void generate();
 			static void modify();
 			static bool exit_code_main_menu(const std::string& text_promt, char& command_char);
+			static void imhibition_generator();
 		};
 	};
 }

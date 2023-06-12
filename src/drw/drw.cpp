@@ -176,12 +176,10 @@ namespace drw
 		drawCentreRectangle(x, y, diamension, diamension);
 	}
 	
-	void bmp::drawVector(int x, int y, int effective_length, int thick, int sign, int number_of_meniscus, const std::vector<float>& coordinates_of_meniscus, bool type)
+	void bmp::drawVector(int x, int y, int effective_length, int thick, int sign, int number_of_meniscus, const std::vector<double>& coordinates_of_meniscus, bool type)
 	{
 		int displacement = effective_length;
 		int lateral_length = thick;
-		
-		//std::cout << "displacement " << displacement << ", lateral_length " << lateral_length << ", x = " << x << ", y = " << y << "\n";
 		
 		std::vector<colour> colour_pipe{cyan, grey_light};
 		
@@ -200,15 +198,11 @@ namespace drw
 		{
 			int start_x = coordinates[k - 1];
 			int end_x = coordinates[k];
-			//std::cout << "drawing at, k = " << k << ", start_x = " << start_x << ", end_x = " << end_x << "\n";
 			for(int i = start_x; i <= end_x; ++ i)
 			{
 				for(int j = -lateral_length / 2; 2 * j <= lateral_length; ++ j)
 				{
-					//std::cout << "okay: " << x + (sign * i) + j << ", " << y + i << ", sign = " << sign << "\n";
 					data(x + (sign * i) + j, y + i) = colour_pipe[current_colour];
-					
-					//std::cout << "passed";
 				}
 			}
 			
@@ -216,9 +210,8 @@ namespace drw
 		}
 	}
 		
-	void bmp::drawStrip(const int x, const int y, int length, const int thick, const int sign, std::vector<float> pos_mns, const bool type)
+	void bmp::drawStrip(const int x, const int y, int length, const int thick, const int sign, std::vector<double> pos_mns, const bool type)
 	{	
-		//std::cout << "x = " << x << ", y = " << y << ", length = " << length << ", thick = " << thick << ", sign = " << sign << std::endl;
 		std::vector<colour> colour_pipe{cyan, grey_light};
 		length -= thick;
 		
@@ -236,7 +229,6 @@ namespace drw
 			{
 				for(int j = -thick / 2; 2 * j <= thick; ++ j)
 				{
-					//std::cout << "i = " << x + sign * (i + thick/2) + j << ", j = " << y + i + thick/2 - sign * j << std::endl;
 					data(x + sign * (i + thick/2) + j, y + i + thick/2 - sign * j) = colour_pipe[(k + 1 + type) % 2];
 					data(1 + x + sign * (i + thick/2) + j, y + i + thick/2 - sign * j) = colour_pipe[(k + 1 + type) % 2];
 				}

@@ -1,14 +1,14 @@
 all:
-	pdflatex report.tex
+	pdflatex main/report.tex
 
 edit:
-	geany -i \
-	report.tex \
-	s00-preface/preface.tex \
-	s01-introduction/introduction.tex \
-	s02-theory/theory.tex \
-	s03-model/model.tex \
-	s04-result/result.tex \
-	s05-conclusion/conclusion.tex \
-	s06-reference/reference.tex \
-	s07-appendix/appendix.tex
+	gedit \
+	main/report.tex \
+	chapters/00preface.tex \
+	chapters/01introduction.tex \
+	chapters/02theory.tex \
+	chapters/03model.tex \
+	chapters/04result.tex \
+	chapters/05conclusion.tex \
+	chapters/06reference.tex \
+	chapters/07appendix.tex

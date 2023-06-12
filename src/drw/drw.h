@@ -102,8 +102,8 @@ namespace drw
 		void drawRectangle(int x1, int y1, int x2, int y2);
 		void drawCentreRectangle(int x, int y, int width, int height);
 		void drawCentreSquare(int x, int y, int diamension);
-		void drawVector(int x, int y, int effective_length, int thick, int sign, int n_mns, const std::vector<float>& pos, bool type);
-		void drawStrip(const int x, const int y, int length, const int thick, const int sign, std::vector<float> pos_mns, const bool type);
+		void drawVector(int x, int y, int effective_length, int thick, int sign, int n_mns, const std::vector<double>& pos, bool type);
+		void drawStrip(const int x, const int y, int length, const int thick, const int sign, std::vector<double> pos_mns, const bool type);
 	};
 }
 #endif

@@ -3,6 +3,7 @@
 
 #include "decl/decltypedef.h"
 #include <vector>
+#include "cmdio/cmdioprint.h"
 
 namespace math
 {
@@ -10,7 +11,7 @@ namespace math
 	{
 	public:
 
-		static std::vector<float> gauss_elimination(Tfloat M);
+		static std::vector<double> gauss_elimination(Tdouble M);
 	};
 }
 

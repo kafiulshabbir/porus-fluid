@@ -13,72 +13,86 @@ namespace dst
 {
 	class Mns
 	{
-		typedef std::list<std::pair<bool, float>> Cmprt;
+		typedef std::list<std::pair<bool, double>> Cmprt;
 		struct PosNew_Type_Result
 		{
 			bool type;
-			std::vector<float> v;
+			std::vector<double> v;
 		};
 		
-		static float true_is_minus_one(bool condition);
+		std::vector<double> gen_pos_long_rev() const;
+		bool type_rev() const;
+		
+		static double true_is_minus_one(bool condition);
 		
 		PosNew_Type_Result centre_of_mass_recombination(const bool begin_type,
-			const std::vector<float>& pos_new) const;
-		std::vector<float> gen_pos_long_after_dspl(float vel, float l) const;
+			const std::vector<double>& pos_new) const;
+			
+		static std::vector<double> centre_of_mass_equation(const double l1,
+			const double l2, const double l3, const double l4);
 		
-		Cmprt gen_cmprt_existing(const float vel,
-			const float l, const bool tube_with_minimum_time) const;
-		Cmprt gen_cmprt_addition(const float vel,
-			const float l1, const float l2);
+		Cmprt gen_cmprt_existing(
+			const double vel, const double l
+		) const;
 		
-		static Cmprt merge_existing_and_cmprt_addition(Cmprt& cmprt_existing,
-			Cmprt& cmprt_addition, const float vel);
+		Cmprt gen_cmprt_addition(
+			const double l1,
+			const double l2
+		) const;
+		
+		static Cmprt merge_existing_and_cmprt_addition(
+			Cmprt& cmprt_existing,
+			Cmprt& cmprt_addition,
+			const double vel
+		);
 		static Cmprt remove_dupl_cmprt(const Cmprt& cmprt_merged);
 		
-		static std::vector<float> cmprt_to_vector(const Cmprt& cmprt);
+		static std::vector<double> cmprt_to_vector(const Cmprt& cmprt);
 		
+		int type_from_direction(const int direction) const;
+		std::vector<double> pos_from_direction(const int direction) const;
+		std::vector<double> pos_fluid_into_nodes(
+			const int direction, const double pos_length) const;
 		
+		std::vector<double> pos_from_vel(const double vel) const;
+		int type_from_vel(const double vel) const;
 		
 	public:
-		struct TimeType
-		{
-			float time;
-			bool does_mns_reach_node;
-		};
-		
 		int n; //number of meniscus present
 		bool type; // 0 - corresponds to blue fluid - which is invading
-		std::vector<float> pos; // positions of meniscus
+		std::vector<double> pos; // positions of meniscus
 		
 		Mns();
 		Mns(const int number_mns, const bool type_fluid_start,
-			const float position_mns_1, const float position_mns_2);
+			const double position_mns_1, const double position_mns_2);
+
+		std::vector<double> gen_pos_long() const;
 		
-		int number_mns() const;
-		bool type_fluid_start() const;
-		std::vector<float> positions_of_mns() const;
+		double sign_of_capll_pressure(int direction) const;
 		
-		std::vector<float> gen_pos_long() const;
-		float sign_of_capll_pressure(int direction) const;
+		double mu(const double mu1, const double mu2) const;
 		
-		float mu(const float mu1, const float mu2) const;
-		TimeType time(const float velocity, const float length, const float time_div) const;
+		bool is_the_flow_from_tube_into_node(const int direction, const double velocity) const;
+		std::vector<double> vol_fluid_into_nodes(
+			const double radius,
+			const int direction,
+			const double velocity,
+			const double time_step,
+			const double length_tube
+			) const;
+			
 		
-		bool is_the_flow_from_tube_into_node(const int direction, const float velocity) const;
-		bool type_fluid_into_node(int direction) const;
+		void update(const double vel, const double r,
+			const std::vector<double>& add);
 		
-		void update(const float vel, const float r,
-			const std::vector<float>& add,
-			const bool tube_with_minimum_time);
-		
-		float sum_type_first() const;
-		float printable() const;
-		
-		Mns inverse() const;
+		double sum_type_first() const;
+		double printable() const;
+
 	};
 }
 
 std::ifstream& operator>> (std::ifstream& fin, dst::Mns& val);
 std::ofstream& operator<< (std::ofstream& fout, const dst::Mns& val);
 std::istream& operator>> (std::istream& cin, dst::Mns& mns);
+std::ostream& operator<< (std::ostream& cout, const dst::Mns& mns);
 #endif
