@@ -68,7 +68,7 @@ namespace dst
 
 		std::vector<double> gen_pos_long() const;
 		
-		double sign_of_capll_pressure(int direction) const;
+		int sign_of_capll_pressure(int direction) const;
 		
 		double mu(const double mu1, const double mu2) const;
 		
@@ -87,7 +87,8 @@ namespace dst
 		
 		double sum_type_first() const;
 		double printable() const;
-
+		
+		int type_near_node(const int direction) const;
 	};
 }
 

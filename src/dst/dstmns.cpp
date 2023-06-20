@@ -55,7 +55,7 @@ bool dst::Mns::type_rev() const
 }
 
 // Part-1 Linear Equations and pressure determination
-double dst::Mns::sign_of_capll_pressure(int direction) const
+int dst::Mns::sign_of_capll_pressure(int direction) const
 {
 	/*
 	 * Direction	|	Type	|	Product
@@ -476,7 +476,15 @@ double dst::Mns::sum_type_first() const
 	return sum;
 }
 
-
+int dst::Mns::type_near_node(const int direction) const
+{
+	if(direction > 1)
+	{
+		return (this->n + this->type) % 2;
+	}
+	
+	return type;
+}
 
 // Part-6 Printing and Reading mnsc overloads ---------------------------------
 

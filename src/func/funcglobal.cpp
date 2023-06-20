@@ -4,7 +4,7 @@ void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamen
 {
 	double clock = 0;
 	int count = 10000;
-	const int steps = 150;
+	const int steps = 5000;
 	
 	std::vector<std::vector<double>> fluid_ppr_vec;
 	
@@ -30,21 +30,26 @@ void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamen
 				diamension
 			);
 			
-		fluid_ppr_vec.push_back(fluid_ppr.val_vec());
+		
 		
 		//std::cout << std::endl << std::endl << std::string(50, '-') << std::endl;
 		
+		// step-0 Generate add_msn table
+		
+		const std::vector<std::vector<int>> add_msn
+			= func::Determine::gen_add_mnsc(mnsc, diamension);
+			
 		// step-1 PRESSURE
 		const std::vector<double> pressure 
 			= func::Pressure::calculate_pressure(
-				radius, mnsc, diamension);
+				radius, mnsc, add_msn, diamension);
 		
 		//cmdio::Print::pmat("pressure", pressure, radius.size(), radius.front().size());
 		
 		// step-2 VELOCITY
 		const Tdouble velocity
 			= func::Velocity::calculate_velocity(
-				radius, mnsc, pressure, diamension);
+				radius, mnsc, add_msn, pressure, diamension);
 		
 		//cmdio::Print::pmat("velocity", velocity);
 			
@@ -65,7 +70,7 @@ void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamen
 		mnsc = func::Integration::integrate(radius,
 			mnsc, velocity, volume, diamension, time_step);
 		
-		/*	
+		/*
 		std::cout << "[count-frame=" << count << "], [clock="
 			<< clock << "], [ppr=" << wetting_fluid_proportion
 			<< "]" << std::endl;
@@ -79,7 +84,8 @@ void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamen
 		}
 
 		//cmdio::Print::pmnsc(mnsc);
-		//func::Global::makeplot(radius, mnsc, count, clock); 
+		func::Global::makeplot(radius, mnsc, count, clock);
+		fluid_ppr_vec.push_back(fluid_ppr.val_vec());
 		
 	}
 	

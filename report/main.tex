@@ -1,0 +1,57 @@
+\documentclass[
+	12pt
+] {article}
+
+\usepackage[
+	a4paper,
+	left=3.5cm,
+	right=3.0cm,
+	top=3.0cm,
+	bottom=3.0cm
+] {geometry} %for setting margin
+
+\usepackage{hyperref} %for label and references ref
+\usepackage{mathtools} %for begin equation
+
+\usepackage{parskip} %for leaving some space after paragraphs
+\usepackage{float} %to not make images float around
+
+\usepackage{graphicx} %for include graphics
+\usepackage{subfig}
+\graphicspath{{figures/}}
+
+
+\title{Simulation of Two-Phase Flow in Porous Media using a Two-Dimensional Network Model}
+
+\begin{document}
+	\maketitle
+	
+	\input{sections/00preface.tex}
+		\newpage
+		
+	\tableofcontents
+		\newpage
+		
+	\begin{abstract}
+		\input{sections/01abstract.tex}
+	\end{abstract}
+		
+	\section{Introduction}
+		\input{sections/02introduction.tex}
+		
+	\section{Theory}
+		\input{sections/03theory.tex}
+		
+	\section{Model}
+		\input{sections/04model.tex}
+
+	\section{Result}
+		\input{sections/05result.tex}
+
+	\section{Conclusion}
+		\input{sections/06conclusion.tex}
+		
+	\bibliographystyle{plain.bst}
+	\bibliography{sections/07reference}
+		
+\end{document}

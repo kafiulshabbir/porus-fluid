@@ -5,6 +5,7 @@ Tdouble func::Velocity::calculate_velocity
 (
 	const Tdouble& radius,
 	const TMns& mnsc,
+	const std::vector<std::vector<int>>& add_mnsc,
 	const std::vector<double>& pressure,
 	const dst::Diamension& diamension
 )
@@ -20,7 +21,7 @@ Tdouble func::Velocity::calculate_velocity
 			const double delp = pressure[linear_nodes_pair.second] - pressure[linear_nodes_pair.first];
 			const double rad = radius[row][col];
 			const double mu = mnsc[row][col].mu(declconst::MU1, declconst::MU2);
-			const double sign_of_capll_pressure = mnsc[row][col].sign_of_capll_pressure(0);
+			const double sign_of_capll_pressure = mnsc[row][col].sign_of_capll_pressure(0) + add_mnsc[row][col];
 			velocity[row][col] = rad / 8 / mu / declconst::TUBE_LENGTH * (delp * rad + sign_of_capll_pressure * 2 * declconst::SIGMA);
 			
 			//std::cout << "tr=" << row << " tc=" << col << " up=" << linear_nodes_pair.second

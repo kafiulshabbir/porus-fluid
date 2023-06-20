@@ -1,0 +1,262 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[top=2.54cm,bottom=2.54cm,left=2.54cm,right=2.54cm]{geometry}
+\usepackage{lipsum}
+\title{   \textbf{Methods of Modelling Two Phase Flow in Porous Media}}
+\author{Bhuvan Vamsi Kannan Mohan Velu }
+\date{June,12 2023}
+
+\begin{document}
+	\maketitle
+	\begin{abstract}
+		Two-phase flow in porous media is a complex phenomenon with various applications, ranging from oil reservoir engineering to environmental remediation. Accurately modeling and predicting the behavior of two-phase flow in porous media is crucial for optimizing resource recovery, understanding contaminant transport, and designing efficient processes. This report presents an overview of different methods that have been used to model two-phase flow in porous media in the past , highlighting their strengths, limitations, and applications.
+	
+
+     \end{abstract}
+
+		\section{Continuum Scale Models}
+		\subsection{Darcy's Law}
+		Darcy's law is a fundamental equation in fluid mechanics that describes the flow of fluids through porous media. It was formulated by Henry Darcy in 1856 and has since become a vary important part of hydrogeology, petroleum engineering, and other fields dealing with fluid flow in porous media.
+		Darcy's law states that the flow rate Q of a fluid through a porous medium is directly proportional to the pressure gradient $(\Delta P)$ and the cross-sectional area A of the medium, and inversely proportional to the length L of the medium. Mathematically, it can be expressed as:
+	\begin{equation}
+		
+			Q = - k \cdot A \cdot \frac{\Delta P}{L}
+	\end{equation}
+		\begin{itemize}
+			\item $Q$ is the volumetric flow rate of the fluid (m$^3$/s).
+			\item $k$ is the permeability of the porous medium (m$^2$).
+			\item $A$ is the cross-sectional area perpendicular to the flow direction (m$^2$).
+			\item $\Delta P$ is the pressure difference along the flow direction (Pa).
+			\item $L$ is the length of the porous medium in the flow direction (m).
+		\end{itemize}
+		
+		
+		
+		Darcy's law is widely used in the modeling and analysis of two-phase flow in porous media. Two-phase flow refers to the simultaneous flow of two immiscible fluids, such as gas and liquid, through a porous medium. In this context, Darcy's law can be extended to account for the flow of both phases.
+		\smallskip
+		
+		One common application of Darcy's law in two-phase flow modeling is in the field of petroleum engineering, specifically in reservoir engineering. When modeling the flow of oil and gas in an underground reservoir, Darcy's law is used to estimate the flow rates and pressure distributions within the reservoir. By considering the relative permeabilities of oil and gas, the equation can be modified to account for the presence of two phases and their interactions.
+		\smallskip
+		
+		Additionally, Darcy's law is often combined with other equations, such as the continuity equation and material balance equations, to create more comprehensive models for two-phase flow. These models can help predict the behavior of fluid flows in porous media, optimize production strategies, and estimate recovery factors in oil and gas reservoirs.
+		
+	
+
+	
+	\subsection{Buckley-Leverett Theory}
+		The Buckley-Leverett theory, also known as the fractional flow theory, is a mathematical model that describes the displacement of one fluid by another in porous media. It is widely used in the field of petroleum engineering 
+		
+		\smallskip
+		
+		The Buckley-Leverett equation describes the fractional flow of one fluid phase (often called the displacing phase) as a function of the saturation of the other fluid phase (often called the displaced phase). Mathematically, the equation is given as:
+			The equation is given by:
+		
+			
+			\[ f = \frac{{(S_w - S_{wc})}}{{(1 - S_{wc} - S_{or})}} \]
+			
+			where:
+		\begin{itemize}
+			\item \( f \) is the fractional flow of the displacing phase.
+			\item \( S_w \) is the saturation of the displaced phase (a fractional value between 0 and 1).
+			\item \( S_{wc} \) is the critical water saturation (the saturation at which the capillary pressure becomes zero).
+			\item \( S_{or} \) is the residual oil saturation (the saturation of oil that remains trapped in the rock after water flooding).
+		\end{itemize}
+		
+			
+		The Buckley-Leverett theory assumes that the fluids involved are incompressible and that the flow is governed by Darcy's law. The theory provides a framework to study the displacement of one fluid by another and predict the behaviour of the fluid fronts as they move through the porous medium.
+		The key assumption in the Buckley-Leverett theory is that the fluids are flowing as distinct phases and that they exhibit capillary pressure and relative permeability characteristics. Capillary pressure represents the pressure difference between the two fluids at the fluid-fluid interface, and relative permeability describes the fractional flow of each fluid phase as a function of its saturation.
+		
+	
+		
+	
+	
+
+	\section{Empirical Models}
+	\subsection{Corey and Brooks- Corey models}
+
+	 The Corey-Brooks Corey model, also known as the Corey-Brooks model or the Corey-Brooks-Kohoutek model, is an extension of the Buckley-Leverett theory.
+	 \smallskip
+	
+	The Corey-Brooks Corey model introduces an empirical function to describe the relative permeability curves for the two phases (typically water and oil) as a function of their respective saturations. The model assumes that the relative permeabilities are influenced by capillary pressure and can be expressed using power law relationships.
+	\smallskip
+	The relative permeability curves for the displaced (wetting) phase (typically water) and the displacing (non-wetting) phase (typically oil) are defined as follows:
+	
+ The equations are given by:
+ 
+ \[ k_{ro} = k_{ro_{\text{max}}} \cdot (1 - S_w - S_{ro})^n \]
+ \[ k_{rw} = k_{rw_{\text{max}}} \cdot S_w^m \]
+ 
+ where:
+ \begin{itemize}
+ 	\item  \( k_{ro} \) is the relative permeability of the non-wetting phase (oil).
+ 	 \item\( k_{rw} \) is the relative permeability of the wetting phase (water).
+ 	\item \( k_{ro_{\text{max}}} \) and \( k_{rw_{\text{max}}} \) are the maximum relative permeabilities of the non-wetting and wetting phases, respectively.
+ 	\item \( S_w \) is the water saturation (a fractional value between 0 and 1).
+ 	\item \( S_{ro} \) is the residual oil saturation (the saturation of oil that remains trapped in the rock after water flooding).
+ 	\item \( n \) and \( m \) are empirical exponents that govern the shape of the relative permeability curves.
+ \end{itemize}
+
+	
+	The Corey-Brooks Corey model allows for the estimation of relative permeability curves for the wetting and non-wetting phases based on laboratory measurements or historical data. These curves are crucial in characterizing the flow behavior and predicting fluid displacement in porous media.
+	\smallskip
+	
+	By incorporating the relative permeability curves into the Buckley-Leverett equation, the Corey-Brooks Corey model enables the simulation and prediction of two-phase flow behavior, such as fluid front movement and displacement efficiency, in reservoirs or aquifers. This information is valuable for optimizing production strategies, designing water flooding operations, and assessing the potential for enhanced oil recovery techniques.
+	\subsection{ Leverett-J-function}
+	The Leverett-J function, also known as the Leverett function or the J function, is a mathematical expression used in two-phase flow modeling to describe the capillary pressure-saturation relationship in porous media. It is an extension of the Buckley-Leverett theory. \smallskip
+	
+	The Leverett-J function relates the capillary pressure (Pc) to the saturation (Sw) of the wetting phase (usually water). The function describes how the capillary pressure changes with the saturation, providing insights into the fluid-fluid interactions and flow characteristics in the porous medium.
+	\smallskip
+	
+	The Leverett-J function is expressed as follows:
+	
+
+	
+	\[ J = \frac{{\frac{{dS_w}}{{dP_c}}}}{{\frac{{S_w}}{{P_c}}}} \]
+	
+	where:
+	\begin{itemize}
+		\item 	 \( J \) is the Leverett-J function.
+		\item \( S_w \) is the saturation of the wetting phase (a fractional value between 0 and 1).
+		\item \( P_c \) is the capillary pressure.
+	\end{itemize}
+
+	
+	
+	The Leverett-J function is used in two-phase flow modeling to estimate various parameters and analyze fluid displacement behavior. Some applications of the Leverett-J function include:
+	
+	1. Estimating relative permeabilities
+	
+	2. Predicting fluid displacement
+	
+	3. Assessing reservoir connectivity
+	
+	4. Optimizing enhanced oil recovery (EOR) techniques: \\
+		 It helps in understanding the capillary pressure distribution and identifying areas of bypassed oi
+	\section{Pore-Scale Methods}
+	
+
+	\subsection {Lattice Boltzmann Method (LBM)}
+		
+
+	The Lattice Boltzmann Method (LBM) is a computational fluid dynamics (CFD) technique used to simulate fluid flow and solve complex fluid dynamics problems. It is particularly useful for modeling two-phase flow, where two immiscible fluids flow through a domain with interfacial interactions.
+	
+	Unlike traditional CFD methods based on solving the Navier-Stokes equations, the Lattice Boltzmann Method operates on a mesoscopic scale and simulates fluid flow by modeling the behavior of particles (often referred to as "lattice cells") on a discrete lattice. It uses a kinetic approach to solve the Boltzmann equation, which describes the evolution of particle distribution functions.
+	The Lattice Boltzmann Method is advantageous for modeling two-phase flow because it naturally captures interfacial phenomena, such as fluid-fluid interfaces, droplet dynamics, and interfacial tension effects. It can handle complex geometries and is capable of capturing mesoscale phenomena like droplet coalescence, breakup, and multiphase interactions.
+	
+	The application of LBM in two-phase flow modeling involves the following steps:
+	
+	1. Lattice Construction:\\
+	 	The computational domain is discretized into a lattice structure
+	
+	2. Particle Distribution:\\
+		 These distribution functions evolve based on collision and streaming processes.
+	
+	3. Collision and Streaming:\\
+		 The distribution functions undergo a collision step, where particles interact and exchange momentum and energy. After the collision, the particles stream to neighboring lattice cells based on predefined velocity directions.
+	
+	4. Macroscopic Properties:\\
+		 Macroscopic fluid properties such as density, velocity, and pressure are calculated from the distribution functions.
+	
+	5. Interfacial Effects:
+		 Interfacial phenomena, such as surface tension and interfacial forces, are incorporated into the Lattice Boltzmann Method
+	
+
+	\subsection {Direct Numerical Simulation (NAVIER-STOKES)}
+	Direct Numerical Simulation (DNS) is a computational technique used to solve the complete set of equations governing fluid flow without any turbulence modeling assumptions. It provides a detailed and accurate representation of fluid behavior by discretizing the governing equations in space and time and solving them numerically. DNS is particularly useful for studying turbulent flows, where turbulence models often introduce uncertainties and limitations.
+	
+
+	
+	By performing DNS of two-phase flow, researchers can gain insights into various phenomena and phenomena of interest, such as bubble or droplet breakup, coalescence, collision dynamics, and heat and mass transfer between the phases. DNS can also be used to investigate complex multiphase flows, such as bubbly flows, particle-laden flows, or flows with phase change.
+	
+	The application of DNS in modeling two-phase flow offers several advantages:
+	
+	1. Accuracy:\\
+		 DNS provides a high level of accuracy and resolves small-scale turbulent structures
+	
+	2. Detailed information: \\
+		DNS captures detailed information about the flow, such as velocity profiles, vorticity, and pressure distribution
+	
+	3. Validation of models:\\
+		 DNS can be used to validate and improve existing turbulence models .
+	
+	4. Design optimization:\\
+		 DNS helps in optimizing the design of various systems involving two-phase flows, such as heat exchangers, chemical reactors, and combustion chambers.
+	5. Fundamental understanding:
+		 DNS aids in developing a fundamental understanding of the underlying physics of two-phase flow.
+	
+
+	
+	\section{Hybrid and Upscalling Approaches}
+	
+	\subsection{Hybrid Models}
+	  A hybrid model, in the context of two-phase flow modeling, refers to a combination of different modeling approaches or techniques to capture the complexities and improve the accuracy of simulations. It involves integrating multiple models or methods, each designed to address specific aspects of the flow behavior, to create a more comprehensive and accurate representation of the system.\smallskip
+	
+	 Here are a few examples of hybrid modeling approaches commonly used:
+	\smallskip
+	1. Coupling of Continuum and Discrete Models: \\
+		This approach combines continuum-based models, such as the finite element method (FEM) or finite difference method (FDM), with discrete models, such as lattice Boltzmann method (LBM) or pore network models. Continuum models are used to capture the overall behavior of the flow field, while discrete models focus on capturing specific phenomena at a smaller scale, such as interfacial dynamics or fluid-fluid interactions. The coupling allows for a more accurate representation of complex flow behavior.
+	
+	2. Multiphase Flow with Computational Fluid Dynamics (CFD) and Volume-of-Fluid (VOF) Method:\\
+		 In this approach, CFD methods are used to solve the Navier-Stokes equations and simulate the fluid flow, while the Volume-of-Fluid method is employed to track the fluid interface and capture the two-phase flow behavior. CFD provides detailed information on velocity and pressure fields, while VOF method accurately captures the shape and movement of the fluid interface.
+	
+	3. Combination of Empirical and Mechanistic Models: \\
+		Hybrid models can combine empirical correlations, such as relative permeability or capillary pressure models, with mechanistic models that describe fluid behavior based on fundamental principles, such as the Buckley-Leverett theory or Darcy's law. This allows for a more accurate representation of flow behavior by incorporating both empirical knowledge and physics-based understanding.
+		\smallskip
+	
+	The specific formulas used in hybrid models depend on the combination of models and methods being employed. 
+	
+	The choice of the hybrid modeling approach and the formulas used depends on the specific objectives, computational resources available, and the level of accuracy required in capturing the two-phase flow behavior.
+	
+	
+	
+	\subsection{Upscalling Techniques}
+	Upscaling techniques in two-phase flow modeling refer to methods that aim to represent the behavior of fluid flow at a larger scale, such as the reservoir scale, based on information obtained at a smaller scale, such as the pore scale. These techniques are employed to reduce the computational cost and improve the efficiency of simulating two-phase flow in large-scale reservoirs or heterogeneous porous media.\smallskip
+	
+	The application of upscaling techniques in two-phase flow modeling involves the following steps:\smallskip
+	
+	1. Characterization of Heterogeneous Media:\\
+		 The porous media are characterized at a fine scale, typically using methods such as core analysis, well logs. This provides information on the spatial distribution of rock and fluid properties, such as porosity, permeability, and saturation, at a small scale.
+	
+	2. Selection of Upscaling Approach:\\
+		 Various upscaling techniques can be employed based on the nature of the porous media and the properties of interest. Some common upscaling approaches include arithmetic averaging, geometric averaging, and flow-based upscaling methods such as the streamline-based or multiscale finite volume methods.
+	
+	3. Upscaling Equations: \\
+		The upscaling technique involves deriving equations or relationships that connect the fine-scale properties to the coarse-scale properties. These equations capture the effective behavior of the flow variables, such as effective permeability or relative permeability, at the larger scale.
+	
+	4. Coarse-Grid Simulation: \\
+		 Using the upscaled properties and equations, a simulation is performed at the coarse scale. This involves solving the governing equations, such as Darcy's law or the continuity equation, on a coarser grid that represents the larger-scale domain.
+	\smallskip
+	Some common formulas used in upscaling techniques for two-phase flow modeling include:
+	
+	- Effective Permeability:\\ The effective permeability at the coarse scale is often computed using an averaging technique, such as arithmetic or geometric averaging, applied to the fine-scale permeability values. For example, arithmetic averaging is given by:
+	\smallskip
+	
+     The equation is given by:
+     
+     \[ K_{\text{eff}} = \frac{1}{V} \int K \, dV \]
+     
+     where:
+     \begin{itemize}
+     	\item   \( K_{\text{eff}} \) is the effective permeability.
+     	 \item \( K \) is the fine-scale permeability.
+     	\item  \( V \) is the volume of the representative elementary volume (REV) at the coarse scale.
+     \end{itemize}
+    
+	
+	- Relative Permeability: \\
+		 The relative permeability at the coarse scale is derived based on the relative permeability curves obtained at the fine scale. Different upscaling approaches, such as the Brooks-Corey model or the Corey-Brooks Corey model, can be employed to obtain the effective relative permeability curves at the coarse scale.
+	
+	- Capillary Pressure:\\
+		 Upscaling capillary pressure involves relating the fine-scale capillary pressure-saturation relationship to the coarse-scale properties. Various methods, such as the Leverett-J function or a pore network-based approach, can be used to upscale the capillary pressure.
+		 \smallskip
+	
+	Upscaling techniques are essential for simulating large-scale two-phase flow systems, such as reservoirs, efficiently and accurately. They allow for the transfer of information from small-scale simulations to larger scales, thereby reducing computational costs while preserving the key flow behavior and properties. The choice of upscaling technique depends on the characteristics of the porous media and the desired level of accuracy in the simulation.
+
+	
+	
+
+	
+	
+	
+\end{document}

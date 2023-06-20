@@ -272,11 +272,11 @@ void initcon::Mode::Main::imhibition_generator()
 
 void initcon::Mode::Main::imhibition_generator()
 {
-	const int size = 10;
+	const int size = 26;
 	const int leave = 2;
 	const double rad_outer = 3;
 	const double rad_inner = 1;
-	const double initial_fill = 0.30; //from the blue side
+	const double initial_fill = 0.20; //from the blue side
 	
 	Tdouble radius(size, std::vector<double>(size, rad_outer));
 	for(int row = leave; row + leave < size; ++ row)

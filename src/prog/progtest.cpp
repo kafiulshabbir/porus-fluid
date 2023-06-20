@@ -1,28 +1,27 @@
-#include "dst/dstmns.h"
+#include "fileio/fileioread.h"
+#include "cmdio/cmdioprint.h"
+#include "func/funcdetermine.h"
+
+int main()
+{
+	fileio::Data data = fileio::Read::loop_until_proper_files();
+	
+	const std::vector<std::vector<int>> add_mnsc
+		= func::Determine::gen_add_mnsc(data.mnsc, data.diamension);
+		
+	cmdio::Print::table(add_mnsc);
+	
+	return 0;
+}
+
+/*
+
 const double time_step = 1;
 const double length_tube = 1;
 const double radius = 1;
 
 
-void process(const dst::Mns& mns, const double vel, const int direc)
-{
-	std::cout << mns;
-	std::cout << "vel=" << vel << ", direc=" << direc << std::endl;
-	
-	const std::vector<double> vol = mns.vol_fluid_into_nodes(
-		radius,
-		direc,
-		vel,
-		time_step,
-		length_tube
-	);
-	
-	std::cout << "blue=" << vol.front() / declconst::PI << ", grey=" << vol.back() / declconst::PI;
-}
-
-int main()
-{
-	const std::vector<dst::Mns> mns_vec
+const std::vector<dst::Mns> mns_vec
 	{
 		dst::Mns(0, 0, -1, -1), //blue
 		dst::Mns(0, 1, -1, -1), //grey
@@ -50,21 +49,29 @@ int main()
 	}
 	
 
+void process(const dst::Mns& mns, const double vel, const int direc)
+{
+	std::cout << mns;
+	std::cout << "vel=" << vel << ", direc=" << direc << std::endl;
 	
-	return 0;
+	const std::vector<double> vol = mns.vol_fluid_into_nodes(
+		radius,
+		direc,
+		vel,
+		time_step,
+		length_tube
+	);
+	
+	std::cout << "blue=" << vol.front() / declconst::PI << ", grey=" << vol.back() / declconst::PI;
 }
 
-
-/*
 Tdouble v
 {
 	{2, -1, -1, 10}, //s12 = 10
 	{-1, 2, -1, -110}, //s13 = -100
 	{-1, -1, 2, 100}
 };
-*/
 
-/*
 Tdouble v
 {
 	{1,1,2,1,1,0,1,8},
@@ -79,10 +86,9 @@ Tdouble v
 
 math::Linear::gauss_elimination(v);
 
-*/
 
 // Tests for diamension
-/*
+
 dst::Diamension d1(2, 4);
 dst::Diamension d2(6, 4);
 

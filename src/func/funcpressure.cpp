@@ -1,6 +1,11 @@
 #include "func/funcpressure.h"
 
-Tdouble func::Pressure::generate_equations_aug_matrix(const Tdouble& radius, const TMns& mnsc, const dst::Diamension& diamension)
+Tdouble func::Pressure::generate_equations_aug_matrix(
+	const Tdouble& radius,
+	const TMns& mnsc,
+	const std::vector<std::vector<int>>& add_mnsc,
+	const dst::Diamension& diamension
+)
 {
 	Tdouble equations_matrix = diamension.empty_aug_matrix();
 
@@ -22,7 +27,14 @@ Tdouble func::Pressure::generate_equations_aug_matrix(const Tdouble& radius, con
 				{
 					const double r = radius[connection.row][connection.col];
 					const dst::Mns& mns = mnsc[connection.row][connection.col];
-					const double sign_of_capll_pressure = mns.sign_of_capll_pressure(direction);
+					
+					const int sign_of_capll_pressure
+						= calc_sign_capll_pressure(
+							mns.sign_of_capll_pressure(direction),
+							add_mnsc[connection.row][connection.col],
+							direction
+						);
+					
 					
 					const double K = std::pow(r, 3) / mns.mu(declconst::MU1, declconst::MU2);
 					
@@ -49,10 +61,28 @@ Tdouble func::Pressure::generate_equations_aug_matrix(const Tdouble& radius, con
 	return equations_matrix;
 }
 
-std::vector<double> func::Pressure::calculate_pressure(const Tdouble& radius, const TMns& mnsc, const dst::Diamension& diamension)
+std::vector<double> func::Pressure::calculate_pressure(
+	const Tdouble& radius,
+	const TMns& mnsc,
+	const std::vector<std::vector<int>>& add_mnsc,
+	const dst::Diamension& diamension
+)
 {
-	const Tdouble equations = func::Pressure::generate_equations_aug_matrix(radius, mnsc, diamension);
+	const Tdouble equations = func::Pressure::generate_equations_aug_matrix(radius, mnsc, add_mnsc, diamension);
 	const std::vector<double> solution_of_equation = math::Linear::gauss_elimination(equations);
 	return solution_of_equation;
 }
 
+int func::Pressure::calc_sign_capll_pressure(
+	const int internal,
+	const int add_table,
+	const int direction
+)
+{
+	int add = add_table;
+	if(direction > 1)
+	{
+		add *= -1;
+	}
+	return internal + add;
+}

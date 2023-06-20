@@ -13,6 +13,7 @@ namespace func
 		static Tdouble calculate_velocity(
 			const Tdouble& radius,
 			const TMns& mnsc,
+			const std::vector<std::vector<int>>& add_mnsc,
 			const std::vector<double>& pressure,
 			const dst::Diamension& diamension
 		);
