@@ -17,6 +17,19 @@ GI~Barenblatt, TW~Patzek, and DB~Silin.
   displacement.
 \newblock {\em SPE journal}, 8(04):409--416, 2003.
 
+\bibitem{barenblatt1960basic}
+Grigory~I Barenblatt, Iu~P Zheltov, and IN~Kochina.
+\newblock Basic concepts in the theory of seepage of homogeneous liquids in
+  fissured rocks [strata].
+\newblock {\em Journal of applied mathematics and mechanics}, 24(5):1286--1303,
+  1960.
+
+\bibitem{bravo2008analysis}
+Maria~C Bravo and Mariela Araujo.
+\newblock Analysis of the unconventional behavior of oil relative permeability
+  during depletion tests of gas-saturated heavy oils.
+\newblock {\em International journal of multiphase flow}, 34(5):447--460, 2008.
+
 \bibitem{chen1985pore}
 Jing-Den Chen and David Wilkinson.
 \newblock Pore-scale viscous fingering in porous media.
@@ -40,11 +53,78 @@ Yanbin Gong.
   Transport in Disordered Porous Media and Rough-Walled Fractures}.
 \newblock University of Wyoming, 2021.
 
+\bibitem{hassanizadeh2004continuum}
+S~Majid Hassanizadeh.
+\newblock Continuum description of thermodynamic processes in porous media:
+  Fundamentals and applications.
+\newblock {\em Modeling Coupled Phenomena in Saturated Porous Materials}, pages
+  179--223, 2004.
+
+\bibitem{hassanizadeh2002dynamic}
+S~Majid Hassanizadeh, Michael~A Celia, and Helge~K Dahle.
+\newblock Dynamic effect in the capillary pressure--saturation relationship and
+  its impacts on unsaturated flow.
+\newblock {\em Vadose Zone Journal}, 1(1):38--57, 2002.
+
+\bibitem{hassanizadeh1987high}
+S~Majid Hassanizadeh and William~G Gray.
+\newblock High velocity flow in porous media.
+\newblock {\em Transport in porous media}, 2:521--531, 1987.
+
+\bibitem{hassanizadeh1990mechanics}
+S~Majid Hassanizadeh and William~G Gray.
+\newblock Mechanics and thermodynamics of multiphase flow in porous media
+  including interphase boundaries.
+\newblock {\em Advances in water resources}, 13(4):169--186, 1990.
+
+\bibitem{hassanizadeh1993thermodynamic}
+S~Majid Hassanizadeh and William~G Gray.
+\newblock Thermodynamic basis of capillary pressure in porous media.
+\newblock {\em Water resources research}, 29(10):3389--3405, 1993.
+
+\bibitem{hubbert1956darcy}
+M~King Hubbert.
+\newblock Darcy's law and the field equations of the flow of underground
+  fluids.
+\newblock {\em Transactions of the AIME}, 207(01):222--239, 1956.
+
+\bibitem{joekar2010non}
+V~Joekar-Niasar, S~Majid Hassanizadeh, and HK~Dahle.
+\newblock Non-equilibrium effects in capillarity and interfacial area in
+  two-phase flow: dynamic pore-network modelling.
+\newblock {\em Journal of fluid mechanics}, 655:38--71, 2010.
+
 \bibitem{king1987fractal}
 PR~King.
 \newblock The fractal nature of viscous fingering in porous media.
 \newblock {\em Journal of Physics A: Mathematical and General}, 20(8):L529,
   1987.
+
+\bibitem{kondaurov2007thermodynamically}
+VI~Kondaurov.
+\newblock The thermodynamically consistent equations of a thermoelastic
+  saturated porous medium.
+\newblock {\em Journal of applied mathematics and mechanics}, 71(4):562--579,
+  2007.
+
+\bibitem{kondaurov2009non}
+VI~Kondaurov.
+\newblock A non-equilibrium model of a porous medium saturated with immiscible
+  fluids.
+\newblock {\em Journal of Applied Mathematics and Mechanics}, 73(1):88--102,
+  2009.
+
+\bibitem{konyukhov2019homogenized}
+Andrey Konyukhov, Leonid Pankratov, and Anton Voloshin.
+\newblock The homogenized kondaurov type non-equilibrium model of two-phase
+  flow in multiscale non-homogeneous media.
+\newblock {\em Physica Scripta}, 94(5):054002, 2019.
+
+\bibitem{labed2012experimental}
+N~Labed, L~Bennamoun, and JP~Fohr.
+\newblock Experimental study of two-phase flow in porous media with measurement
+  of relative permeability.
+\newblock {\em Fluid Dyn. Mater. Process}, 8(4):423--436, 2012.
 
 \bibitem{pope2000turbulent}
 Stephen~B Pope and Stephen~B Pope.

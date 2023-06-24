@@ -25,7 +25,7 @@ namespace declconst
 	const double TIME_DIV = 10;				// if the nearest meniscus by time is further, then L / TIME_DIV is prefered
 	const int IMAGE_SIZE = 1000;
 	const double FINE_RADIUS_RANDOMNESS = 1e2;
-	const int PLOT_EACH_N = 100;
+	const int PLOT_EACH_N = 50;
 	const double IGNORE_VEL = 1e8; // If any velocity in the porous body is IGNORE_VEL times less than the max velocity then it is forced to be 0
 	
 	const int total_number_tubes = 26;

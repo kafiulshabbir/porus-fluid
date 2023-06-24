@@ -1,41 +1,48 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{The Problem}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{About Other Models}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Continuum Scale Models}{section.1}% 4
-\BOOKMARK [3][-]{subsubsection.1.3.1}{Darcy's Law}{subsection.1.3}% 5
-\BOOKMARK [3][-]{subsubsection.1.3.2}{Buckley-Everett Theory}{subsection.1.3}% 6
-\BOOKMARK [2][-]{subsection.1.4}{Empirical Models}{section.1}% 7
-\BOOKMARK [3][-]{subsubsection.1.4.1}{Corey and Brooks- Corey models}{subsection.1.4}% 8
-\BOOKMARK [3][-]{subsubsection.1.4.2}{ Leverett-J-function}{subsection.1.4}% 9
-\BOOKMARK [2][-]{subsection.1.5}{Pore-Scale Methods}{section.1}% 10
-\BOOKMARK [3][-]{subsubsection.1.5.1}{Lattice Boltzmann Method \(LBM\)}{subsection.1.5}% 11
-\BOOKMARK [3][-]{subsubsection.1.5.2}{Direct Numerical Simulation NAVIER-STOKES}{subsection.1.5}% 12
-\BOOKMARK [2][-]{subsection.1.6}{Hybrid and Upscalling Approaches}{section.1}% 13
-\BOOKMARK [3][-]{subsubsection.1.6.1}{Hybrid Models}{subsection.1.6}% 14
-\BOOKMARK [3][-]{subsubsection.1.6.2}{Upscalling Techniques}{subsection.1.6}% 15
-\BOOKMARK [1][-]{section.2}{Theory}{}% 16
-\BOOKMARK [2][-]{subsection.2.1}{Viscosity}{section.2}% 17
-\BOOKMARK [2][-]{subsection.2.2}{Volumetric flow rate through a thin tube}{section.2}% 18
-\BOOKMARK [2][-]{subsection.2.3}{Capillary Action}{section.2}% 19
-\BOOKMARK [2][-]{subsection.2.4}{Flow rate in a tube containing 1 meniscus}{section.2}% 20
-\BOOKMARK [2][-]{subsection.2.5}{The sign of capillary pressure}{section.2}% 21
-\BOOKMARK [2][-]{subsection.2.6}{Flow rate equation used in our network model}{section.2}% 22
-\BOOKMARK [2][-]{subsection.2.7}{Set of linear equations for a node}{section.2}% 23
-\BOOKMARK [1][-]{section.3}{Model}{}% 24
-\BOOKMARK [2][-]{subsection.3.1}{Linear equations}{section.3}% 25
-\BOOKMARK [2][-]{subsection.3.2}{Numbering tubes and other parameters in the network model}{section.3}% 26
-\BOOKMARK [2][-]{subsection.3.3}{Solution of Linear Equations}{section.3}% 27
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Case of zreo row}{subsection.3.3}% 28
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Initial configuration for flow to start}{subsection.3.3}% 29
-\BOOKMARK [3][-]{subsubsection.3.3.3}{Case of all meniscus located in the thick tubes}{subsection.3.3}% 30
-\BOOKMARK [2][-]{subsection.3.4}{Description of the Model}{section.3}% 31
-\BOOKMARK [2][-]{subsection.3.5}{Algorithm for computation}{section.3}% 32
-\BOOKMARK [1][-]{section.4}{Result}{}% 33
-\BOOKMARK [2][-]{subsection.4.1}{Imbibition 10x10 and wetting fluid is less viscous}{section.4}% 34
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Initial conditon}{subsection.4.1}% 35
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Figures}{subsection.4.1}% 36
-\BOOKMARK [3][-]{subsubsection.4.1.3}{Plot}{subsection.4.1}% 37
-\BOOKMARK [3][-]{subsubsection.4.1.4}{Discussion}{subsection.4.1}% 38
-\BOOKMARK [2][-]{subsection.4.2}{Displacements}{section.4}% 39
-\BOOKMARK [2][-]{subsection.4.3}{Large matrix preventing imbibition}{section.4}% 40
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 41
+\BOOKMARK [2][-]{subsection.1.1}{Motivation}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Classical Continuum models}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Darcy's Law}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Relative phase permeability}{subsection.1.2}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Capillary pressure}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.4}{Buckley-Leverett Theory}{subsection.1.2}% 7
+\BOOKMARK [3][-]{subsubsection.1.2.5}{Leverett-J-function}{subsection.1.2}% 8
+\BOOKMARK [3][-]{subsubsection.1.2.6}{Empirical Model of Corey and Brooks}{subsection.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.3}{Advanced Continuum models}{section.1}% 10
+\BOOKMARK [2][-]{subsection.1.4}{Model at the scale of pores}{section.1}% 11
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Lattice Boltzmann Method \(LBM\)}{subsection.1.4}% 12
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Direct Numerical Simulation NAVIER-STOKES}{subsection.1.4}% 13
+\BOOKMARK [3][-]{subsubsection.1.4.3}{Hybrid Models}{subsection.1.4}% 14
+\BOOKMARK [3][-]{subsubsection.1.4.4}{Upscalling Techniques}{subsection.1.4}% 15
+\BOOKMARK [3][-]{subsubsection.1.4.5}{Network Models}{subsection.1.4}% 16
+\BOOKMARK [1][-]{section.2}{Theory}{}% 17
+\BOOKMARK [2][-]{subsection.2.1}{Porous body}{section.2}% 18
+\BOOKMARK [2][-]{subsection.2.2}{Viscosity}{section.2}% 19
+\BOOKMARK [2][-]{subsection.2.3}{Volumetric flow rate through a thin tube}{section.2}% 20
+\BOOKMARK [2][-]{subsection.2.4}{Capillary Action}{section.2}% 21
+\BOOKMARK [2][-]{subsection.2.5}{Flow rate in a tube containing 1 meniscus}{section.2}% 22
+\BOOKMARK [2][-]{subsection.2.6}{The sign of capillary pressure}{section.2}% 23
+\BOOKMARK [2][-]{subsection.2.7}{Flow rate equation used in our network model}{section.2}% 24
+\BOOKMARK [2][-]{subsection.2.8}{Set of linear equations for a node}{section.2}% 25
+\BOOKMARK [1][-]{section.3}{Features and Characterstics of our Model}{}% 26
+\BOOKMARK [2][-]{subsection.3.1}{Numbering tubes and other parameters in the network model}{section.3}% 27
+\BOOKMARK [2][-]{subsection.3.2}{Linear equations for simple displacement}{section.3}% 28
+\BOOKMARK [2][-]{subsection.3.3}{Linear equations in case of infinitely many solutions}{section.3}% 29
+\BOOKMARK [2][-]{subsection.3.4}{Distribution and recombination}{section.3}% 30
+\BOOKMARK [2][-]{subsection.3.5}{Algorithm for computation}{section.3}% 31
+\BOOKMARK [2][-]{subsection.3.6}{Possible Cases of Errors}{section.3}% 32
+\BOOKMARK [3][-]{subsubsection.3.6.1}{Initial configuration for flow to start}{subsection.3.6}% 33
+\BOOKMARK [3][-]{subsubsection.3.6.2}{Case of all meniscus located in the thick tubes}{subsection.3.6}% 34
+\BOOKMARK [2][-]{subsection.3.7}{Simple tests for our model}{section.3}% 35
+\BOOKMARK [3][-]{subsubsection.3.7.1}{Filtration}{subsection.3.7}% 36
+\BOOKMARK [3][-]{subsubsection.3.7.2}{Displacement}{subsection.3.7}% 37
+\BOOKMARK [1][-]{section.4}{Simulation}{}% 38
+\BOOKMARK [2][-]{subsection.4.1}{Main Problem}{section.4}% 39
+\BOOKMARK [2][-]{subsection.4.2}{Result for Imbibition 10x10}{section.4}% 40
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Figures}{subsection.4.2}% 41
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Plot}{subsection.4.2}% 42
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Discussion}{subsection.4.2}% 43
+\BOOKMARK [2][-]{subsection.4.3}{Result for Imbibition 26x26}{section.4}% 44
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Figures}{subsection.4.3}% 45
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Plot}{subsection.4.3}% 46
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Discussion}{subsection.4.3}% 47
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 48

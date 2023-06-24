@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.1)  19 JUN 2023 15:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.1)  21 JUN 2023 11:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -341,22 +341,22 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -393,7 +393,7 @@ LaTeX Font Info:    ... okay on input line 26.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box50
-Package hyperref Info: Link coloring OFF on input line 26.
+Package hyperref Info: Link coloring OFF on input line 28.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -405,9 +405,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count283
 )
-LaTeX Info: Redefining \ref on input line 26.
-LaTeX Info: Redefining \pageref on input line 26.
-LaTeX Info: Redefining \nameref on input line 26.
+LaTeX Info: Redefining \ref on input line 28.
+LaTeX Info: Redefining \pageref on input line 28.
+LaTeX Info: Redefining \nameref on input line 28.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
@@ -440,203 +440,285 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-
-LaTeX Warning: No \author given.
-
 (./sections/00preface.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--11
+Underfull \hbox (badness 10000) in paragraph at lines 1--4
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--11
 
  []
 
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.toc [2])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [2]
-(./sections/01abstract.tex) (./sections/02introduction.tex
-<figures/fig_capillary_flow_brick.jpg, id=226, 770.88pt x 442.0515pt>
+
+[3] (./sections/01abstract.tex) (./sections/02introduction.tex
+Overfull \hbox (5.86124pt too wide) in paragraph at lines 8--9
+\OT1/cmr/m/n/12 Continuum mod-els of mo-tion of mul-ti-ple phases in a porous m
+edium are widespread
+ []
+
+[4] [5] [6] [7] [8] [9] [10] [11] [12]) (./sections/03theory.tex
+<figures/fig_capillary_flow_brick.jpg, id=382, 770.88pt x 442.0515pt>
 File: figures/fig_capillary_flow_brick.jpg Graphic file (type jpg)
 <use figures/fig_capillary_flow_brick.jpg>
 Package pdftex.def Info: figures/fig_capillary_flow_brick.jpg  used on input li
 ne 5.
 (pdftex.def)             Requested size: 396.94295pt x 227.62204pt.
- [3 <./figures/fig_capillary_flow_brick.jpg>] [4] [5] [6] [7] [8] [9] [10]) (./
-sections/03theory.tex
-<figures/fig_diagram-viscosity-def.jpg, id=330, 900.36375pt x 468.75125pt>
+ [13]
+<figures/fig_diagram-viscosity-def.jpg, id=397, 900.36375pt x 468.75125pt>
 File: figures/fig_diagram-viscosity-def.jpg Graphic file (type jpg)
 <use figures/fig_diagram-viscosity-def.jpg>
 Package pdftex.def Info: figures/fig_diagram-viscosity-def.jpg  used on input l
-ine 3.
+ine 14.
 (pdftex.def)             Requested size: 273.24358pt x 142.26378pt.
-[11 <./figures/fig_diagram-viscosity-def.jpg>]
-<figures/fig_flow-thin-tube.jpg, id=340, 1229.59375pt x 677.53125pt>
+ [14 <./figures/fig_capillary_flow_brick.jpg> <./figures/fig_diagram-viscosity-
+def.jpg>]
+<figures/fig_flow-thin-tube.jpg, id=405, 1229.59375pt x 677.53125pt>
 File: figures/fig_flow-thin-tube.jpg Graphic file (type jpg)
 <use figures/fig_flow-thin-tube.jpg>
-Package pdftex.def Info: figures/fig_flow-thin-tube.jpg  used on input line 36.
+Package pdftex.def Info: figures/fig_flow-thin-tube.jpg  used on input line 47.
 
 (pdftex.def)             Requested size: 258.18478pt x 142.26378pt.
- [12 <./figures/fig_flow-thin-tube.jpg>] [13]
-<figures/fig_capact-of-water.png, id=360, 220.825pt x 295.1025pt>
+
+[15 <./figures/fig_flow-thin-tube.jpg>] [16]
+<figures/fig_capact-of-water.png, id=425, 220.825pt x 295.1025pt>
 File: figures/fig_capact-of-water.png Graphic file (type png)
 <use figures/fig_capact-of-water.png>
-Package pdftex.def Info: figures/fig_capact-of-water.png  used on input line 11
-7.
+Package pdftex.def Info: figures/fig_capact-of-water.png  used on input line 12
+8.
 (pdftex.def)             Requested size: 170.33228pt x 227.62204pt.
- [14]
-<figures/fig_shape-meniscus.png, id=368, 631.35875pt x 288.07625pt>
+ [17]
+<figures/fig_shape-meniscus.png, id=432, 631.35875pt x 288.07625pt>
 File: figures/fig_shape-meniscus.png Graphic file (type png)
 <use figures/fig_shape-meniscus.png>
-Package pdftex.def Info: figures/fig_shape-meniscus.png  used on input line 125
+Package pdftex.def Info: figures/fig_shape-meniscus.png  used on input line 136
 .
 (pdftex.def)             Requested size: 187.07771pt x 85.35826pt.
-<figures/fig_flowr-1-men.png, id=369, 300.12125pt x 114.4275pt>
+<figures/fig_flowr-1-men.png, id=433, 300.12125pt x 114.4275pt>
 File: figures/fig_flowr-1-men.png Graphic file (type png)
 <use figures/fig_flowr-1-men.png>
-Package pdftex.def Info: figures/fig_flowr-1-men.png  used on input line 139.
+Package pdftex.def Info: figures/fig_flowr-1-men.png  used on input line 150.
 (pdftex.def)             Requested size: 223.88597pt x 85.35826pt.
- [15 <./figures/fig_capact-of-water.png> <./figures/fig_shape-meniscus.png>] [1
-6 <./figures/fig_flowr-1-men.png>]
-<figures/fig_tube-length-viscosity-numbering.png, id=399, 704.6325pt x 270.0087
+ [18 <./figures/fig_capact-of-water.png> <./figures/fig_shape-meniscus.png>] [1
+9 <./figures/fig_flowr-1-men.png>]
+<figures/fig_tube-length-viscosity-numbering.png, id=465, 704.6325pt x 270.0087
 4pt>
 File: figures/fig_tube-length-viscosity-numbering.png Graphic file (type png)
 <use figures/fig_tube-length-viscosity-numbering.png>
 Package pdftex.def Info: figures/fig_tube-length-viscosity-numbering.png  used 
-on input line 202.
+on input line 213.
 (pdftex.def)             Requested size: 222.75604pt x 85.35826pt.
- [17 <./figures/fig_tube-length-viscosity-numbering.png>]
-<figures/fig_simple-5-nodes.png, id=410, 1047.915pt x 967.615pt>
+ [20 <./figures/fig_tube-length-viscosity-numbering.png>]
+<figures/fig_simple-5-nodes.png, id=476, 1047.915pt x 967.615pt>
 File: figures/fig_simple-5-nodes.png Graphic file (type png)
 <use figures/fig_simple-5-nodes.png>
-Package pdftex.def Info: figures/fig_simple-5-nodes.png  used on input line 227
+Package pdftex.def Info: figures/fig_simple-5-nodes.png  used on input line 239
 .
 (pdftex.def)             Requested size: 246.49991pt x 227.62204pt.
-) (./sections/04model.tex [18 <./figures/fig_simple-5-nodes.png (PNG copy)>]
-Overfull \hbox (4.6786pt too wide) detected at line 25
-[]
- []
-
-<figures/fig_numbering-of-ij-tube.png, id=423, 743.77875pt x 507.8975pt>
+)
+(./sections/04model.tex
+<figures/fig_descp-of-model.png, id=478, 2891.5227pt x 2048.8545pt>
+File: figures/fig_descp-of-model.png Graphic file (type png)
+<use figures/fig_descp-of-model.png>
+Package pdftex.def Info: figures/fig_descp-of-model.png  used on input line 1.
+(pdftex.def)             Requested size: 240.9008pt x 170.71652pt.
+ [21 <./figures/fig_simple-5-nodes.png (PNG copy)>]
+<figures/fig_numbering-of-ij-tube.png, id=483, 743.77875pt x 507.8975pt>
 File: figures/fig_numbering-of-ij-tube.png Graphic file (type png)
 <use figures/fig_numbering-of-ij-tube.png>
 Package pdftex.def Info: figures/fig_numbering-of-ij-tube.png  used on input li
-ne 36.
+ne 7.
 (pdftex.def)             Requested size: 249.99875pt x 170.71652pt.
-[19 <./figures/fig_numbering-of-ij-tube.png (PNG copy)>]
-<figures/fig_descp-of-model.png, id=431, 2891.5227pt x 2048.8545pt>
-File: figures/fig_descp-of-model.png Graphic file (type png)
-<use figures/fig_descp-of-model.png>
-Package pdftex.def Info: figures/fig_descp-of-model.png  used on input line 62.
 
-(pdftex.def)             Requested size: 240.9008pt x 170.71652pt.
- [20] [21 <./figures/fig_descp-of-model.png>]) (./sections/05result.tex
-<figures/fig_result10by10_1.png, id=455, 864.22874pt x 867.24pt>
-File: figures/fig_result10by10_1.png Graphic file (type png)
-<use figures/fig_result10by10_1.png>
-Package pdftex.def Info: figures/fig_result10by10_1.png  used on input line 17.
+[22 <./figures/fig_descp-of-model.png> <./figures/fig_numbering-of-ij-tube.png 
+(PNG copy)>]
+Overfull \hbox (4.6786pt too wide) detected at line 37
+[]
+ []
 
-(pdftex.def)             Requested size: 226.83047pt x 227.62204pt.
- [22]
-<figures/fig_result10by10_2.png, id=474, 869.2475pt x 865.2325pt>
-File: figures/fig_result10by10_2.png Graphic file (type png)
-<use figures/fig_result10by10_2.png>
-Package pdftex.def Info: figures/fig_result10by10_2.png  used on input line 23.
-
-(pdftex.def)             Requested size: 228.67827pt x 227.62204pt.
-<figures/fig_result10by10_3.png, id=475, 866.23625pt x 864.22874pt>
-File: figures/fig_result10by10_3.png Graphic file (type png)
-<use figures/fig_result10by10_3.png>
-Package pdftex.def Info: figures/fig_result10by10_3.png  used on input line 30.
-
-(pdftex.def)             Requested size: 228.15044pt x 227.62204pt.
- [23 <./figures/fig_result10by10_1.png> <./figures/fig_result10by10_2.png>]
-<figures/fig_plot-sat-vs-time.png, id=484, 577.15625pt x 253.94875pt>
-File: figures/fig_plot-sat-vs-time.png Graphic file (type png)
-<use figures/fig_plot-sat-vs-time.png>
-Package pdftex.def Info: figures/fig_plot-sat-vs-time.png  used on input line 3
-8.
-(pdftex.def)             Requested size: 330.05322pt x 145.2289pt.
- [24 <./figures/fig_result10by10_3.png> <./figures/fig_plot-sat-vs-time.png>]
-<figures/fig_initial-fill-distribution.png, id=497, 753.81625pt x 528.97626pt>
+<figures/fig_zero-linearequation.png, id=492, 826.08624pt x 622.325pt>
+File: figures/fig_zero-linearequation.png Graphic file (type png)
+<use figures/fig_zero-linearequation.png>
+Package pdftex.def Info: figures/fig_zero-linearequation.png  used on input lin
+e 49.
+(pdftex.def)             Requested size: 226.61348pt x 170.71652pt.
+[23] [24 <./figures/fig_zero-linearequation.png>]
+<figures/fig_center-of-mass.png, id=506, 827.09pt x 778.91pt>
+File: figures/fig_center-of-mass.png Graphic file (type png)
+<use figures/fig_center-of-mass.png>
+Package pdftex.def Info: figures/fig_center-of-mass.png  used on input line 120
+.
+(pdftex.def)             Requested size: 241.69252pt x 227.62204pt.
+ [25 <./figures/fig_center-of-mass.png>] [26]
+<figures/fig_test_dist_th01.png, id=533, 713.66624pt x 643.40375pt>
+File: figures/fig_test_dist_th01.png Graphic file (type png)
+<use figures/fig_test_dist_th01.png>
+Package pdftex.def Info: figures/fig_test_dist_th01.png  used on input line 180
+.
+(pdftex.def)             Requested size: 227.62204pt x 205.20618pt.
+ [27]
+<figures/fig_test_dist_th02.png, id=542, 752.8125pt x 646.415pt>
+File: figures/fig_test_dist_th02.png Graphic file (type png)
+<use figures/fig_test_dist_th02.png>
+Package pdftex.def Info: figures/fig_test_dist_th02.png  used on input line 186
+.
+(pdftex.def)             Requested size: 227.62204pt x 195.45483pt.
+<figures/fig_test_dist_th03.png, id=543, 744.7825pt x 670.505pt>
+File: figures/fig_test_dist_th03.png Graphic file (type png)
+<use figures/fig_test_dist_th03.png>
+Package pdftex.def Info: figures/fig_test_dist_th03.png  used on input line 193
+.
+(pdftex.def)             Requested size: 227.62204pt x 204.91809pt.
+ [28 <./figures/fig_test_dist_th01.png> <./figures/fig_test_dist_th02.png>]
+<figures/fig_test_dist_th04.png, id=552, 719.68875pt x 651.43375pt>
+File: figures/fig_test_dist_th04.png Graphic file (type png)
+<use figures/fig_test_dist_th04.png>
+Package pdftex.def Info: figures/fig_test_dist_th04.png  used on input line 199
+.
+(pdftex.def)             Requested size: 227.62204pt x 206.03767pt.
+<figures/fig_test_dist_tn01.png, id=553, 652.4375pt x 638.385pt>
+File: figures/fig_test_dist_tn01.png Graphic file (type png)
+<use figures/fig_test_dist_tn01.png>
+Package pdftex.def Info: figures/fig_test_dist_tn01.png  used on input line 205
+.
+(pdftex.def)             Requested size: 227.62204pt x 222.71725pt.
+ [29 <./figures/fig_test_dist_th03.png> <./figures/fig_test_dist_th04.png>]
+<figures/fig_test_dist_tn02.png, id=562, 675.52374pt x 643.40375pt>
+File: figures/fig_test_dist_tn02.png Graphic file (type png)
+<use figures/fig_test_dist_tn02.png>
+Package pdftex.def Info: figures/fig_test_dist_tn02.png  used on input line 211
+.
+(pdftex.def)             Requested size: 227.62204pt x 216.80069pt.
+<figures/fig_test_dist_tn03.png, id=563, 671.50874pt x 667.49374pt>
+File: figures/fig_test_dist_tn03.png Graphic file (type png)
+<use figures/fig_test_dist_tn03.png>
+Package pdftex.def Info: figures/fig_test_dist_tn03.png  used on input line 218
+.
+(pdftex.def)             Requested size: 227.62204pt x 226.26247pt.
+ [30 <./figures/fig_test_dist_tn01.png> <./figures/fig_test_dist_tn02.png>]
+<figures/fig_test_dist_tn04.png, id=573, 671.50874pt x 653.44125pt>
+File: figures/fig_test_dist_tn04.png Graphic file (type png)
+<use figures/fig_test_dist_tn04.png>
+Package pdftex.def Info: figures/fig_test_dist_tn04.png  used on input line 224
+.
+(pdftex.def)             Requested size: 227.62204pt x 221.49904pt.
+<figures/fig_initial-fill-distribution.png, id=574, 753.81625pt x 528.97626pt>
 File: figures/fig_initial-fill-distribution.png Graphic file (type png)
 <use figures/fig_initial-fill-distribution.png>
 Package pdftex.def Info: figures/fig_initial-fill-distribution.png  used on inp
-ut line 57.
+ut line 232.
 (pdftex.def)             Requested size: 227.62204pt x 159.72725pt.
-<figures/fig_final-fill-distribution.png, id=498, 782.925pt x 527.9725pt>
+ [31 <./figures/fig_test_dist_tn03.png> <./figures/fig_test_dist_tn04.png>]
+<figures/fig_final-fill-distribution.png, id=584, 782.925pt x 527.9725pt>
 File: figures/fig_final-fill-distribution.png Graphic file (type png)
 <use figures/fig_final-fill-distribution.png>
 Package pdftex.def Info: figures/fig_final-fill-distribution.png  used on input
- line 64.
+ line 239.
 (pdftex.def)             Requested size: 227.62204pt x 153.4948pt.
-<figures/fig_initial_26x26.png, id=499, 820.06375pt x 806.01125pt>
-File: figures/fig_initial_26x26.png Graphic file (type png)
-<use figures/fig_initial_26x26.png>
-Package pdftex.def Info: figures/fig_initial_26x26.png  used on input line 72.
-(pdftex.def)             Requested size: 206.28249pt x 202.74448pt.
- [25 <./figures/fig_initial-fill-distribution.png> <./figures/fig_final-fill-di
-stribution.png>]
-<figures/fig_oscill26x26frame51.jpg, id=511, 284.56313pt x 255.20343pt>
-File: figures/fig_oscill26x26frame51.jpg Graphic file (type jpg)
-<use figures/fig_oscill26x26frame51.jpg>
-Package pdftex.def Info: figures/fig_oscill26x26frame51.jpg  used on input line
- 80.
-(pdftex.def)             Requested size: 126.9059pt x 113.81102pt.
-<figures/fig_oscill26x26frame96.jpg, id=512, 386.94562pt x 361.35pt>
-File: figures/fig_oscill26x26frame96.jpg Graphic file (type jpg)
-<use figures/fig_oscill26x26frame96.jpg>
-Package pdftex.def Info: figures/fig_oscill26x26frame96.jpg  used on input line
- 81.
-(pdftex.def)             Requested size: 121.87079pt x 113.81102pt.
-<figures/fig_oscill26x26frame111.jpg, id=513, 302.63063pt x 289.83281pt>
-File: figures/fig_oscill26x26frame111.jpg Graphic file (type jpg)
-<use figures/fig_oscill26x26frame111.jpg>
-Package pdftex.def Info: figures/fig_oscill26x26frame111.jpg  used on input lin
-e 82.
-(pdftex.def)             Requested size: 118.83357pt x 113.81102pt.
-<figures/fig_plot-sat-vs-time-26-26oscill.png, id=514, 518.93875pt x 294.09875p
-t>
-File: figures/fig_plot-sat-vs-time-26-26oscill.png Graphic file (type png)
-<use figures/fig_plot-sat-vs-time-26-26oscill.png>
-Package pdftex.def Info: figures/fig_plot-sat-vs-time-26-26oscill.png  used on 
-input line 88.
-(pdftex.def)             Requested size: 330.05322pt x 187.06026pt.
- [26 <./figures/fig_initial_26x26.png> <./figures/fig_oscill26x26frame51.jpg> <
-./figures/fig_oscill26x26frame96.jpg> <./figures/fig_oscill26x26frame111.jpg>])
+) (./sections/05result.tex [32 <./figures/fig_initial-fill-distribution.png> <.
+/figures/fig_final-fill-distribution.png>]
+<figures/fig_result10by10_1.png, id=593, 864.22874pt x 867.24pt>
+File: figures/fig_result10by10_1.png Graphic file (type png)
+<use figures/fig_result10by10_1.png>
+Package pdftex.def Info: figures/fig_result10by10_1.png  used on input line 14.
 
-(./sections/06conclusion.tex) (./main.bbl [27 <./figures/fig_plot-sat-vs-time-2
-6-26oscill.png>]
-Underfull \hbox (badness 2689) in paragraph at lines 101--107
+(pdftex.def)             Requested size: 226.83047pt x 227.62204pt.
+<figures/fig_result10by10_2.png, id=594, 869.2475pt x 865.2325pt>
+File: figures/fig_result10by10_2.png Graphic file (type png)
+<use figures/fig_result10by10_2.png>
+Package pdftex.def Info: figures/fig_result10by10_2.png  used on input line 20.
+
+(pdftex.def)             Requested size: 228.67827pt x 227.62204pt.
+ [33 <./figures/fig_result10by10_1.png>]
+<figures/fig_result10by10_3.png, id=601, 866.23625pt x 864.22874pt>
+File: figures/fig_result10by10_3.png Graphic file (type png)
+<use figures/fig_result10by10_3.png>
+Package pdftex.def Info: figures/fig_result10by10_3.png  used on input line 27.
+
+(pdftex.def)             Requested size: 228.15044pt x 227.62204pt.
+<figures/fig_plot-sat-vs-time.png, id=602, 578.16pt x 341.275pt>
+File: figures/fig_plot-sat-vs-time.png Graphic file (type png)
+<use figures/fig_plot-sat-vs-time.png>
+Package pdftex.def Info: figures/fig_plot-sat-vs-time.png  used on input line 3
+5.
+(pdftex.def)             Requested size: 330.05322pt x 194.82037pt.
+ [34 <./figures/fig_result10by10_2.png> <./figures/fig_result10by10_3.png>]
+<figures/fig_result26by26_1.png, id=614, 821.0675pt x 815.045pt>
+File: figures/fig_result26by26_1.png Graphic file (type png)
+<use figures/fig_result26by26_1.png>
+Package pdftex.def Info: figures/fig_result26by26_1.png  used on input line 54.
+
+(pdftex.def)             Requested size: 229.29596pt x 227.62204pt.
+ [35 <./figures/fig_plot-sat-vs-time.png>]
+<figures/fig_result26by26_2.png, id=624, 826.08624pt x 814.04124pt>
+File: figures/fig_result26by26_2.png Graphic file (type png)
+<use figures/fig_result26by26_2.png>
+Package pdftex.def Info: figures/fig_result26by26_2.png  used on input line 59.
+
+(pdftex.def)             Requested size: 230.98744pt x 227.62204pt.
+<figures/fig_result26by26_3.png, id=625, 825.0825pt x 821.0675pt>
+File: figures/fig_result26by26_3.png Graphic file (type png)
+<use figures/fig_result26by26_3.png>
+Package pdftex.def Info: figures/fig_result26by26_3.png  used on input line 65.
+
+(pdftex.def)             Requested size: 228.7302pt x 227.62204pt.
+ [36 <./figures/fig_result26by26_1.png> <./figures/fig_result26by26_2.png>]
+<figures/fig_result26by26_4.png, id=634, 830.10126pt x 816.04875pt>
+File: figures/fig_result26by26_4.png Graphic file (type png)
+<use figures/fig_result26by26_4.png>
+Package pdftex.def Info: figures/fig_result26by26_4.png  used on input line 70.
+
+(pdftex.def)             Requested size: 231.54013pt x 227.62204pt.
+<figures/fig_plot-sat-vs-time2.png, id=635, 605.26125pt x 389.455pt>
+File: figures/fig_plot-sat-vs-time2.png Graphic file (type png)
+<use figures/fig_plot-sat-vs-time2.png>
+Package pdftex.def Info: figures/fig_plot-sat-vs-time2.png  used on input line 
+77.
+(pdftex.def)             Requested size: 330.05322pt x 212.37059pt.
+ [37 <./figures/fig_result26by26_3.png> <./figures/fig_result26by26_4.png>]) (.
+/sections/06conclusion.tex [38 <./figures/fig_plot-sat-vs-time2.png>]
+Overfull \hbox (0.71547pt too wide) in paragraph at lines 9--10
+[]\OT1/cmr/m/n/12 Model of rea-son-able size can be sim-u-lated us-ing Gaussian
+-elimination, which
+ []
+
+) (./main.bbl [39] [40]
+Underfull \hbox (badness 2689) in paragraph at lines 181--187
 []\OT1/cmr/m/n/12 Wikipedia.  Cap-il-lary ac-tion --- Wikipedia, the free en-cy
 -clo-pe-dia.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--107
+Underfull \hbox (badness 10000) in paragraph at lines 181--187
 []$\OT1/cmtt/m/n/12 http : / / en . wikipedia . org / w / index . php ? title =
  Capillary % 20action &
  []
 
-[28])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 57.
- [29]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 57.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 60.
+ [41]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 60.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 57.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 57.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 77AD1C92B6515E62CA93D1D8B5851A56;3067.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 57.
+(rerunfilecheck)             Checksum: 6755E17C997289CB54B650BB219BF68E;3647.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
  ) 
 Here is how much of TeX's memory you used:
- 8880 strings out of 481239
- 140028 string characters out of 5920378
- 416124 words of memory out of 5000000
- 23803 multiletter control sequences out of 15000+600000
+ 9019 strings out of 481239
+ 143137 string characters out of 5920378
+ 417718 words of memory out of 5000000
+ 23889 multiletter control sequences out of 15000+600000
  540319 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 50i,13n,51p,1059b,597s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 50i,13n,48p,1242b,597s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dis
@@ -654,10 +736,10 @@ dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super
 /sfrm1200.pfb>
-Output written on main.pdf (29 pages, 1345708 bytes).
+Output written on main.pdf (41 pages, 1454712 bytes).
 PDF statistics:
- 641 PDF objects out of 1000 (max. 8388607)
- 552 compressed objects within 6 object streams
- 184 named destinations out of 1000 (max. 500000)
- 434 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 800 PDF objects out of 1000 (max. 8388607)
+ 675 compressed objects within 7 object streams
+ 237 named destinations out of 1000 (max. 500000)
+ 540 words of extra memory for PDF output out of 10000 (max. 10000000)
 

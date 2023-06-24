@@ -1,85 +1,88 @@
-\subsubsection{Continuum models}
+\subsection{Motivation}
 
-	Continuum models of the motion of several liquids in a porous medium are widespread and useful, among them are Darcy's Law, Buckley-Leverett, etc. 
+The subject of porous media represents an intensive research theme due to its practical applications in several fields, such as oil industry, chemical reactors, heat exchangers, thermal insulations, electronic cooling. \cite{labed2012experimental}
 
-	\subsubsection{Relative phase permeability}
+
+\subsection{Classical Continuum models}
+
+	Continuum models of motion of multiple phases in a porous medium are widespread and useful, among them are Darcy's Law, Buckley-Leverett, etc.
 	
-	\subsubsection{Capillary pressure.
-A feature of these classical models is that the relative phase permeability and capillary pressure are considered a function of saturation
-This is true as long as the characteristic time of the processes is much longer than the characteristic time of fluid redistribution in the capillary space.
-In some cases, this assumption is incorrect.
-For example, when the saturation changes rapidly, or when the porous medium has such a structure that the time of fluid redistribution is long (fractured-porous medium with blocks and cracks)
+	Here permeability is only a function of saturation of one of the phase.
+	\begin{equation}
+		k = k(S)
+	\end{equation}
 
-2. There are a number of continuum models that take these effects into account. Among them, we note the articles by Hasanizade, Barenblatt and Kondaurov. The first two take into account not only saturation, but also the rate of saturation change.
-The Kondaurov model, along with saturation, considers a special nonequilibrium parameter, which should relax to an equilibrium value.
+	Saturation is defined as the ratio between the volume occupied by a phase to the total volume of the void.
 
-3. In order to better understand the models of nonequilibrium filtration (fluid movement), it is necessary to simulate fluid movement at the micro level (that is, at the scale of individual pores and capillaries)
-There are a number of approaches to such modeling. Example: or a direct Navier-Stokes calculation.
-In addition, network models are used. They are simpler.
-We list models from the literature, advantages and disadvantages.
-
-4. We decided to go the way of network models and create our own network model.
-The following is a detailed description of our model.
-It is necessary to describe the geometry of the capillaries, the rules for overcoming nodes (here is the novelty of the work!).
-Give the calculation algorithm. Describe a numerical method.
-
-5. Next, give the problem statements and results. Don't skimp on pictures and graphs!
-We need to start with the pressure drop.
-Finish with impregnation and saturation relaxation.
-
-
-
-
-\subsection{The Problem}
-	Figure \ref{fig_capillary_flow_brick} is an example of two-phase flow in porous body. The wetting fluid, in this case - water displaces the non wetting fluid - air. The aim is to plot concentration of one of the phases with respect to time for a given region of the porous body, similar to \cite{fatt1956network}. In this work, we focus on the process of wetting fluid entering the region of finer pores, in our model denoted by thinner radius.
+	\[ S = \frac{dV_{w}}{dV_{void}} \]
 	
-	\begin{figure}[H]
-		\includegraphics[height=8cm]{fig_capillary_flow_brick}
-		\caption{Water climbing against gravity through a porous medium. \cite{wiki:Capillary_action}}
-		\label{fig_capillary_flow_brick}
-	\end{figure}
-	
-\subsection{About Other Models}
-	Besides network models, various other models have been developed. For example in \cite{fatt1956network}, the flow was simulated by using a network of resistors. In our model, variation of radius across tubes exists, while they have varied the resistance of the resistors. However in this case it is difficult to model the capillary pressure drop. In \cite{aker1998two}, the simulation was conducted using hour glass shaped model of tubes, where the average flow rate is given by the Washburn equation for capillary flow \cite{washburn1921dynamics}, the disadvantage is that the must be approximated to be cylindrical even tough the capillary pressure varies as its position in the tube. 
-	
-	
-	Regarding the applications of modeling two phase flow in water-oil displacements, non-equilibrium effects were considered by \cite{barenblatt2003mathematical}, where it is concluded that the non-equilibrium effects should be taken into account. Other network models include, such as \cite{chen1985pore} and \cite{king1987fractal}, however these models did not demonstrate the displacement of the wetting fluid into the region with thinner radius or channels. The processing of optimizing the process generating relation between nodes is similar to that in \cite{raoof2010new}. 
-		
-\subsection{Continuum Scale Models}
+	A feature of these classical models is that the relative phase permeability and capillary pressure are considered a function of saturation. 
+
+
 	\subsubsection{Darcy's Law}
 		Darcy's law is a fundamental equation in fluid mechanics that describes the flow of fluids through porous media. It was formulated by Henry Darcy in 1856 and has since become a vary important part of hydro geology, petroleum engineering, and other fields dealing with fluid flow in porous media.
 		Darcy's law states that the flow rate Q of a fluid through a porous medium is directly proportional to the pressure gradient $(\Delta P)$ and the cross-sectional area A of the medium, and inversely proportional to the length L of the medium. Mathematically, it can be expressed as:
 
-		\[ Q = - k \cdot A \cdot \frac{\Delta P}{L} \]
+		\begin{equation}
+			q = -\frac{k}{\mu} \nabla p
+			\label{eq:basic-darcy}
+		\end{equation}
 
 		\begin{itemize}
-			\item $Q$ is the volumetric flow rate of the fluid (m$^3$/s).
-			
-			\item $k$ is the permeability of the porous medium (m$^2$).
-			
-			\item $A$ is the cross-sectional area perpendicular to the flow direction (m$^2$).
-			
-			\item $\Delta P$ is the pressure difference along the flow direction (Pa).
-			
-			\item $L$ is the length of the porous medium in the flow direction (m).
-			
+			\item $q$ is the flow rate
+			\item $k$ is the permeability 
+			\item $\mu$ is the coefficient of viscosity
+			\item $\nabla p$ is the pressure gradient
 		\end{itemize}
-	
+
 		Darcy's law is widely used in the modeling and analysis of two-phase flow in porous media. Two-phase flow refers to the simultaneous flow of two immiscible fluids, such as gas and liquid, through a porous medium. In this context, Darcy's law can be extended to account for the flow of both phases.
 		
 		One common application of Darcy's law in two-phase flow modeling is in the field of petroleum engineering, specifically in reservoir engineering. When modeling the flow of oil and gas in an underground reservoir, Darcy's law is used to estimate the flow rates and pressure distributions within the reservoir. By considering the relative permeability of oil and gas, the equation can be modified to account for the presence of two phases and their interactions \cite{uhlmann2005immersed}.
 		
-		Additionally, Darcy's law is often combined with other equations, such as the continuity equation and material balance equations, to create more comprehensive models for two-phase flow. These models can help predict the behavior of fluid flows in porous media, optimize production strategies, and estimate recovery factors in oil and gas reservoirs.
+		Additionally, Darcy's law is often combined with other equations, such as the continuity equation and material balance equations, to create more comprehensive models for two-phase flow. These models can help predict the behavior of fluid flows in porous media, optimize production strategies, and estimate recovery factors in oil and gas reservoirs. \cite{hubbert1956darcy}
 	
-	\subsubsection{Buckley-Everett Theory}
+	\subsubsection{Relative phase permeability}
+		In multiphase flow in porous media, the relative permeability of a phase is a dimensionless measure of the effective permeability of that phase. It is the ratio of the effective permeability of that phase to the absolute permeability. It can be viewed as an adaptation of Darcy's law to multiphase flow.
+
+		For two-phase flow in porous media given steady-state conditions, we can write
+
+		\begin{equation}
+			q_{i} = -\frac{k_{i}}{\mu_{i}}\nabla P
+		\end{equation}
+		
+		for $i = 1 , 2$
+		
+		where $q_{i}$ is the flux, $\nabla P$ is the pressure drop, $\mu _{i}$ is the viscosity. The subscript $i$ indicates that the parameters are for phase $i$.
+
+		Relative permeability, $k_{ri}$ is then defined as:
+
+		\[ k_{ri} = \frac{k_{i}}{k} \]
+
+		where $k$ is the permeability of the porous medium in single-phase flow, i.e., the absolute permeability. Relative permeability must be between zero and one.
+
+		In applications, relative permeability is often represented as a function of water saturation; however, owing to capillary hysteresis one often resorts to a function or curve measured under drainage and another measured under imbibition. \cite{bravo2008analysis}
+	
+	
+	\subsubsection{Capillary pressure}
+		Capillary pressure $p_{c}$  is the difference between the average elementary volume fluid pressures.
+		
+		\begin{equation}
+			p_{c} = p_{nw} - p_{w}
+		\end{equation}
+		
+		where $p_{c}$ is the capillary pressure. $p_{nw}$ is the pressure of the non-wetting phase. $p_{w}$ is the pressure of the wetting phase.
+	
+	\subsubsection{Buckley-Leverett Theory}
 		The Buckley-Leverett theory, also known as the fractional flow theory, is a mathematical model that describes the displacement of one fluid by another in porous media. It is widely used in the field of petroleum engineering 
-		
+
 		The Buckley-Leverett equation describes the fractional flow of one fluid phase (often called the displacing phase) as a function of the saturation of the other fluid phase (often called the displaced phase). Mathematically, the equation is given as:
-		
+
 		The equation is given by:
-	
-		\[ f = \frac{{(S_w - S_{wc})}}{{(1 - S_{wc} - S_{or})}} \]
-		
+
+		\begin{equation}
+			f = \frac{{(S_w - S_{wc})}}{{(1 - S_{wc} - S_{or})}}
+		\end{equation}
+
 		where:
 		\begin{itemize}
 			\item \( f \) is the fractional flow of the displacing phase.
@@ -91,14 +94,47 @@ Finish with impregnation and saturation relaxation.
 			\item \( S_{or} \) is the residual oil saturation (the saturation of oil that remains trapped in the rock after water flooding).
 			
 		\end{itemize}
-	
+
 		The Buckley-Leverett theory assumes that the fluids involved are incompressible and that the flow is governed by Darcy's law. The theory provides a framework to study the displacement of one fluid by another and predict the behaviour of the fluid fronts as they move through the porous medium.
 		The key assumption in the Buckley-Leverett theory is that the fluids are flowing as distinct phases and that they exhibit capillary pressure and relative permeability characteristics. Capillary pressure represents the pressure difference between the two fluids at the fluid-fluid interface, and relative permeability describes the fractional flow of each fluid phase as a function of its saturation.
-
-\subsection{Empirical Models}
-	\subsubsection{Corey and Brooks- Corey models}
-		The Corey-Brooks Corey model, also known as the Corey-Brooks model or the Corey-Brooks-Kohoutek model, is an extension of the Buckley-Leverett theory.
 	
+	\subsubsection{Leverett-J-function}
+		The Leverett-J function, also known as the Leverett function or the J function, is a mathematical expression used in two-phase flow modeling to describe the capillary pressure-saturation relationship in porous media. It is an extension of the Buckley-Leverett theory. 
+
+		The Leverett-J function relates the capillary pressure (Pc) to the saturation (Sw) of the wetting phase (usually water). The function describes how the capillary pressure changes with the saturation, providing insights into the fluid-fluid interactions and flow characteristics in the porous medium.
+		
+		The Leverett-J function is expressed as follows:
+
+		\begin{equation}
+			J = \frac{{\frac{{dS_w}}{{dP_c}}}}{{\frac{{S_w}}{{P_c}}}}
+		\end{equation}
+
+		where:
+		\begin{itemize}
+			\item 	 \( J \) is the Leverett-J function.
+			
+			\item \( S_w \) is the saturation of the wetting phase (a fractional value between 0 and 1).
+			
+			\item \( P_c \) is the capillary pressure.
+			
+		\end{itemize}
+
+		The Leverett-J function is used in two-phase flow modeling to estimate various parameters and analyze fluid displacement behavior. Some applications of the Leverett-J function include:
+		
+		\begin{enumerate}
+			\item Estimating relative permeability
+			
+			\item Predicting fluid displacement
+			
+			\item Assessing reservoir connectivity
+			
+			\item Optimizing enhanced oil recovery (EOR) techniques, it helps in understanding the capillary pressure distribution and identifying areas of bypassed oil
+			
+		\end{enumerate}
+	
+	\subsubsection{Empirical Model of Corey and Brooks}
+		The Corey-Brooks Corey model, also known as the Corey-Brooks model or the Corey-Brooks-Kohoutek model, is an extension of the Buckley-Leverett theory.
+
 		The Corey-Brooks Corey model introduces an empirical function to describe the relative permeability curves for the two phases (typically water and oil) as a function of their respective saturation. The model assumes that the relative permeabilities are influenced by capillary pressure and can be expressed using power law relationships.
 		
 		The relative permeability curves for the displaced (wetting) phase (typically water) and the displacing (non-wetting) phase (typically oil) are defined as follows:
@@ -127,40 +163,36 @@ Finish with impregnation and saturation relaxation.
 		The Corey-Brooks Corey model allows for the estimation of relative permeability curves for the wetting and non-wetting phases based on laboratory measurements or historical data. These curves are crucial in characterizing the flow behavior and predicting fluid displacement in porous media.
 		
 		By incorporating the relative permeability curves into the Buckley-Leverett equation, the Corey-Brooks Corey model enables the simulation and prediction of two-phase flow behavior, such as fluid front movement and displacement efficiency, in reservoirs or aquifers. This information is valuable for optimizing production strategies, designing water flooding operations, and assessing the potential for enhanced oil recovery techniques \cite{tryggvason2001front}.
-
-	\subsubsection{ Leverett-J-function}
-		The Leverett-J function, also known as the Leverett function or the J function, is a mathematical expression used in two-phase flow modeling to describe the capillary pressure-saturation relationship in porous media. It is an extension of the Buckley-Leverett theory. 
-
-		The Leverett-J function relates the capillary pressure (Pc) to the saturation (Sw) of the wetting phase (usually water). The function describes how the capillary pressure changes with the saturation, providing insights into the fluid-fluid interactions and flow characteristics in the porous medium.
+	
 		
-		The Leverett-J function is expressed as follows:
+\subsection{Advanced Continuum models}
+	The above models work as long as the characteristic time of the processes is much longer than the characteristic time of fluid redistribution in the capillary space.
+	For example, when the saturation changes rapidly, or when the porous medium has a structure such that the time of fluid redistribution is long (fractured-porous medium with blocks and cracks), the assumption that $K = K(S)$ is not sufficient and additional parameters are required.
 
-		\[ J = \frac{{\frac{{dS_w}}{{dP_c}}}}{{\frac{{S_w}}{{P_c}}}} \]
+	There are a number of continuum models that take these effects into account. Among them Hasanizadeh \cite{hassanizadeh2004continuum} \cite{hassanizadeh1987high}, Barenblatt \cite{barenblatt1960basic} and Kondaurov \cite{kondaurov2009non}. The first two take into account not only saturation, but also the rate of saturation change.
+	
+	From equation \ref{eq:basic-darcy}:
+	\[ q = -\frac{k}{\mu} \nabla p \]
+	
+	\begin{equation}
+		k = k(S, \frac{\partial S}{\partial t})
+	\end{equation}
+	
+	The Kondaurov model, along with saturation, considers a special nonequilibrium parameter $\xi$, which should relax to an equilibrium value. \cite{kondaurov2007thermodynamically}
+	
+	\begin{equation}
+		k = k(S, \xi)
+	\end{equation}
+	
+	This parameter is related to $S$ by the differential equation:
+	
+	\begin{equation}
+		\frac{\partial \xi}{\partial t} = \Omega ( S(t), \xi )
+	\end{equation}
 
-		where:
-		\begin{itemize}
-			\item 	 \( J \) is the Leverett-J function.
-			
-			\item \( S_w \) is the saturation of the wetting phase (a fractional value between 0 and 1).
-			
-			\item \( P_c \) is the capillary pressure.
-			
-		\end{itemize}
-
-		The Leverett-J function is used in two-phase flow modeling to estimate various parameters and analyze fluid displacement behavior. Some applications of the Leverett-J function include:
+\subsection{Model at the scale of pores}
+	It is necessary to simulate the motion of phases at micro level, in order to better understand the models of nonequilibrium characteristics. There are a number of approaches to such modeling. For example Lattice Boltzmann Method or a direct Navier-Stokes calculation.
 		
-		\begin{enumerate}
-			\item Estimating relative permeabilities
-			
-			\item Predicting fluid displacement
-			
-			\item Assessing reservoir connectivity
-			
-			\item Optimizing enhanced oil recovery (EOR) techniques, it helps in understanding the capillary pressure distribution and identifying areas of bypassed oil
-			
-		\end{enumerate}
-		
-\subsection{Pore-Scale Methods}
 	\subsubsection{Lattice Boltzmann Method (LBM)}
 		The Lattice Boltzmann Method (LBM) is a computational fluid dynamics (CFD) technique used to simulate fluid flow and solve complex fluid dynamics problems. It is particularly useful for modeling two-phase flow, where two immiscible fluids flow through a domain with interfacial interactions.
 		
@@ -203,8 +235,7 @@ Finish with impregnation and saturation relaxation.
 			\item Fundamental understanding: DNS aids in developing a fundamental understanding of the underlying physics of two-phase flow.
 			
 		\end{enumerate}
-			 
-\subsection{Hybrid and Upscalling Approaches}
+	
 	\subsubsection{Hybrid Models}
 		A hybrid model, in the context of two-phase flow modeling, refers to a combination of different modeling approaches or techniques to capture the complexities and improve the accuracy of simulations. It involves integrating multiple models or methods, each designed to address specific aspects of the flow behavior, to create a more comprehensive and accurate representation of the system \cite{rabbani2018pore}.
 
@@ -223,7 +254,7 @@ Finish with impregnation and saturation relaxation.
 		The choice of the hybrid modeling approach and the formulas used depends on the specific objectives, computational resources available, and the level of accuracy required in capturing the two-phase flow behavior \cite{tropea2007springer}.
 
 	\subsubsection{Upscalling Techniques}
-	
+
 		Upscaling techniques in two-phase flow modeling refer to methods that aim to represent the behavior of fluid flow at a larger scale, such as the reservoir scale, based on information obtained at a smaller scale, such as the pore scale. These techniques are employed to reduce the computational cost and improve the efficiency of simulating two-phase flow in large-scale reservoirs or heterogeneous porous media \cite{gong2021dynamic}, \cite{valvatne2004predictive}.
 
 		The application of upscaling techniques in two-phase flow modeling involves the following steps:
@@ -267,3 +298,13 @@ Finish with impregnation and saturation relaxation.
 		\end{enumerate}
 
 		Upscaling techniques are essential for simulating large-scale two-phase flow systems, such as reservoirs, efficiently and accurately. They allow for the transfer of information from small-scale simulations to larger scales, thereby reducing computational costs while preserving the key flow behavior and properties. The choice of upscaling technique depends on the characteristics of the porous media and the desired level of accuracy in the simulation\cite{pope2000turbulent}.
+	
+	
+	\subsubsection{Network Models}
+		Network models are much simpler to model and perform computations than direct Navier-Strokes calculations.
+		
+		One of the earliest models, simulated the flow using a network of electrical resistors \cite{fatt1956network}.
+		
+		Simulation was also conducted using hour glass shaped model of tubes \cite{aker1998two}, where the average flow rate is given by the Washburn equation for capillary flow \cite{washburn1921dynamics}, the disadvantage is that the flow rate must be approximated for cylindrical tube while in the mode the capillary pressure varies as its position in the tube. 
+	
+		We developed a new network model, which differes from the other Network models, when more than 1 phase flows simultaneously into a tube, the wetting fluid is first distributed according to the ascending order of the radius of the tubes. 

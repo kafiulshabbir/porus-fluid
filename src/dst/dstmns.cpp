@@ -410,7 +410,6 @@ dst::Mns::PosNew_Type_Result dst::Mns::centre_of_mass_recombination
 	double l3 = -1;
 	double l4 = -1;
 	
-	// NEEED CLARIFICATION SOON 15.05.2023 TRY BOTH
 	if(pos_new.size() == 3)
 	{
 		if(type_begin)

@@ -1,7 +1,18 @@
+\subsection{Porous body}
+	Figure \ref{fig_capillary_flow_brick} is an example of two-phase flow in porous body. The wetting fluid, in this case - water displaces the non wetting fluid - air. The aim is to plot concentration of one of the phases with respect to time for a given region of the porous body, similar to \cite{fatt1956network}. In this work, we focus on the process of wetting fluid entering the region of finer pores, in our model denoted by thinner radius.
+	
+	\begin{figure}[H]
+		\includegraphics[height=8cm]{fig_capillary_flow_brick}
+		\caption{Water climbing against gravity through a porous medium. \cite{wiki:Capillary_action}}
+		\label{fig_capillary_flow_brick}
+	\end{figure}
+	 
+
+
 \subsection{Viscosity}
 	\begin{figure}[H]
 		\includegraphics[height=5cm]{fig_diagram-viscosity-def}
-		\caption{[NEED CHANGE]Force between two layers of viscous liquid}
+		\caption{Force between two layers of viscous liquid}
 		\label{fig_diagram-viscosity-def}
 	\end{figure}
 	
@@ -34,7 +45,7 @@
 	
 	\begin{figure}[H]
 		\includegraphics[height=5cm]{fig_flow-thin-tube}
-		\caption{[NEED CHANGE]Flow through a thin tube}
+		\caption{Flow through a thin tube}
 		\label{fig_flow-thin-tube}
 	\end{figure}
 	
@@ -50,7 +61,7 @@
 		F_{p} = S \Delta P
 	\end{equation}
 	
-	For a laminar flow, the force due to pressure gradient is compensated by the viscous resistance in the opposite direction, which also means that the fluid does not acclerate.
+	For a laminar flow, the force due to pressure gradient is compensated by the viscous resistance in the opposite direction, which also means that the fluid does not accelerate.
 	
 	\begin{equation} \label{eq:f-p-equals-f-vis}
 		F_{p} = F_{vis}
@@ -141,7 +152,7 @@
 		\label{fig_flowr-1-men}
 	\end{figure}
 
-	Let there be a higher pressure in $P_{1}$ than $P_{2}$, the fluid in node which has $P_{1}$ produces a meniscus which tends to move towards the second node. We can break it down into two separate tubes of lengths $l_{1}$ and $l_{2}$, containing fluid of viscosites ${\mu}_1$ and ${\mu}_2$. Then the flow rates for each of the tubes are given by:
+	Let there be a higher pressure in $P_{1}$ than $P_{2}$, the fluid in node which has $P_{1}$ produces a meniscus which tends to move towards the second node. We can break it down into two separate tubes of lengths $l_{1}$ and $l_{2}$, containing fluid of viscosity ${\mu}_1$ and ${\mu}_2$. Then the flow rates for each of the tubes are given by:
 	
 	\begin{equation} \label{eq:flow-rate-first}
 		Q_1 = \frac{\pi}{8{\mu}_1} \frac{P_1 - P^{'}_1}{l_1} R_1^4
@@ -173,7 +184,7 @@
 		Q = \frac{\pi R^4}{8({\mu}_1 l_1 + {\mu}_2 l_2)} \left( \Delta P + \frac{2\sigma}{R} \right)
 	\end{equation}
 	
-	It is clear that $Q > Q'$, where $Q'$ is the flow without the meniscius.
+	It is clear that $Q > Q'$, where $Q'$ is the flow without the meniscus.
 	
 	
 \subsection{The sign of capillary pressure}
@@ -222,7 +233,8 @@
 
 \subsection{Set of linear equations for a node} \label{sec:linear-equ}
 
-	Let us apply our method on a simple system consisting of only 5 nodes. 
+	Let us apply our method on a simple system consisting of only 5 nodes.
+	Note that all $Q$ point outward. It is only to denote the direction. In order to preserve the law of conservation of volume, the $Q$'s will have different signs.
 
 	\includegraphics[height=8cm]{figures/fig_simple-5-nodes}
 
@@ -237,5 +249,3 @@
 	\[ \sum_{k} Q_{3k} = 0 \]
 	
 	Where $k = {1, 2, 4, 5}$.
-	
-Here are all the citations \cite{aker1998two}, and \cite{raoof2010new}, \cite{sinha2017effective}, \cite{fatt1956network}	all good.
