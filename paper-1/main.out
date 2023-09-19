@@ -1,0 +1,33 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Porous medium and capillary action}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Classical continuum models}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Advanced continuum models}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Non-continuum models}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Equations}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{Flow rate in a tube}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Flow rate in a tube with one meniscus}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Flow rate in a tube with multiple meniscus}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Set of linear equations for a node}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Features and characteristics of the model}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Numbering tubes and other parameters in the network model}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Linear equations for simple displacement}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Linear equations in case of infinitely many solutions}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.4}{Distribution and recombination}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.5}{Algorithm for computation}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.6}{Possible Cases of Errors}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.6.1}{Initial configuration for flow to start}{subsection.3.6}% 18
+\BOOKMARK [3][-]{subsubsection.3.6.2}{Case of all meniscus located in the thick tubes}{subsection.3.6}% 19
+\BOOKMARK [2][-]{subsection.3.7}{Simple tests for our model}{section.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.7.1}{Filtration}{subsection.3.7}% 21
+\BOOKMARK [3][-]{subsubsection.3.7.2}{Displacement}{subsection.3.7}% 22
+\BOOKMARK [1][-]{section.4}{Simulation and results}{}% 23
+\BOOKMARK [2][-]{subsection.4.1}{Main Problem}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.2}{Result for Imbibition 10x10}{section.4}% 25
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Figures}{subsection.4.2}% 26
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Plot}{subsection.4.2}% 27
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Discussion}{subsection.4.2}% 28
+\BOOKMARK [2][-]{subsection.4.3}{Result for Imbibition 26x26}{section.4}% 29
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Figures}{subsection.4.3}% 30
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Plot}{subsection.4.3}% 31
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Discussion}{subsection.4.3}% 32
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 33

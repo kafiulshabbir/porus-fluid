@@ -1,0 +1,18 @@
+\begin{enumerate}
+
+	\item The saturation of a phase in the inner region of the porous body tends to an equilibrium value.
+	
+	\item The method of distributing fluid such the wetting fluid first goes to the tube with the thinner radius and calculating the flow rate using the modified Poiseuille equation is valid for explaining relaxation phenomena.
+
+	\item This algorithm can be extended to the case where there are more than 4 tubes connected to a node, since for two phase flow into a node case, we distribute in an ascending order of radii, in our model it is distributed to a maximum number to two tubes, but for hexagonal model it can be 4. We only need to update the function which produces the connections. The same model can be used for a 3-dimensional case, where one surface has higher pressure than the opposite surface which has a lower pressure, it is to be used in order to more accurately represent the porous body.
+	
+	\item Model of reasonable size can be simulated using Gaussian-elimination, which is more accurate than iterative methods.
+	
+	\item The total volume for each phase for the whole system remains the same with the accuracy of $10^{-9}$. Use of double is recommended instead of float.
+	
+	\item Changing the ratio of viscosity affects the rate of displacement in the presence of pressure gradient, however in the case of inbibition significant differences were not observed.
+
+	\item The work will be continued as a part of Master's thesis. The ultimate goal is to verify the Kondaurov model, determine the physical meaning of the non equilibrium parameter, and the scope of its applicability.
+\end{enumerate}
+
+

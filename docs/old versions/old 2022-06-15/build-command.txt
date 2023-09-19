@@ -1,1 +1,0 @@
-g++ -o calculate dat_boundary.cpp dat_fill.cpp dat_radius.cpp dat_tube.cpp dec.cpp main.cpp prs.cpp stc_node.cpp 
