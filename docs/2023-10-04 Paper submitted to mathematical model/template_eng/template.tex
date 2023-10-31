@@ -1,0 +1,200 @@
+\documentclass{crm-article}
+
+\begin{document}
+
+\englishpaper
+\norussian
+
+%\affiliationnoref % uncomment for single author or if all authors have the same affiliation
+
+%\emailnoref % uncomment for single author
+
+%\year=2018 % current year by default
+\journalVol{10}
+\journalNo{1}
+\setcounter{page}{1}
+\journalSection{Mathematical modeling and numerical simulation}
+
+\journalReceived{dd.mm.20yy.}
+%\journalReviewed{01.06.2016.}
+\journalAccepted{dd.mm.20yy.}
+
+\UDC{???.??}
+\title{Title}
+\thanks{This work was supported...} % comment out if no funding
+
+\author{\firstname{F.\,M.}~\surname{Surname}}
+\authorfull{Firstname M. Surname}
+\email{author@example.com}
+\affiliation{Organization,\protect\\ Address}
+
+% repeat for the rest authors,
+% skip \affiliation if it is already listed above
+% if automatic reference generation does not provide correct results
+% state the correct numbers in square brackets
+
+\author[1,2]{\firstname{F.\,M.}~\surname{Another}}
+\authorfull{Firstname M. Another}
+\email{another@example.com}
+\affiliation[2]{Another Organization,\protect\\ Address}
+
+
+\begin{abstract}
+Abstract - 250 words minimum.
+\end{abstract}
+\keyword{keyword1}
+\keyword{keyword2}
+
+\maketitle
+
+% use \paragraph and \subparagraph macros for headings (not \section and \subsection)
+\paragraph{Introduction}
+
+Article text. Please refer to \url{http://crm-en.ics.org.ru/journal/page/authors/} for gгidelines.
+
+%%%%%%%%%%%%%%%%%%
+
+Available environments:
+teo -- Theorem,
+hyp -- Hypothesis,
+lem -- Lemma,
+cor -- Corollar,
+pro -- Proposal,
+con -- Condition,
+fed -- Definition,
+rem -- Remark,
+com -- Comment,
+exl -- Example,
+sol -- Solution.
+
+
+\begin{gather} \label{1}  %%%%%%%%%
+\dot x(t)=\int\limits_{-r}^0 dA(t,s)x(t+s),\quad  t\in\mathbb R=(-\infty,\infty).
+\end{gather}
+
+Later system \eqref{1} will be \ldots
+\begin{gather} \label{2}  %%%%%%%%%
+\dot y(t)=\int\limits_{-r}^0 dB(t,s)y(t+s),\quad  t\in\mathbb R=(-\infty,\infty).
+\end{gather}
+
+
+% Numbered theorem
+\begin{teo}
+Text.
+\end{teo}
+
+\proof* % proof
+Proof of the theorem.\qed
+
+% Unnumbered theorem (similar, use asterisk for unnumbered lemmma, etc.)
+\begin{teo*}
+Text.
+\end{teo*}
+
+% Hypothesis
+\begin{hyp}
+Text.
+\end{hyp}
+
+% Lemma
+\begin{lem}
+Text.
+\end{lem}
+
+% Corollar
+\begin{cor}
+Text.
+\end{cor}
+
+% Proposal
+\begin{pro}
+Text.
+\end{pro}
+
+% Condition
+\begin{con}
+Text.
+\end{con}
+
+% Definition
+\begin{fed}
+Text.
+\end{fed}
+
+% Remark
+\begin{rem}
+Text.
+\end{rem}
+
+% Comment
+\begin{com}
+Text.
+\end{com}
+
+% Example
+\begin{exl}
+Text.
+\end{exl}
+
+% Solution
+\begin{sol}
+Text.
+\end{sol}
+
+
+% Figures
+\begin{figure}[!ht]
+\centering
+\includegraphics{eps/autor_01.eps}
+\smallskip
+\caption{Figure caption should allow one to understand their meaning without referencing the main text of the paper. All symbols/designations used should be deciphered in the captions, the coordinate axes should be labeled (and units of measurement should be indicated).}
+\end{figure}
+
+
+% Tables
+\begin{table}[!ht]
+\centering
+\caption{Table caption should allow one to understand their meaning without referencing the main text of the paper.}
+\medskip
+\begin{tabular}{|c|c|c|}
+\hline
+Row 1 & Column 2 & Column 3\\
+\hline
+Row 2& Column 2 & Column 3\\
+\hline
+\end{tabular}
+\end{table}
+
+
+$$
+Y= S_1\times S_2\times \ldots \times S_N.
+$$
+
+
+%%%% References list - should be sorted alphabetically. Please use [Author, year] style
+	
+\begin{thebibliography}{99}
+
+\bibitem[Breev, 2014]{Br14} {\it Breev~A.\,I. Shapovalov~A.\,V.}
+    Yang-Mills gauge felds conserving the symmetry algebra of the
+    Dirac equation in a homogeneous space~// Journal of Physics:
+    Conference Series.~--- 2014.~--- Vol.~563.~--- P.~012004.
+
+\bibitem[Hu, 1973]{Hu1} {\it Hu~B.\,L.} Scalar waves in the Mixmaster
+    Universe. I. The Helmholtz equation in a fixed background //
+    Phys. Rev.~D.~--- 1973.~--- Vol.~{8}, No.~4.~--- P.~1048--1060.
+
+\bibitem[Hu, 1974]{Hu2} {\it Hu~B.\,L.} Scalar waves in the Mixmaster
+    Universe. II. Particle creation~// Phys. Rev.~D.~--- 1974.~--- Vol.~9, No.~9.~--- P.~3263--3281.
+
+\bibitem[Pritomanov, 1985]{Prit} {\it Pritomanov~S.\,A.} Quantum
+    effects in Mixmaster Universe // Phys. Lett.~A.~--- 1985.~--- Vol.~107, No.~1.~--- P.~33--35.
+
+\bibitem[Ryan, 1975]{Ryan} {\it Ryan~M.\,P., Shepley~L.\,C.}
+    Homogeneous relativistic cosmologies.~--- Princeton: Princeton
+    series in Physics, 1975.~--- 336~p.
+
+\end{thebibliography}
+
+
+\end{document}

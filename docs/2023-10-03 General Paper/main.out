@@ -1,0 +1,24 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Classical continuum models}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Advanced continuum models}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Non-continuum models}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Content of this article}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Characteristics of the model}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{Approximation of a porous medium}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Set of linear equations for a node}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Multi-phase flow in a node}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Recombination}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.5}{Flow rate in a tube with one meniscus}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.6}{Flow rate in a tube with multiple menisci}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.7}{Flow rate and velocity}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Methods and examples of simulation}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Algorithm for the simulation}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Modeling simple filtration: open boundaries}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Solution for closed boundaries}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.4}{Example of meniscus reaching a node: closed boundary}{section.3}% 18
+\BOOKMARK [1][-]{section.4}{Experiment and results}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Objective and initial conditions}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Experiment}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Discussion}{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 23
+\BOOKMARK [1][-]{section.6}{Acknowledgments}{}% 24

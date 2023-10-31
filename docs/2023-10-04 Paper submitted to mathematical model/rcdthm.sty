@@ -1,0 +1,294 @@
+%%
+%%  This is file `rcdthm.sty',
+%%  generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ltthm.dtx  (with options: `2ekernel')
+%%
+%% This is a generated file.
+%%
+%% Copyright 1993 1994 1995 1996 1997
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%%
+%% For further copyright information, and conditions for modification
+%% and distribution, see the file legal.txt, and any other copyright
+%% notices in this file.
+%%
+%% This file is part of the LaTeX2e system.
+%% ----------------------------------------
+%%   This system is distributed in the hope that it will be useful,
+%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%%
+%%   For error reports concerning UNCHANGED versions of this file no
+%%   more than one year old, see bugs.txt.
+%%
+%%   Please do not request updates from us directly.  Primary
+%%   distribution is through the CTAN archives.
+%%
+%%
+%% IMPORTANT COPYRIGHT NOTICE:
+%%
+%% You are NOT ALLOWED to distribute this file alone.
+%%
+%% You are allowed to distribute this file under the condition that it
+%% is distributed together with all the files listed in manifest.txt.
+%%
+%% If you receive only some of these files from someone, complain!
+%%
+%%
+%% Permission is granted to copy this file to another file with a
+%% clearly different name and to customize the declarations in that
+%% copy to serve the needs of your installation, provided that you
+%% comply with the conditions in the file legal.txt.
+%%
+%% However, NO PERMISSION is granted to generate or to distribute a
+%% modified version of this file under its original name.
+%%
+%% You are NOT ALLOWED to change this file.
+%%
+%%
+%% MODIFICATION ADVICE:
+%%
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%%
+%% You can then easily distribute your modifications by distributing
+%% the modified and renamed copy of the source file, taking care to
+%% observe the conditions in legal.txt; this will ensure that other
+%% users can safely use your modifications.
+%%
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%%
+%% The names of the source files used are shown above.
+%%
+%% Copyright (C) 2001 A.V.Shirobokov
+%%
+%%    \newrcdthm[style]{env-name}[env-name-counter]{header-text}[counter]
+%% or
+%%    \newrcdthm*[style]{env-name}{header-text}
+%%
+%%  (env-name use counter env-name-counter)
+%%
+%%    style: plain, definition, remark, example
+%%
+\NeedsTeXFormat{LaTeX2e}[1995/06/01]
+\ProvidesPackage{rcdthm}[2001/11/11]
+
+\long\def\@bk@arg#1{\@ifnextchar[{#1}{\@xbk@arg{#1}}}
+\long\def\@xbk@arg#1{#1[]}
+\long\def\@p@arg#1{\@ifnextchar({#1}{\@xp@arg{#1}}}
+\long\def\@xp@arg#1{#1()}
+
+\newskip\rcdthmsep
+\rcdthmsep=\medskipamount
+
+\def\rcdthm@headpunct{.}
+
+\def\rcdthm@headerfont@plain{\bfseries}%
+\def\rcdthm@headerfont@definition{\bfseries}%
+\def\rcdthm@headerfont@remark{\small\scshape}%
+\def\rcdthm@headerfont@example{\scshape}%
+
+\def\rcdthm@bodyfont@plain{\itshape}%
+\def\rcdthm@bodyfont@definition{\normalfont}%
+\def\rcdthm@bodyfont@remark{\small\normalfont}%
+\def\rcdthm@bodyfont@example{\normalfont}%
+
+\def\rcdthmheaderfont#1#2{%
+   \@ifundefined{rcdthm@headerfont@#1}{%
+    \PackageWarning{rcdthm}{Неизвестный стиль `#1'}%
+  }{%
+    \global\def\rcdthm@headerfont@##1{#2}%
+  }%
+}
+
+\def\rcdthmbodyfont#1#2{%
+   \@ifundefined{\rcdthm@bodyfont@#1}{%
+    \PackageWarning{rcdthm}{Неизвестный стиль `#1'}%
+  }{%
+    \global\def\rcdthm@bodyfont@#1{#2}%
+  }%
+}
+
+\def\renewrcdthm{\@ifstar{\@xrercdthm *}{\@xrercdthm \relax}}
+\def\@xrercdthm#1{\@bk@arg{\@yrercdthm{#1}}}%
+\def\@yrercdthm#1[#2]#3{%
+  \@ifundefined{#3}%
+     {\@latex@error{Окружение #3 не определено}\@ehc
+     }\relax
+  \expandafter\let\csname #3\endcsname\relax
+  \expandafter\let\csname #3*\endcsname\relax
+  \expandafter\let\csname end#3\endcsname\relax
+  \expandafter\let\csname end#3*\endcsname\relax
+  \let\@tempa\relax
+  \ifx *#1\relax
+     \def\@tempa{\newrcdthm*[#2]{#3}}
+  \else
+     \def\@tempa{\newrcdthm[#2]{#3}}
+  \fi\@tempa}
+
+\def\newrcdthm{\@ifstar{\@xsrcdthm *}{\@xsrcdthm \relax}}
+\def\@xsrcdthm#1{%
+  \let\@tempa\relax
+  \ifx *#1\relax%
+     \def\@tempa{\@nnum@rcdthm}
+  \else
+     \def\@tempa{\@bk@arg{\@yrcdthm}}%
+  \fi\@tempa}
+\def\@yrcdthm[#1]#2{%
+  \let\@tempa\relax
+  \@ifundefined{#2}{}%
+      {\@latex@error{Окружение #2 уже определено}\@ehc}
+   \@ifempty{#1}{%
+      \def\@tempa{\@bk@arg{\@xrcdthm[plain]{#2}}}
+   }{
+   \@ifundefined{rcdthm@headerfont@#1}{%
+       \PackageWarning{rcdthm}{Неизвестный стиль `#1',
+                 по умолчанию сделан plain}%
+                 \def\@tempa{\@bk@arg{\@xrcdthm[plain]{#2}}}}{
+      \def\@tempa{\@bk@arg{\@xrcdthm[#1]{#2}}}}
+   }\@tempa}
+\def\@xrcdthm[#1]#2[#3]#4{\@bk@arg{\@rcdthm[#1]{#2}[#3]{#4}}}
+\def\@rcdthm[#1]#2[#3]#4[#5]{%
+ \@ifempty{#3}{%
+   \expandafter\@ifdefinable\csname #2\endcsname{%
+   \@ifempty{#5}{\@definecounter{#2}%
+                 \expandafter\xdef\csname the#2\endcsname{\noexpand\arabic{#2}}}
+                {\@definecounter{#2}\@newctr{#2}[#5]%
+                 \expandafter\xdef\csname the#2\endcsname{\expandafter\noexpand\csname 
+the#5\endcsname.\noexpand\arabic{#2}}}
+   \expandafter\def\csname #2\endcsname{%
+         \rcd@thm{#2}{#4}{\csname rcdthm@headerfont@#1\endcsname}
+             {\csname rcdthm@bodyfont@#1\endcsname}}%
+   \expandafter\def\csname #2*\endcsname{%
+         \rcd@thm*{#2}{#4}{\csname rcdthm@headerfont@#1\endcsname}
+             {\csname rcdthm@bodyfont@#1\endcsname}}
+   \global\expandafter\def\csname end#2\endcsname{\endrcd@thm{#2}}
+   \global\expandafter\def\csname end#2*\endcsname{\endrcd@thm{#2*}}}
+ }{%
+   \@ifundefined{c@#3}{\@nocounterr{#3}}{%
+       \expandafter\@ifdefinable\csname #2\endcsname{%
+       \@ifempty{#5}{}{\@addtoreset{#3}{#5}}
+       \global\@namedef{the#2}{\@nameuse{the#3}}%
+       \global\expandafter\def\csname #2\endcsname{%
+             \rcd@thm{#3}{#4}{\csname rcdthm@headerfont@#1\endcsname}
+                 {\csname rcdthm@bodyfont@#1\endcsname}}%
+       \global\expandafter\def\csname #2*\endcsname{%
+            \rcd@thm*{#3}{#4}{\csname rcdthm@headerfont@#1\endcsname}
+                 {\csname rcdthm@bodyfont@#1\endcsname}}
+       \global\expandafter\def\csname end#2\endcsname{\endrcd@thm{#2}}
+       \global\expandafter\def\csname end#2*\endcsname{\endrcd@thm{#2*}}}}
+}}
+
+\def\rcd@thm{\@ifstar{\rcd@thmx*}{\rcd@thmx \relax}}
+\def\rcd@thmx#1#2#3#4#5{\@p@arg{\rcd@thmi{#1}{#2}{#3}{#4}{#5}}}
+\def\rcd@thmi#1#2#3#4#5(#6){\@bk@arg{\rcd@thmc{#1}{#2}{#3}{#4}{#5}(#6)}}
+\def\rcd@thmc#1#2#3#4#5(#6)[#7]{%
+ \ifx\relax#7\relax
+    \ifx\relax#6\relax
+        \@rcd@thm@def{#1}{#2}{#3}{#4}{#5}{}
+    \else
+        \@rcd@thm@def*{#2}{#3\ #6}{#4}{#5}{}%
+                  \protected@edef\@currentlabel{#6}
+    \fi
+ \else
+    \ifx\relax#6\relax
+       \@rcd@thm@def{#1}{#2}{#3}{#4}{#5}{\ (#7)}
+    \else
+       \@rcd@thm@def*{#2}{#3\ #6}{#4}{#5}{\ (#7)}%
+                 \protected@edef\@currentlabel{#6}
+    \fi
+ \fi}
+
+\def\@nnum@rcdthm{\@bk@arg{\@nnum@rcdthma}}
+\def\@nnum@rcdthma[#1]{%
+  \let\@tempa\relax
+   \ifx\relax#1\relax
+      \def\@tempa{\@nnum@rcdthmb[plain]}
+   \else
+      \def\@tempa{\@nnum@rcdthmb[#1]}
+   \fi\@tempa}
+
+\def\@nnum@rcdthmb[#1]#2#3{%
+   \expandafter\@ifdefinable\csname #2\endcsname{%
+   \global\expandafter\def\csname end#2\endcsname{\endrcd@thm{#2}}}
+  \expandafter\def\csname #2\endcsname{%
+         \rcd@thm*{#2}{#3}{\csname rcdthm@headerfont@#1\endcsname}
+             {\csname rcdthm@bodyfont@#1\endcsname}}}
+
+\def\@rcd@thm@def#1#2#3#4#5#6{%
+ \ifdim\lastskip < \rcdthmsep
+       \removelastskip\penalty-100\vskip\rcdthmsep
+ \fi
+ \endgroup
+ \ifx *#1\relax
+    \mbox{}{#4#3#6.}%
+         \bgroup
+             #5\nopagebreak\hskip0.3em\ \ignorespaces
+ \else
+   \refstepcounter{#2}%
+   \mbox{}{#4#3\ \csname the#2\endcsname#6.}%
+         \bgroup
+            #5\nopagebreak\hskip0.3em\ \ignorespaces
+\fi}
+
+
+\def\endrcd@thm#1{\par\egroup%
+  \vskip\rcdthmsep
+  {\def\reserved@a{\def\@currenvir{#1}%
+                     \edef\@currenvline{\on@line}%
+                  }%
+  }%
+  \begingroup
+  \def\@currenvir{#1}%
+}
+
+\def\proofname{Доказательство}
+\def\prooffont{\it}
+
+\def\proof{\@ifstar{\@proofa*}{\@proofb}}
+\def\@proofa*{\@ifnextchar[{\@proofaa*}{\@proofab*}}
+\def\@proofb{\@ifnextchar[{\@proofba}{\@proofbb}}
+\def\@proofab*{\@ifnextchar({\@proofaba*}{\@proofabb*}}
+
+\def\@proofba[#1]{\@proof{}{ }{#1.}}
+\def\@proofbb{\@proof{}{}{.}\relax}
+\def\@proofaba*(#1){\@ifempty{#1}{\@proof{*}{}{}}{\@proof{*}{ #1}{}}}
+\def\@proofaa*[#1]{\@proof{*}{ }{#1.\ }}
+\def\@proofabb*{\@proof{*}{}{.\ }\relax}
+
+\def\@proof#1#2#3{%
+ \ifdim\lastskip < \rcdthmsep
+       \removelastskip\penalty-100\vskip\rcdthmsep
+ \fi\par
+  \ifx#1*\relax\else\noindent\fi\mbox{}%
+       {\prooffont\proofname#2#3\/}\ %
+  \ifx#1*\relax\else\par\fi%
+  \nobreak\ignorespaces}
+
+%\def\qedsymbol{\vrule width.6em height.5em depth.1em\relax}
+\def\qedsymbol{\Box}
+\def\qed{\ifmmode\let\next\eqnqed\else
+    \let\next\textqed\fi\next}
+\def\eqnqed{\relax\eqno{\raisebox{-2mm}{\qedsymbol}}\ignorespaces}
+\def\textqed{{\unskip\nobreak\hfil\penalty50\hskip1em\null\nobreak\hfil
+    $\qedsymbol$\parfillskip\z@\finalhyphendemerits0\smallbreak\par}}
+
+
+
+
+\endinput
+%%
+%% End of file `rcdthm.sty'
+%%

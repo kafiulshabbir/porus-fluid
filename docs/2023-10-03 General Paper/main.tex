@@ -1,0 +1,62 @@
+\documentclass[
+	12pt
+] {article}
+
+\usepackage[
+	a4paper,
+	left=2.5cm,
+	right=1.5cm,
+	top=2.5cm,
+	bottom=2.5cm
+] {geometry} %for setting margin
+
+\usepackage{parskip} %for leaving some space after paragraphs
+
+\usepackage{mathtools} %for begin equation
+
+\usepackage{hyperref} %for label and references ref
+
+\usepackage{authblk} %authors and their affiliations
+
+\usepackage{graphicx} %for include graphics
+\usepackage{subcaption}
+\usepackage{float} %to not make images float around
+\graphicspath{{figures/}}
+
+\title{A Mathematical Model of Imbibition for Two-Phase Flow in Porous Media using a Two-Dimensional Network Model}
+
+\author[1]{Kafi Shabbir}
+\author[1]{Oleg Izvekov}
+\author[1]{Andrey Konyukhov}
+\affil[1]{Moscow Institute of Physics and Technology}
+
+\begin{document}
+	\nocite{*}
+	\maketitle
+	
+	\begin{abstract}
+		\input{sections/01abstract.tex}
+	\end{abstract}
+		
+	\section{Introduction} \label{sec:intro}
+		\input{sections/02introduction.tex}
+		
+	\section{Characteristics of the model} \label{sec:model}
+		\input{sections/03theory.tex}
+		
+	\section{Methods and examples of simulation} \label{sec:computation}
+		\input{sections/04model.tex}
+
+	\section{Experiment and results} \label{sec:experiment}
+		\input{sections/05result.tex}
+
+	\section{Conclusions} \label{sec:conclusion}
+		\input{sections/06conclusion.tex}
+		
+	\section{Acknowledgments}
+		This project was supported by Russian Science Foundation, grant 23-21-00175, \url{https://rscf.ru/project/23-21-00175/}
+		
+	\bibliographystyle{plain.bst}
+	\bibliography{sections/07reference}
+		
+\end{document}
