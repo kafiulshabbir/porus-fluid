@@ -24,11 +24,17 @@ namespace func
 			double xvol_blue_inner;
 			double xvol_blue_outer;
 			
+			double xcap_pressure_inner;
+			double xcap_pressure_outer;
+			double xarea_inner;
+			double xarea_outer;
+			
 		public:
 			
 			FluidPpr(const double time = -1);
 			
 			void add_blue(const double rad, const double blue_ppr, bool is_inner);
+			void add_capillary_pressure_data(const double sigma, const double rad, bool is_inner);
 			
 			double time() const;
 			double vol_tube_outer() const;
@@ -50,6 +56,9 @@ namespace func
 			double ppr_grey_inner() const;
 			double ppr_grey_outer() const;
 			double ppr_grey_total() const;
+			
+			double average_capillary_pressure_inside() const;
+			double average_capillary_pressure_outside() const;
 			
 			static std::vector<std::string> header();
 			std::vector<double> val_vec() const;

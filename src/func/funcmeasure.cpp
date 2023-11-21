@@ -1,3 +1,4 @@
+
 #include "func/funcmeasure.h"
 
 double func::Measure::measure_wetting_fluid_proportion(const Tdouble& radius, const TMns& mnsc)
@@ -49,6 +50,13 @@ func::Measure::FluidPpr func::Measure::fluid_ppr(
 				&& is_inside(cmin, col, cmax);
 				
 			fluidp.add_blue(rad, blue_ppr, inside);
+			
+			if(mnsc[row][col].n % 2 == 0)
+			{
+				continue;
+			}
+			
+			fluidp.add_capillary_pressure_data(declconst::SIGMA, rad, inside);
 		}
 	}
 	
@@ -60,7 +68,11 @@ func::Measure::FluidPpr::FluidPpr(const double time):
 	xvol_inner(0),
 	xvol_outer(0),
 	xvol_blue_inner(0),
-	xvol_blue_outer(0)
+	xvol_blue_outer(0),
+	xcap_pressure_inner(0),
+	xcap_pressure_outer(0),
+	xarea_inner(0),
+	xarea_outer(0)
 {}
 
 
@@ -80,6 +92,24 @@ void func::Measure::FluidPpr::add_blue(const double rad, const double ppr_blue, 
 		xvol_blue_outer += vol * ppr_blue;
 	}
 }
+
+void func::Measure::FluidPpr::add_capillary_pressure_data(const double sigma, const double rad, bool is_inner)
+{
+	const double area = std::pow(rad, 2.0);
+	const double capillary_pressure_local = 2.0 * sigma * rad;
+	if(is_inner)
+	{
+		xcap_pressure_inner += capillary_pressure_local;
+		xarea_inner += area;
+	}
+	else
+	{
+		xcap_pressure_outer += capillary_pressure_local;
+		xarea_outer += area;
+	}
+}
+	
+	
 
 double func::Measure::FluidPpr::time() const
 {
@@ -161,6 +191,16 @@ double func::Measure::FluidPpr::ppr_grey_total() const
 	return vol_grey_total() / vol_tube_total();
 }
 
+double func::Measure::FluidPpr::average_capillary_pressure_inside() const
+{
+	return xcap_pressure_inner / xarea_inner;
+}
+
+double func::Measure::FluidPpr::average_capillary_pressure_outside() const
+{
+	return xcap_pressure_outer / xarea_outer;
+}
+
 bool func::Measure::is_inside(
 	const int val_min,
 	const int val,
@@ -194,7 +234,10 @@ std::vector<std::string> func::Measure::FluidPpr::header()
 		
 		"ppr_grey_inner",
 		"ppr_grey_outer",
-		"ppr_grey_total"
+		"ppr_grey_total",
+		
+		"average_capillary_pressure_inside",
+		"average_capillary_pressure_outside"
 	};
 }
 std::vector<double> func::Measure::FluidPpr::val_vec() const
@@ -220,6 +263,8 @@ std::vector<double> func::Measure::FluidPpr::val_vec() const
 
 		ppr_grey_inner(),
 		ppr_grey_outer(),
-		ppr_grey_total()
+		ppr_grey_total(),
+		average_capillary_pressure_inside(),
+		average_capillary_pressure_outside()
 	};
 }
