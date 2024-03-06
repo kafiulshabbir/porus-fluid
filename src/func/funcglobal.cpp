@@ -5,7 +5,7 @@ void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamen
 	double clock = 0;
 	int count = 10000;
 	int plot_count = 1000;
-	const int steps = 20000;
+	const int steps = 10000;
 	
 	std::vector<std::vector<double>> fluid_ppr_vec;
 	
@@ -85,9 +85,9 @@ void func::Global::simulate(const Tdouble& radius, TMns& mnsc, const dst::Diamen
 		}
 
 		//cmdio::Print::pmnsc(mnsc);
-		//func::Global::makeplot(radius, mnsc, plot_count++, clock);
+		func::Global::makeplot(radius, mnsc, plot_count++, clock);
 		fluid_ppr_vec.push_back(fluid_ppr.val_vec());
-		
+		fileio::Write::fluid_ppr(func::Measure::FluidPpr::header(), fluid_ppr_vec);
 	}
 	
 	fileio::Write::fluid_ppr(func::Measure::FluidPpr::header(), fluid_ppr_vec);

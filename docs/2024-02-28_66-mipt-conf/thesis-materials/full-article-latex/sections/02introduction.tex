@@ -1,0 +1,81 @@
+Simulation of two-phase flow in porous media has applications in oil recovery, hydrology, electricity production where pressurized water is passed through heated pipes and is transformed into steam, etc. Hence it is important to understand and model two-phase flow in porous medium. \cite{labed2012experimental}
+	
+\subsection{Classical continuum models}
+
+	Classical continuum models are still commonly used. Darcy's Law is an example of classical continuum model. It is given by:
+	
+	\begin{equation}
+		q = -\frac{k}{\mu} \nabla p
+		\label{eq:basic-darcy}
+	\end{equation}
+	
+	Here, $q$ is the flow rate,	$k$ is the permeability, $\mu$ is the coefficient of viscosity,	and $\nabla p$ is the pressure gradient.
+	
+	In classical continuum models the permeability is only a function of the saturation of one of the phase.
+	\begin{equation}
+		k = k(S)
+	\end{equation}
+	
+	Here, $k$ is the permeability, and $S$ is the saturation of one of the phase.
+
+	Saturation $S$ is defined as the ratio between the volume occupied by a phase to the total volume of the void. For wetting phase,
+
+	\begin{equation}
+		S_{w} = \frac{V_{w}}{V_{void}}
+	\end{equation}
+	
+	Here, $V_{w}$ is volume occupied by the wetting phase, $V_{void}$ is total volume of the void. For non-wetting phase,
+	
+	\begin{equation}
+		S_{nw} = \frac{V_{nw}}{V_{void}}
+	\end{equation}
+	
+	It is clear that,
+	
+	\begin{equation}
+		S_{w} + S_{nw} = 1
+	\end{equation}
+	
+	In this article, we denote the saturation of the wetting phase by $S$.
+	
+\subsection{Advanced continuum models}
+	The classical continuum models are valid as long as the characteristic time of the processes is much longer than the characteristic time of fluid redistribution in the capillary space.
+	
+	The fluid distribution can take longer time due to non-equilibrium effects, which occurs when the saturation changes rapidly, or the porous medium is a fractured with blocks and cracks. In these cases, the assumption that $k = k(S)$ is not sufficient and additional parameters are required.
+
+	Various advanced continuum models that take such non-equilibrium effects into account. Models of Hassanizadeh \cite{hassanizadeh2004continuum} \cite{hassanizadeh1987high} and Barenblatt \cite{barenblatt1960basic} consider that, the permeability $k$ is a function of the rate of saturation change, in addition to the saturation $S$.                  
+	
+	\begin{equation}
+		k = k(S, \frac{\partial S}{\partial t})
+	\end{equation}
+	
+	Here,
+	
+	\begin{equation}
+		S = S(t)
+	\end{equation}
+	
+	The Kondaurov model \cite{kondaurov2009non} considers a special non-equilibrium parameter $\xi$ along with saturation $S$, which relaxes to an equilibrium value. \cite{kondaurov2007thermodynamically}
+	
+	\begin{equation}
+		k = k(S, \xi)
+	\end{equation}
+	
+	This parameter $\xi$ is related to $S$ by the differential equation:
+	
+	\begin{equation}
+		\frac{\partial \xi}{\partial t} = \Omega ( S, \xi )
+	\end{equation}
+	
+	The final objective of our research is to develop a network model which helps us better understand the Kondaurov non-equilibrium parameter $\xi$.
+	 
+\subsection{Non-continuum models}
+	In order to better understand the non-equilibrium characteristics, it is often necessary to simulate the flow at the scale of pores. Some of the methods of modeling at the scale of pores are, Lattice Boltzmann Method, a direct Navier-Stokes simulation, or a network model. Direct Navier-Stokes simulation provides very accurate results on velocity and pressure distributions, but it is very complicated. Network models are much simpler.
+	
+	One of the earliest models simulated the flow using a network of electrical resistors \cite{fatt1956network}. Some of the modern models, such as by Aker et al \cite{aker1998two} used an hour glass shaped model of tubes  to perform simulation, where the average flow rate was given by the Washburn equation for capillary flow \cite{washburn1921dynamics}. The disadvantage is that the flow rate must be approximated for cylindrical tube while in their model, the capillary pressure varied depending on its position in the tube.
+	
+	Our network model uses a novel method of distributing different phases at the nodes. It used only cylindrical tubes, and the flow rate is given by simple equations. In this article we demonstrate the applicability of our model by simulating imbibition.
+	
+
+	
+	

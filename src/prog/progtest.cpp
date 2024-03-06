@@ -1,4 +1,53 @@
 #include "fileio/fileioread.h"
+#include "func/funcglobal.h"
+
+//ffmpeg -framerate 10 -i filename-%03d.jpg output.mp4
+
+int main()
+{
+	//std::cout << std::setprecision(2) << std::scientific;
+	
+	fileio::Data data = fileio::Read::loop_until_proper_files();
+	
+	
+	auto r = data.radius;
+	
+	double total = 0;
+	std::vector<double> v(5);
+	std::vector<double> rad_v {2, 3, 4, 5, 6};
+	for(auto y: r)
+	{
+		for(auto x: y)
+		{
+			double vol = x * x;
+			int good_i = -1;
+			for(int i = 0; i < rad_v.size(); ++ i)
+			{
+				const double loc_rad =  rad_v[i] + 0.5;
+				if(x < loc_rad)
+				{	
+					good_i = i;
+					break;
+				}
+			}
+			v[good_i] += vol;
+			total += vol;
+		}
+	}
+	
+	std::cout << "radius" << '\t' << "proportion" << std::endl;
+	for(int i = 0; i < rad_v.size(); ++ i)
+	{
+		std::cout << rad_v[i] << '\t' << v[i] / total << std::endl;
+	}
+	
+	return 0;
+}
+
+
+
+/*
+#include "fileio/fileioread.h"
 #include "cmdio/cmdioprint.h"
 #include "func/funcdetermine.h"
 
@@ -13,6 +62,8 @@ int main()
 	
 	return 0;
 }
+*/
+
 
 /*
 

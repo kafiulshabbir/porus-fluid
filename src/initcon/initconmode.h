@@ -9,7 +9,7 @@
 #include "fileio/fileioread.h"
 
 #include "utility/utilityrandom.h"
-
+#include <cmath>
 namespace initcon
 {
 class Mode

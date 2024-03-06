@@ -270,6 +270,7 @@ void initcon::Mode::Main::imhibition_generator()
 }
 */
 
+/*
 void initcon::Mode::Main::imhibition_generator()
 {
 	const int size = 26;
@@ -325,5 +326,124 @@ void initcon::Mode::Main::imhibition_generator()
 	mnsc[size - 1 - leave][leave] = mns_up_facing;
 	mnsc[size - 1 - leave][size - leave - 1] = mns_up_facing;
 
+	fileio::Write::run(mnsc);
+}
+*/
+
+std::vector<double> ThickNessSmoothener(const std::vector<double>& thick_old_v)
+{
+	std::vector<double> v(thick_old_v.cbegin() + 1, thick_old_v.cend() - 1);
+	v.insert(v.end(), thick_old_v.crbegin(), thick_old_v.crend() - 2);
+	return v;
+}
+
+bool DecideIfMainDiagonal(const int row, const int col)
+{
+	bool val = (col % 2 == 0);
+	if(row % 2 == 0)
+	{
+		return val;
+	}
+	
+	return !val;	
+}
+
+double FuncThickAsCoordinate(
+	const int row,
+	const int col,
+	const int size,
+	const std::vector<double>& thick_old_v)
+{
+	const std::vector<double> thick_v = ThickNessSmoothener(thick_old_v);
+	const int thick_len = thick_v.size();
+	bool is_main_directed_diagonal = DecideIfMainDiagonal(row, col);
+	
+	int col_of_main_diagonal = size - 1 - row;
+	if(is_main_directed_diagonal)
+	{
+		col_of_main_diagonal = row;
+	}
+	
+	const int distance = std::abs(col - col_of_main_diagonal) / 2;
+	return thick_v[distance % thick_len];	
+}
+
+Tdouble GenerateBiscuitTypeGridSystemAlterThickThin(
+	const int size, 
+	const int leave)
+{
+	const std::vector<double> biscuit_thickness_v{6, 5, 4, 3, 2};
+	const std::vector<double> filler_row(size, biscuit_thickness_v.front());
+	Tdouble radius(size, filler_row);
+	
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		for(int col = leave; col + leave < size; ++ col)
+		{
+			const int local_row = row - leave;
+			const int local_col = col - leave;
+			const int local_size = size - 2 * leave;
+			radius[row][col] = FuncThickAsCoordinate(
+				local_row,
+				local_col,
+				local_size,
+				biscuit_thickness_v);				
+		}
+	}
+	
+	return radius;
+}
+
+TMns GenerateMnsDistibWithInterfaceInThinnerRegion(
+	const int size,
+	const int leave)
+{
+	const double initial_fill = 0.80; //from the blue side
+	
+	const dst::Mns mns_blue(0, 0, -1, -1);
+	TMns mnsc(size, std::vector<dst::Mns>(size, mns_blue));
+	
+	const dst::Mns mns_grey(0, 1, -1, -1);
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		for(int col = leave; col + leave < size; ++ col)
+		{
+			mnsc[row][col] = mns_grey;
+		}
+	}
+	
+	const dst::Mns mns_up_facing(1, 0, initial_fill, -1);
+	const dst::Mns mns_down_facing(1, 1, 1.0f - initial_fill, -1);
+	
+	
+	for(int col = leave; col + leave < size; ++ col)
+	{
+		mnsc[leave][col] = mns_down_facing;
+		mnsc[size - leave - 1][col] = mns_up_facing;
+	}
+	
+	std::vector<dst::Mns> v{mns_down_facing, mns_up_facing};
+	for(int row = leave; row + leave < size; ++ row)
+	{
+		const dst::Mns& copy_ref_mns = v[(row + leave) % 2];
+		
+		mnsc[row][leave] = copy_ref_mns;
+		mnsc[row][size - leave - 1] = copy_ref_mns;
+	}
+
+
+	return mnsc;
+}
+
+void initcon::Mode::Main::imhibition_generator()
+{
+	const int size = 30;
+	const int leave = 0;
+	
+	
+	//const Tdouble radius = GenerateBiscuitTypeGridSystemAlterThickThin(size, leave);
+	//fileio::Write::run(radius);
+	
+	const TMns mnsc = GenerateMnsDistibWithInterfaceInThinnerRegion(size, leave);
 	fileio::Write::run(mnsc);
 }
