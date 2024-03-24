@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.3.16)  20 MAR 2024 05:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.3.16)  24 MAR 2024 20:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -284,65 +284,41 @@ File: figures/fig_2_2200x700.png Graphic file (type png)
 <use figures/fig_2_2200x700.png>
 Package pdftex.def Info: figures/fig_2_2200x700.png  used on input line 95.
 (pdftex.def)             Requested size: 455.24411pt x 144.84314pt.
- [3 <./figures/fig_1_2200x1000.png>]
-
-LaTeX Warning: Reference `fid:2' on page 4 undefined on input line 123.
-
-[4 <./figures/fig_2_2200x700.png>] [5] [6]
-<figures/fig_3_2200x1000.png, id=37, 2208.25pt x 1003.75pt>
+ [3 <./figures/fig_1_2200x1000.png>] [4 <./figures/fig_2_2200x700.png>] [5] [6]
+ [7]
+<figures/fig_3_2200x1000.png, id=41, 2208.25pt x 1003.75pt>
 File: figures/fig_3_2200x1000.png Graphic file (type png)
 <use figures/fig_3_2200x1000.png>
-Package pdftex.def Info: figures/fig_3_2200x1000.png  used on input line 263.
+Package pdftex.def Info: figures/fig_3_2200x1000.png  used on input line 286.
 (pdftex.def)             Requested size: 455.24411pt x 206.91878pt.
- [7]
-
-LaTeX Warning: Reference `sec:rad-distb' on page 8 undefined on input line 284.
-
-
-[8 <./figures/fig_3_2200x1000.png>]
-
-LaTeX Warning: Reference `3' on page 9 undefined on input line 292.
-
-[9]
-
-LaTeX Warning: Reference `sec:novel-method' on page 10 undefined on input line 
-344.
-
-
-LaTeX Warning: Reference `sec:recombination-details' on page 10 undefined on in
-put line 353.
-
-<figures/fig_4_2200x1000.png, id=48, 2208.25pt x 983.675pt>
+ [8 <./figures/fig_3_2200x1000.png>] [9] [10]
+<figures/fig_4_2200x1000.png, id=51, 2208.25pt x 983.675pt>
 File: figures/fig_4_2200x1000.png Graphic file (type png)
 <use figures/fig_4_2200x1000.png>
-Package pdftex.def Info: figures/fig_4_2200x1000.png  used on input line 376.
+Package pdftex.def Info: figures/fig_4_2200x1000.png  used on input line 399.
 (pdftex.def)             Requested size: 455.24411pt x 202.7804pt.
-[10]
 <figures/fig_5_2200x900.png, id=53, 2208.25pt x 903.375pt>
 File: figures/fig_5_2200x900.png Graphic file (type png)
 <use figures/fig_5_2200x900.png>
-Package pdftex.def Info: figures/fig_5_2200x900.png  used on input line 386.
+Package pdftex.def Info: figures/fig_5_2200x900.png  used on input line 406.
 (pdftex.def)             Requested size: 455.24411pt x 186.2269pt.
- [11 <./figures/fig_4_2200x1000.png> <./figures/fig_5_2200x900.png (PNG copy)>]
- [12] [13] [14] (./shabbir_2D-network-porous-media_article.bbl [15]
-[16]) [17] (./shabbir_2D-network-porous-media_article.aux)
+ [11 <./figures/fig_4_2200x1000.png>] [12 <./figures/fig_5_2200x900.png (PNG co
+py)>]
+(./shabbir_2D-network-porous-media_article.bbl [13] [14]) [15]
+(./shabbir_2D-network-porous-media_article.aux)
  ***********
 LaTeX2e <2023-06-01>
 L3 programming layer <2023-06-05>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 4143 strings out of 475735
- 66307 string characters out of 5784786
- 1865759 words of memory out of 5000000
- 24859 multiletter control sequences out of 15000+600000
+ 4140 strings out of 475735
+ 66292 string characters out of 5784786
+ 1864759 words of memory out of 5000000
+ 24856 multiletter control sequences out of 15000+600000
  521702 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,12n,79p,1108b,401s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,12n,79p,1407b,438s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -355,11 +331,11 @@ s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 ts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on shabbir_2D-network-porous-media_article.pdf (17 pages, 148071
-0 bytes).
+Output written on shabbir_2D-network-porous-media_article.pdf (15 pages, 147605
+9 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
+ 127 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
