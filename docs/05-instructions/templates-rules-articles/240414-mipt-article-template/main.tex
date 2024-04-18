@@ -1,0 +1,54 @@
+\documentclass[11pt,twoside,openany,a4paper,final]{book}
+
+\usepackage{cmap}
+\usepackage{mathtext}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[russian,english]{babel}
+
+\usepackage{indentfirst}
+\usepackage{misccorr}
+\usepackage[font=small, labelsep=period]{caption}
+\usepackage{cite}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{nicefrac}
+\usepackage{wrapfig}
+\usepackage{fancybox}
+\usepackage{multirow}
+
+\usepackage[pdftex, left=1in, right=1in, top=1in, bottom=2cm]{geometry}
+
+\usepackage{mycommon}
+\usepackage{style}
+
+\newcommand{\issuemark}{ТРУДЫ МФТИ.~--- 2019.~--- Том 11, \textnumero~1}
+\setcounter{MaxMatrixCols}{35}
+
+\sloppy
+
+\begin{document}
+
+\selectlanguage{russian}
+
+\author[1]{И1.\,О1.}{Фамилия1}
+\author[2]{И2.\,О2.}{Фамилия2}
+
+\affil[1]{Место работы 1}
+\affil[2]{Место работы 2}
+
+\title{Название статьи}
+
+\inputarticle[xxx.yyy]{familia}{И1.\,О1. Фамилия1, И2.\,О2. Фамилия2}
+
+
+\selectlanguage{russian}
+
+\include{authors}
+
+\include{links}
+
+
+\end{document}

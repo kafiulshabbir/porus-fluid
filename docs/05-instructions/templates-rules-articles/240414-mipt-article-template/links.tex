@@ -1,0 +1,23 @@
+\clearpage
+\addcontentsline{toc}{chapter}{Ссылки на опубликованные статьи}
+\markboth{}{}
+\begingroup
+\begin{center}
+\Large \bfseries Ссылки на опубликованные статьи\\
+\normalsize (в соответствии с ГОСТ Р 7.0.5-2008)
+\end{center}
+
+\newcommand{\linkr}[3]{\par \textit{#1} #2~// Труды МФТИ.~--- 2019.~--- Т.~11,
+\textnumero~1.~--- С.~\pageref{#3}--\pageref{#3_1}.\par}
+
+\newcommand{\linke}[3]{\selectlanguage{english}\par \textit{#1} #2~//
+Proceedings of MIPT.~--- 2019.~--- V.~11, N~1.~---
+P.~\pageref{#3}--\pageref{#3_1}.\par\selectlanguage{russian}}
+
+\small
+
+\linkr{Фамилия1 И1.О1., Фамилия2 И2.О2.}{Название статьи}{familia}
+\linke{Surname1 A1.B1., Surname2 A2.B2.}{Title}{familia}
+
+
+\endgroup

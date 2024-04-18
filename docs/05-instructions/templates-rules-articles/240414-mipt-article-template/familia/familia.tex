@@ -1,0 +1,145 @@
+\addcontentsline{etoc}{chapter}{\textit{Surname1 A1.\,B1., Surname2 A2.\,B2.} Title}
+
+\begin{abstract}
+Аннотация на русском языке.
+
+\kwr ключевые слова на русском языке.
+
+\blfootnote{\hspace{-7pt}\textcopyright \, Фамилия1 И1.\,О1., Фамилия2 И2.\,О2., 2019\\ \indent\textcopyright \, Федеральное государственное автономное образовательное учреждение высшего образования\\
+\indent\hspace{15pt}<<Московский физико-технический институт
+(национальный исследовательский университет)>>, 2019}
+
+\end{abstract}
+
+\arthead{A1.\,B1. Surname1$^{1}$, A2.\,B2. Surname2$^{2}$}
+{$^{1}$Place of work 1\par
+ $^{2}$Place of work 2\par}
+{Title}
+
+\begin{abstract}
+Abstract in English
+	
+\kwe keywords in English.
+\end{abstract}
+\bigskip
+
+%Примерная структура статьи.
+
+\section{Введение}
+
+Текст введения.
+
+\section{Название 1го раздела}
+
+Текст первого раздела.
+
+\begin{figure}[h] \centering
+\includegraphics[height=0.2\textheight]{familia1}
+\caption{Пример вставки рисунка}
+\end{figure}
+
+\section{Название 2го раздела}
+
+Текст второго раздела.
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.49\linewidth}
+\center{\includegraphics[height=0.2\textheight]{familia2} \\ а)}
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.49\linewidth}
+\center{\includegraphics[height=0.2\textheight]{familia3} \\ б)}
+\end{minipage}
+\caption{Пример вставки двух рисунков в одну строчку с общей подписью}
+\end{figure}
+
+\section{Название 3го раздела}
+
+Текст третьего раздела. Пример формулы с нумерацией:
+\begin{equation}
+\label{eq}
+\lim_{x \to 0} \frac{\sin x}{x} = 1.
+\end{equation}
+
+Пример формулы без нумерации:
+\[
+\lim_{x \to \infty} \left( 1+\frac{1}{x} \right)^{x} = e,
+\]
+где $e$ --- экспонента. Пример ссылки на литературу \cite{s1}.
+
+\subsection{Название подраздела 3.1}
+
+Текст подраздела 3.1. Пример ссылки на формулу \eqref{eq}.
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.49\linewidth}
+\center{\includegraphics[height=0.2\textheight]{familia2}}
+\caption{Пример вставки двух рисунков в одну строчку~--- первый рисунок}
+\end{minipage}
+\hfill
+\begin{minipage}[h]{0.49\linewidth}
+\center{\includegraphics[height=0.2\textheight]{familia3}}
+\caption{Два рисунка в одну строчку~--- второй рисунок}
+\end{minipage}
+\end{figure}
+
+\subsection{Название подраздела 3.2}
+
+Текст подраздела 3.2. Пример таблицы.
+
+\begin{table}[h!]
+\begin{flushright}
+{Т а б л и ц а 1}\\
+\centering
+\textbf{Название таблицы}
+\end{flushright}
+\centering
+\begin{tabular}{|>{\centering\arraybackslash}m{1.5in}|>{\centering\arraybackslash}m{1in}|>{\centering\arraybackslash}m{1.5in}|>{\centering\arraybackslash}m{1.5in}|}
+\hline
+               &          & Столбец 1  & Столбец 2              \\ \hline
+\multirow{2}{*}{Строка 1} & Строка 1.1 & Ячейка 1 & Ячейка 2   \\ \cline{2-4}
+                          & Строка 1.2 & Ячейка 3 & Ячейка 4   \\ \hline
+\multirow{2}{*}{Строка 2} & Строка 2.1 & Ячейка 5 & Ячейка 6   \\ \cline{2-4}
+                          & Строка 2.2 & Ячейка 7 & Ячейка 8   \\ \hline
+\end{tabular}
+\end{table}
+
+%И т.д.
+
+\section{Заключение}
+
+Текст заключения.
+
+\hfil \hbox to 0.3\textwidth{\hrulefill} \smallskip
+
+%Благодарности
+Работа выполнена при поддержке Минобрнауки, проект № 10А.100.
+
+%Литература
+\begin{thebibliography}{99}
+
+\bibitem{s1} \textit{Шевченко Д.\,В., Шевченко В.\,П.} Выбор и оптимизация структуры построения автономных сейсмических средств обнаружения рубежного типа // Материалы VIII всероссийской научно-технической конференции <<Современные охранные технологии и средства обеспечения комплексной безопасности объектов>>. --- 2010. --- С.~128--133.
+
+\bibitem{s2} \textit{Diallo M.\,S., Kulesh M., Holschneider M., Sherbaum F., Adler F.} Characterization of polarization attributes of seismic waves using continuous wavelet transforms // Geophysics.~--- 2006.~--- V.~71, N.~3.~--- P.~67--77.
+
+\bibitem{s3}  \textit{Лайонс Р.}  Цифровая обработка сигналов.~--- М.: Бином, 2006.~--- С.~361--369.
+
+\end{thebibliography}
+
+%References
+\selectlanguage{english}
+\begin{thebibliography}{99}
+\selectlanguage{russian}
+
+\bibitem{s1} \textit{Shevchenko D.\,V., Shevchenko V.\,P.} Selection and optimization of constructing autonomous seismic detection struction a landmark type // Proceedings of the VIII Russian scientific conference ‘‘Modern security technology and means of complex security objectives’’.~--- 2010. --- P.~128--133. --- (in Russian).
+
+\bibitem{s2} \textit{Diallo M.\,S., Kulesh M., Holschneider M., Sherbaum F., Adler F.} Characterization of polarization attributes of seismic waves using continuous wavelet transforms // Geophysics.~--- 2006.~--- V.~71, N.~3.~--- P.~67--77.
+
+\bibitem{s3}  \textit{Lyons R.} Digital signal processing.~--- M.: Binom, 2006.~--- P.~361--369. --- (in Russian).
+
+\end{thebibliography}
+\selectlanguage{russian}
+
+\begin{flushright}
+ \textit{Поступила в редакцию дд.мм.гггг.}
+\end{flushright} 
