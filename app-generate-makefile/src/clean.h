@@ -2,7 +2,7 @@
 #define MF_CLEAN_H
 
 #include "print.h"
-#include "declconst.h"
+#include "file.h"
 
 class Clean
 {

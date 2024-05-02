@@ -8,12 +8,12 @@ std::string File::full_name() const
 
 std::string File::path_src() const
 {
-	return "app-simulate/src/";
+	return "app-simulation/src/";
 }
 
 std::string File::path_build() const
 {
-	return "app-simulate/build/";
+	return "app-simulation/build/";
 }
 
 std::string File::path_exe() const
@@ -54,6 +54,23 @@ std::vector<std::string> File::editable() const
 	{
 		v.push_back(cpp());
 	}
+
+	return v;
+}
+
+std::vector<std::string> File::dependencies() const
+{
+	std::vector<std::string> v;
+	if(has_head())
+	{
+		v.push_back(head());
+	}
+	if(has_cpp())
+	{
+		v.push_back(cpp());
+	}
+
+	v.push_back("app-simulation/src/declconst.h");
 
 	return v;
 }

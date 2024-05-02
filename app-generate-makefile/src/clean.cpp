@@ -1,6 +1,6 @@
 #include "clean.h"
 
-void Clean::run(std::ofstream& fout, const sconst DeclConst& decl_const)
+void Clean::run(std::ofstream& fout, const DeclConst& decl_const)
 {
 	Print::cmd(fout, "clean");
 

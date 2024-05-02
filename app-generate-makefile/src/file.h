@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+
 struct File
 {
 	// enum class Type or File::Type
@@ -20,6 +21,7 @@ struct File
 	std::string full_name() const;
 	std::string path_src() const;
 	std::string path_build() const;
+	std::string path_exe() const;
 
 	std::string cpp() const;
 	std::string object() const;
@@ -27,6 +29,7 @@ struct File
 	std::string exe() const;
 
 	std::vector<std::string> editable() const;
+	std::vector<std::string> dependencies() const;
 
 	bool is_head() const;
 	bool is_lib() const;
@@ -37,6 +40,6 @@ struct File
 	bool has_object() const;
 };
 
-
+#include "declconst.h"
 
 #endif

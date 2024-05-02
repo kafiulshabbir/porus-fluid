@@ -4,7 +4,6 @@
 #include "file.h"
 #include "print.h"
 #include "utility.h"
-#include "declconst.h"
 
 class Edit
 {

@@ -1,6 +1,13 @@
-all: compile_all	
+all: clean_terminal compile_all
 	@echo " "
 	@echo "all - completed"
+
+clean_terminal:
+	@echo " "
+	@echo "cleaning terminal"
+	clear
+	@echo "terminal cleaned"
+	@echo " "
 	
 force: clean compile_all
 	@echo " "

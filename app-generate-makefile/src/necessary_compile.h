@@ -2,7 +2,7 @@
 #define MF_NECESSARY_COMPILE_H
 
 #include "print.h"
-#include "declconst.h"
+#include "file.h"
 
 class NecessaryCompile
 {

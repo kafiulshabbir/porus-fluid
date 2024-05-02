@@ -6,9 +6,6 @@
 #include "executables.h"
 #include "objects.h"
 
-#include "declconst.h"
-
-
 int main()
 {
 	const DeclConst decl_const;

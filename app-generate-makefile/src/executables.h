@@ -2,14 +2,14 @@
 #define MF_EXECUTABLES_H
 
 #include "print.h"
-#include "declconst.h"
+#include "file.h"
 
 class Executables
 {
 	static void print_exe(
 		std::ofstream& fout,
-		const std::string& exe,
-		const std::vector<std::string>& vec_object
+		const File& exe,
+		const std::vector<File>& object_vec
 	);
 
 public:

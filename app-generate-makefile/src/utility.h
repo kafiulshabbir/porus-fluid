@@ -7,28 +7,24 @@
 
 class Utility
 {
-
-
 public:
-
-	struct VecFile
+	struct FileVec
 	{
-		static std::vector<File> exe(const std::vector<File>& vfile);
-		static std::vector<File> object_all(const std::vector<File>& vfile);
-		static std::vector<File> object_without_exe(const std::vector<File>& vfile);
-
+		static std::vector<File> exe(const std::vector<File>& file_vec);
+		static std::vector<File> object_all(const std::vector<File>& file_vec);
+		static std::vector<File> object_without_exe(const std::vector<File>& file_vec);
 	};
 
-	struct VecStr
+	struct StrVec
 	{
-		static std::vector<std::string> edit(const std::vector<File>& vfile)
-		static std::vector<std::string> exe(const std::vector<File> vfile);
-		static std::vector<std::string> object(const std::vector<File> vfile);
+		static std::vector<std::string> edit(const std::vector<File>& file_vec);
+		static std::vector<std::string> exe(const std::vector<File>& file_vec);
+		static std::vector<std::string> object(const std::vector<File>& file_vec);
 	};
 
-	struct Convert
+	struct Str
 	{
-		static std::string str_from_vector(const std::vector<std::string>& vec_files);
+		static std::string from_str_vec(const std::vector<std::string>& file_str_vec);
 	};
 };
 

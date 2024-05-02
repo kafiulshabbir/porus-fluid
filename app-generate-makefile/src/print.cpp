@@ -8,7 +8,7 @@ void Print::echo(std::ofstream& fout, const std::string& s)
 void Print::cmd(std::ofstream& fout, const std::string& s, const std::vector<std::string>& v)
 {
 	fout << "\n\n";
-	fout << s << ':' << Utility::Convert::str_from_vector(v) << '\n';
+	fout << s << ':' << Utility::Str::from_str_vec(v) << '\n';
 	echo(fout, " ");
 }
 

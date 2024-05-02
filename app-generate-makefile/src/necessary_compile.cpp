@@ -2,10 +2,10 @@
 
 void NecessaryCompile::run(std::ofstream& fout, const DeclConst& decl_const)
 {
-	const std::vector<File>& vfile = decl_const.file_vec;
+	const std::vector<File>& file_vec = decl_const.file_vec;
 
-	std::vector<File> exe_vec_file = Utility::VecFile::exe(vfile);
-	std::vector<std::string> exe_vec_str = Utility::VecStrFromVecFile::exe(exe_vec_file);
+	std::vector<File> exe_file_vec = Utility::FileVec::exe(file_vec);
+	std::vector<std::string> exe_vec_str = Utility::StrVec::exe(exe_file_vec);
 
 	Print::cmd(fout, "necessary_compile", exe_vec_str);
 	Print::echo(fout, "Command executed = necessary_compile");

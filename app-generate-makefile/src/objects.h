@@ -3,14 +3,13 @@
 
 #include "print.h"
 #include "file.h"
-#include "declconst.h"
 
 class Objects
 {
-	static void print_object(std::ofstream& fout, const File& file);
+	static void print_object(std::ofstream& fout, const File& file, const DeclConst& decl_const);
 
 public:
-	static void run(std::ofstream& fout, const std::vector<File>& vfile);
+	static void run(std::ofstream& fout, const DeclConst& decl_const);
 };
 
 #endif
