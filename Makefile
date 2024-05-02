@@ -1,5 +1,3 @@
-
-
 all: necessary_compile
 	@echo " "
 	@echo "Command executed = all/default make"
