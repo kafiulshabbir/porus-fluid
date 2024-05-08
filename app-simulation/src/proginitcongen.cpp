@@ -1,7 +1,7 @@
-#include "fileio/fileioread.h"
-#include "cmdio/cmdioread.h"
-#include "initcon/initconmode.h"
-#include "utility/utilityrandom.h"
+#include "fileioread.h"
+#include "cmdioread.h"
+#include "initconmode.h"
+#include "utilityrandom.h"
 
 #include <iostream>
 #include <fstream>

@@ -1,11 +1,11 @@
 #ifndef FUNCPRESSURE_H
 #define FUNCPRESSURE_H
 
-#include "decl/decltypedef.h"
-#include "decl/declconst.h"
-#include "dst/dstdiamension.h"
-#include "cmdio/cmdioprint.h"
-#include "math/mathlinear.h"
+#include "decltypedef.h"
+#include "declconst.h"
+#include "dstdiamension.h"
+#include "cmdioprint.h"
+#include "mathlinear.h"
 #include <vector>
 
 namespace func

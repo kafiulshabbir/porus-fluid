@@ -1,4 +1,4 @@
-#include "dst/dstmns.h"
+#include "dstmns.h"
 
 dst::Mns::Mns(): n(0), type(1), pos(2) {} //by default everything is the defending fluid
 

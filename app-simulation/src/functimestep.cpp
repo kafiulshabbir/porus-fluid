@@ -1,4 +1,4 @@
-#include "func/functimestep.h"
+#include "functimestep.h"
 
 double func::TimeStep::decide_time_step(const Tdouble& velocity, const dst::Diamension& diamension)
 {
@@ -11,6 +11,6 @@ double func::TimeStep::decide_time_step(const Tdouble& velocity, const dst::Diam
 			max_vel = std::max(std::abs(velocity[row][col]), max_vel);
 		}
 	}
-	
+
 	return declconst::TUBE_LENGTH / max_vel / declconst::TIME_DIV;
 }

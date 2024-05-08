@@ -1,14 +1,14 @@
 #ifndef FUNCVELOCITY_H
 #define FUNCVELOCITY_H
 
-#include "decl/decltypedef.h"
-#include "dst/dstdiamension.h"
+#include "decltypedef.h"
+#include "dstdiamension.h"
 
 namespace func
 {
 	class Velocity
 	{
-		
+
 	public:
 		static Tdouble calculate_velocity(
 			const Tdouble& radius,
@@ -17,7 +17,7 @@ namespace func
 			const std::vector<double>& pressure,
 			const dst::Diamension& diamension
 		);
-		
+
 		static Tdouble refine_velocity(Tdouble v);
 	};
 }

@@ -1,17 +1,17 @@
-#include "fileio/fileioread.h"
-#include "func/funcglobal.h"
+#include "fileioread.h"
+#include "funcglobal.h"
 
 //ffmpeg -framerate 10 -i filename-%03d.jpg output.mp4
 
 int main()
 {
 	//std::cout << std::setprecision(2) << std::scientific;
-	
+
 	fileio::Data data = fileio::Read::loop_until_proper_files();
-	
-	
+
+
 	auto r = data.radius;
-	
+
 	double total = 0;
 	std::vector<double> v(5);
 	std::vector<double> rad_v {2, 3, 4, 5, 6};
@@ -25,7 +25,7 @@ int main()
 			{
 				const double loc_rad =  rad_v[i] + 0.5;
 				if(x < loc_rad)
-				{	
+				{
 					good_i = i;
 					break;
 				}
@@ -34,13 +34,13 @@ int main()
 			total += vol;
 		}
 	}
-	
+
 	std::cout << "radius" << '\t' << "proportion" << std::endl;
 	for(int i = 0; i < rad_v.size(); ++ i)
 	{
 		std::cout << rad_v[i] << '\t' << v[i] / total << std::endl;
 	}
-	
+
 	return 0;
 }
 
@@ -54,12 +54,12 @@ int main()
 int main()
 {
 	fileio::Data data = fileio::Read::loop_until_proper_files();
-	
+
 	const std::vector<std::vector<int>> add_mnsc
 		= func::Determine::gen_add_mnsc(data.mnsc, data.diamension);
-		
+
 	cmdio::Print::table(add_mnsc);
-	
+
 	return 0;
 }
 */
@@ -79,12 +79,12 @@ const std::vector<dst::Mns> mns_vec
 		dst::Mns(1, 0, 0.75, -1), //[0.75blue, 0.25grey]
 		dst::Mns(2, 0, 0.75, 0.85) //[0.75blue, 0.10grey, 0.15blue]
 	};
-	
+
 	const std::vector<int> direc_vec{0, 1, 2, 3};
-	
-	
+
+
 	const std::vector<double> velocity{0.1, 0.2, 0.3, 0.4, 0.5, 0.8};
-	
+
 	for(const dst::Mns& mns: mns_vec)
 	{
 		std::cout << std::endl << std::string(50, '-') << std::endl;
@@ -98,13 +98,13 @@ const std::vector<dst::Mns> mns_vec
 			std::cout << std::endl;
 		}
 	}
-	
+
 
 void process(const dst::Mns& mns, const double vel, const int direc)
 {
 	std::cout << mns;
 	std::cout << "vel=" << vel << ", direc=" << direc << std::endl;
-	
+
 	const std::vector<double> vol = mns.vol_fluid_into_nodes(
 		radius,
 		direc,
@@ -112,7 +112,7 @@ void process(const dst::Mns& mns, const double vel, const int direc)
 		time_step,
 		length_tube
 	);
-	
+
 	std::cout << "blue=" << vol.front() / declconst::PI << ", grey=" << vol.back() / declconst::PI;
 }
 
@@ -161,15 +161,15 @@ for(int i = 0; i < d1.node_rows(); ++ i)
 		std::cout << "(" << i << ", " << j << ") " <<
 			d1.linear_node_from_coordinate(i, j) <<
 			":" << std::endl;
-		
+
 		const std::vector<dst::Tube> connecv =
 			d1.generate_tubes_connected_to_node(i, j);
-			
+
 		for(const dst::Tube& tube: connecv)
 		{
 			std::cout << tube << std::endl;
 		}
-		
+
 		std::cout << std::endl;
 	}
 }
@@ -178,12 +178,12 @@ for(int i = 0; i < 2; ++ i)
 {
 	for(int j = 0; j < 4; ++ j)
 	{
-		const std::pair<int, int> p = 
+		const std::pair<int, int> p =
 			d1.linear_node_at_ends_of_tube(i, j);
-		
+
 		std::cout << "(" << i << ", " << j << "):"
 			<< p.first << ", " << p.second << std::endl;
-			
+
 	}
 }
 */

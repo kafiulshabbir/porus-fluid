@@ -1,23 +1,23 @@
-#include "fileio/fileioplot.h"
+#include "fileioplot.h"
 
 void fileio::Plot::without_radius(TMns mnsc, int count)
 {
-	
+
 	std::reverse(mnsc.begin(), mnsc.end());
 
 	const int image_size = declconst::IMAGE_SIZE;
 	const int cols = mnsc.front().size();
 	const int rows = mnsc.size();
-	
+
 	const int length = image_size / (std::max(rows, cols) + 2);
-	
+
 	drw::bmp a(image_size, image_size);
-	
+
 	const int start_y = length;
 	const int start_x = length;
 	const int thick = length / 10;
-	
-	
+
+
 	int y = start_y;
 	for(int row = 0; row < rows; ++ row)
 	{
@@ -31,7 +31,7 @@ void fileio::Plot::without_radius(TMns mnsc, int count)
 		}
 		y += length;
 	}
-	
+
 	a.save(declfilename::FOLDER_PLOTS + "stp-" + std::to_string(count) + ".bmp");
 }
 
@@ -42,10 +42,10 @@ void fileio::Plot::with_radius(TMns mnsc, Tdouble radius, double clock, int coun
 	const int cols = radius.front().size();
 	std::reverse(mnsc.begin(), mnsc.end());
 	std::reverse(radius.begin(), radius.end());
-	
+
 	double max_radius = -1;
 	double min_radius = 1e12;
-	
+
 	for(const auto& x: radius)
 	{
 		for(auto y: x)
@@ -54,21 +54,21 @@ void fileio::Plot::with_radius(TMns mnsc, Tdouble radius, double clock, int coun
 			min_radius = std::min(min_radius, y);
 		}
 	}
-	
+
 	const int image_size = declconst::IMAGE_SIZE;
 	const int length = mnsc.front().size();
 	const int height = mnsc.size();
-	
+
 	const int effective_length = image_size / (std::max(length, height) + 2);
-	
+
 	drw::bmp a(image_size, image_size);
-	
+
 	const int start_y = effective_length;
 	const int start_x = effective_length;
 	const double max_thick = effective_length / 2.0;
 	const double min_thick = effective_length / 6.0;
-	
-	
+
+
 	int y = start_y;
 	for(int row = 0; row < rows; ++ row)
 	{
@@ -88,10 +88,10 @@ void fileio::Plot::with_radius(TMns mnsc, Tdouble radius, double clock, int coun
 
 			x += 2 * effective_length * (sign > 0);
 		}
-		
+
 		y += effective_length;
 	}
-	
+
 	a.save(declfilename::FOLDER_PLOTS + "pic-" + std::to_string(count) + ".bmp");
 }
 

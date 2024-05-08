@@ -1,4 +1,4 @@
-#include "func/funcdetermine.h"
+#include "funcdetermine.h"
 
 Tdouble func::Determine::determine_volume
 (
@@ -9,7 +9,7 @@ Tdouble func::Determine::determine_volume
 )
 {
 	Tdouble volume = diamension.empty_table();
-	
+
 	for(int row = 0; row < diamension.rows; ++ row)
 	{
 		for(int col = 0; col < diamension.cols; ++ col)
@@ -19,27 +19,27 @@ Tdouble func::Determine::determine_volume
 			volume[row][col] = vel_abs * area_tube * time_step;
 		}
 	}
-	
+
 	return volume;
 }
 
 std::vector<std::vector<int>> func::Determine::gen_add_mnsc(const TMns& mnsc, const dst::Diamension& diamension)
 {
 	std::vector<std::vector<int>> add_mnsc = diamension.empty_table_templated<int>();
-	
+
 	for(int nrow = 0; nrow < diamension.node_rows(); ++ nrow)
 	{
 		for(int ncol = 0; ncol < diamension.node_cols(nrow); ++ ncol)
 		{
 			const std::vector<dst::Tube> cons
 				= diamension.generate_tubes_connected_to_node(nrow, ncol);
-			
+
 			const int directions = cons.size();
-			
+
 			std::vector<bool> need_to_add(directions, false);
-			
+
 			bool blue_fluid_present = false;
-			
+
 			for(int direction = 0; direction < directions; ++ direction)
 			{
 				const dst::Tube& con = cons[direction];
@@ -56,12 +56,12 @@ std::vector<std::vector<int>> func::Determine::gen_add_mnsc(const TMns& mnsc, co
 					}
 				}
 			}
-			
+
 			if(blue_fluid_present == false)
 			{
 				continue;
 			}
-			
+
 			for(int direction = 0; direction < directions; ++ direction)
 			{
 				const dst::Tube& con = cons[direction];
@@ -70,20 +70,20 @@ std::vector<std::vector<int>> func::Determine::gen_add_mnsc(const TMns& mnsc, co
 					add_mnsc[con.row][con.col] += cap_press_contb_from_direc(direction);
 				}
 			}
-			
+
 		}
 	}
-	
+
 	return add_mnsc;
 }
 
-				
+
 int func::Determine::cap_press_contb_from_direc(const int direction)
 {
 	if(direction > 1)
 	{
 		return -1;
 	}
-	
+
 	return 1;
 }

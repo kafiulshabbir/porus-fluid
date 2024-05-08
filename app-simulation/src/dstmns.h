@@ -1,7 +1,7 @@
 #ifndef MNS_H
 #define MNS_H
 
-#include "decl/declconst.h"
+#include "declconst.h"
 #include <list>
 #include <vector>
 #include <fstream>

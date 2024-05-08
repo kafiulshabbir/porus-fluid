@@ -1,4 +1,4 @@
-#include "fileio/fileioread.h"
+#include "fileioread.h"
 
 std::pair<Tdouble, bool> fileio::Read::read_radius()
 {
@@ -14,7 +14,7 @@ fileio::Data fileio::Read::all()
 {
 	Data data;
 	data.success = false;
-	
+
 	const auto radius = read_radius();
 	if(!radius.second)
 	{
@@ -22,7 +22,7 @@ fileio::Data fileio::Read::all()
 		return data;
 	}
 	data.radius = radius.first;
-	
+
 	const auto mnsc = read_mnsc();
 	if(!mnsc.second)
 	{
@@ -30,7 +30,7 @@ fileio::Data fileio::Read::all()
 		return data;
 	}
 	data.mnsc = mnsc.first;
-	
+
 	const dst::Diamension dradius(data.radius);
 	const dst::Diamension dmnsc(data.mnsc);
 	if(!(dradius == dmnsc))
@@ -38,7 +38,7 @@ fileio::Data fileio::Read::all()
 		std::cout << "ERR-Diamensions of radius.txt and mnsc.txt do not match" << std::endl;
 		return data;
 	}
-	
+
 	data.diamension = dradius;
 	data.success = true;
 	return data;
@@ -68,7 +68,7 @@ fileio::Data fileio::Read::loop_until_proper_files()
 std::map<std::string, dst::Diamension> fileio::Read::diamension()
 {
 	std::map<std::string, dst::Diamension> outmap;
-	
+
 	std::pair<Tdouble, bool> radius = read_radius();
 	if(radius.second)
 	{
@@ -78,7 +78,7 @@ std::map<std::string, dst::Diamension> fileio::Read::diamension()
 	{
 		std::cout << "-FDK-radius file is still bad" << std::endl;
 	}
-	
+
 	std::pair<TMns, bool> mnsc = read_mnsc();
 	if(mnsc.second)
 	{
@@ -87,8 +87,8 @@ std::map<std::string, dst::Diamension> fileio::Read::diamension()
 	else
 	{
 		std::cout << "-FDK-mnsc file is still bad" << std::endl;
-		
+
 	}
-	
+
 	return outmap;
 }

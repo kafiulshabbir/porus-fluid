@@ -1,16 +1,16 @@
 #ifndef INITCONMODE_H
 #define INITCONMODE_H
 
-#include "cmdio/cmdioread.h"
-#include "cmdio/cmdioprint.h"
-#include "dst/dstdiamension.h"
-#include "fileio/fileiowrite.h"
-#include "dst/dstmns.h"
-#include "fileio/fileioread.h"
+#include "cmdioread.h"
+#include "cmdioprint.h"
+#include "dstdiamension.h"
+#include "fileiowrite.h"
+#include "dstmns.h"
+#include "fileioread.h"
 
-#include "decl/declconst.h"
+#include "declconst.h"
 
-#include "utility/utilityrandom.h"
+#include "utilityrandom.h"
 #include <cmath>
 namespace initcon
 {

@@ -1,7 +1,7 @@
 #ifndef DSTDIAMENSION_H
 #define DSTDIAMENSION_H
 
-#include "decl/decltypedef.h"
+#include "decltypedef.h"
 
 namespace dst
 {

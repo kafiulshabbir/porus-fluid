@@ -1,4 +1,4 @@
-#include "fileio/fileiowrite.h"
+#include "fileiowrite.h"
 
 void fileio::Write::run(const Tdouble& radius)
 {
@@ -7,7 +7,7 @@ void fileio::Write::run(const Tdouble& radius)
 
 void fileio::Write::run(const TMns& mnsc)
 {
-	write_base(declfilename::FILE_MNSC, mnsc);	
+	write_base(declfilename::FILE_MNSC, mnsc);
 }
 
 void fileio::Write::fluid_ppr(
@@ -16,13 +16,13 @@ void fileio::Write::fluid_ppr(
 )
 {
 	std::ofstream fout(declfilename::FILE_FLUID_PPR);
-	
+
 	for(const std::string& head: header)
 	{
 		fout << head << '\t';
 	}
 	fout << '\n';
-	
+
 	for(const auto& row: table)
 	{
 		for(const auto x: row)

@@ -1,9 +1,9 @@
 #ifndef MATHLINEAR_H
 #define MATHLINEAR_H
 
-#include "decl/decltypedef.h"
+#include "decltypedef.h"
 #include <vector>
-#include "cmdio/cmdioprint.h"
+#include "cmdioprint.h"
 
 namespace math
 {

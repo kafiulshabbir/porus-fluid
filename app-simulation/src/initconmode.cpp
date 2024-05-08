@@ -1,4 +1,4 @@
-#include "initcon/initconmode.h"
+#include "initconmode.h"
 
 void initcon::Mode::Generate::radius(const dst::Diamension& diamension)
 {

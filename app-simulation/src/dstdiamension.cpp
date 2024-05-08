@@ -1,4 +1,4 @@
-#include "dst/dstdiamension.h"
+#include "dstdiamension.h"
 
 
 dst::Diamension::Diamension(const int rows, const int cols):

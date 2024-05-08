@@ -1,8 +1,8 @@
 #ifndef FUNCINTEGRATION_H
 #define FUNCINTEGRATION_H
 
-#include "decl/decltypedef.h"
-#include "dst/dstdiamension.h"
+#include "decltypedef.h"
+#include "dstdiamension.h"
 #include <algorithm>
 
 namespace func

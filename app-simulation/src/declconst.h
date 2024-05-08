@@ -11,9 +11,9 @@ namespace declconst
 	const double HUGE = std::numeric_limits<double>::max();
 
 	//Physical Characterstics of the experiment
-	const double PRESSURE_LEFT = 110;
+	const double PRESSURE_LEFT = 1010;
 	const double PRESSURE_RIGHT = 10;
-	const double SIGMA = 10; //7.56e-2;	// 7.56e-2 FOR water at 20C in SI units, produces 75Pa pressure difference for tube of radius 1mm
+	const double SIGMA = 1; //7.56e-2;	// 7.56e-2 FOR water at 20C in SI units, produces 75Pa pressure difference for tube of radius 1mm
 	const double TUBE_LENGTH = 10;	// 0.1;
 	const double MU1 = 0.1; // 1e-3;			// viscosity of the invading liquid: water
 	const double MU2 = 0.1; // 1e-5;			// viscosity of defending liquid: air
